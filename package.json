@@ -1,0 +1,20 @@
+{
+  "name": "ui-template",
+  "version": "1.0.0",
+  "description": "FORGE UI template — Vite + Pug + Tailwind CSS + SCSS",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@vituum/vite-plugin-pug": "^2.0.1",
+    "autoprefixer": "^10.5.2",
+    "postcss": "^8.5.19",
+    "sass": "^1.101.0",
+    "tailwindcss": "^3.4.19",
+    "vite": "^8.1.4",
+    "vituum": "^2.0.2"
+  }
+}

@@ -1,0 +1,16 @@
+//- Site footer — included by layouts/default.pug
+//- Locals: footerLabel, footerMeta, footerDark
+
+-
+  var footerClass = footerDark
+    ? 'relative border-t border-paper/15 bg-ink text-paper'
+    : 'border-t border-line bg-paper text-steel'
+
+footer(class=footerClass)
+  div(
+    class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-6 sm:py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 fg-mono'
+    class=footerDark ? 'text-paper/50' : 'text-steel'
+  )
+    span= footerLabel
+    if footerMeta
+      span!= footerMeta

@@ -1,0 +1,39 @@
+//- Site header — included by layouts/default.pug
+//- Locals: activeNav, headerFixed
+
+-
+  var navClass = headerFixed
+    ? 'fixed top-0 left-0 right-0 z-30 bg-paper/90 backdrop-blur border-b border-line transition-transform duration-300'
+    : 'sticky top-0 z-30 bg-paper/90 backdrop-blur border-b border-line'
+
+header#siteNav(class=navClass)
+  div(class='max-w-7xl mx-auto flex items-center justify-between px-5 sm:px-8 lg:px-12 py-4 sm:py-5')
+    a.fg-h3.tracking-tight.nav-link(href='/')
+      | FORGE
+      span.text-signal °
+
+    nav.fg-mono.text-steel(class='hidden md:flex items-center gap-8')
+      a.nav-link.transition-colors(
+        href='/#capabilities'
+        class=`hover:text-blueprint${activeNav === 'capabilities' ? ' text-ink' : ''}`
+      ) Capabilities
+      a.nav-link.transition-colors(
+        href='/#work'
+        class=`hover:text-blueprint${activeNav === 'work' ? ' text-ink' : ''}`
+      ) Work
+      a.transition-colors(
+        href='/typography'
+        class=`hover:text-blueprint${activeNav === 'typography' ? ' text-ink' : ''}`
+      ) Typography
+      a.nav-link.transition-colors(
+        href='/#contact'
+        class=`hover:text-blueprint${activeNav === 'contact' ? ' text-ink' : ''}`
+      ) Contact
+
+    a.nav-link.magnetic.fg-mono.shrink-0.inline-flex.items-center.gap-2.rounded-sm.bg-ink.text-paper.transition-colors(
+      href='/#contact'
+      class='px-3.5 py-2.5 sm:px-4 sm:py-2.5 hover:bg-blueprint'
+    )
+      | Start a project
+      svg(width='12' height='12' viewBox='0 0 12 12' fill='none')
+        path(d='M2 6H10M10 6L6.5 2.5M10 6L6.5 9.5' stroke='currentColor' stroke-width='1.4')

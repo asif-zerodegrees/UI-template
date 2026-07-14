@@ -1,0 +1,76 @@
+// =============================================================
+// FORGE — Typography system
+// =============================================================
+
+@use "sass:map";
+@use "sass:list";
+
+// ---- Font families ----------------------------------------------------
+$font-display: 'Big Shoulders Display', sans-serif;   // headlines, drawing-title voice
+$font-body:    'IBM Plex Sans', sans-serif;            // running copy
+$font-mono:    'IBM Plex Mono', monospace;              // labels, specs, dimension callouts
+
+// ---- Fluid scale tokens -------------------------------------------------
+// Each entry: (min-size, preferred string, max-size)
+// Preferred is stored as a string so Sass does not try to add rem + vw.
+// It is interpolated into clamp() as raw CSS (e.g. 2rem + 4vw).
+$scale: (
+  'display-xl': (2.75rem,  '2rem + 4vw',     6rem),
+  'display-lg': (2rem,     '1.5rem + 2.5vw',  3.5rem),
+  'h1':         (1.75rem,  '1.5rem + 1.8vw',  2.75rem),
+  'h2':         (1.5rem,   '1.25rem + 1.2vw', 2.25rem),
+  'h3':         (1.125rem, '1rem + 0.5vw',    1.5rem),
+  'h4':         (1rem,     '0.95rem + 0.35vw',1.25rem),
+  'h5':         (0.9375rem,'0.9rem + 0.2vw',  1.0625rem),
+  'h6':         (0.875rem, '0.85rem + 0.15vw',1rem),
+  'body-lg':    (1.0625rem,'1rem + 0.3vw',    1.25rem),
+  'body':       (1rem,     '0.95rem + 0.2vw', 1.125rem),
+  'small':      (0.8125rem,'0.8rem + 0.1vw',  0.9375rem),
+  'mono':       (0.75rem,  '0.7rem + 0.1vw',  0.875rem),
+);
+
+@function fs($key) {
+  $vals: map.get($scale, $key);
+  @return clamp(#{list.nth($vals, 1)}, #{list.nth($vals, 2)}, #{list.nth($vals, 3)});
+}
+
+@mixin type($key, $weight: 400, $line: 1.5, $tracking: normal, $family: $font-body) {
+  font-family: $family;
+  font-size: fs($key);
+  font-weight: $weight;
+  line-height: $line;
+  letter-spacing: $tracking;
+}
+
+// ---- Base ----------------------------------------------------------------
+html {
+  font-family: $font-body;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: $font-body;
+}
+
+// ---- Utility classes -------------------------------------------------
+// Use alongside Tailwind for layout/spacing; these only govern type.
+.fg-display-xl { @include type('display-xl', 800, 0.96, -0.02em, $font-display); text-transform: uppercase; }
+.fg-display-lg { @include type('display-lg', 700, 1.0,  -0.01em, $font-display); text-transform: uppercase; }
+.fg-h1         { @include type('h1', 700, 1.05, -0.01em, $font-display); text-transform: uppercase; }
+.fg-h2         { @include type('h2', 700, 1.15, -0.01em, $font-display); text-transform: uppercase; }
+.fg-h3         { @include type('h3', 600, 1.3,  0, $font-body); }
+.fg-h4         { @include type('h4', 600, 1.35, 0, $font-body); }
+.fg-h5         { @include type('h5', 600, 1.4,  0, $font-body); }
+.fg-h6         { @include type('h6', 600, 1.45, 0.02em, $font-body); text-transform: uppercase; }
+.fg-body-lg    { @include type('body-lg', 400, 1.6); }
+.fg-body       { @include type('body', 400, 1.65); }
+.fg-small      { @include type('small', 400, 1.5); }
+.fg-mono       { @include type('mono', 500, 1.4, 0.08em, $font-mono); text-transform: uppercase; }
+.fg-mono-num   { @include type('mono', 500, 1.2, 0, $font-mono); font-variant-numeric: tabular-nums; }
+
+// Bare font-size-only hooks, in case a design only needs the scale
+@each $key, $vals in $scale {
+  .fs-#{$key} { font-size: fs($key); }
+}
