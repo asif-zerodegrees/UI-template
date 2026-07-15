@@ -202,116 +202,169 @@ block content
 
       h3.ui-h3.mb-4 Arbitrary padding · ui-p-[min,max]
       div(class='grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10')
-        .ui-box.border.border-line(class='ui-p-[20px,80px] ui-r-[8px,24px]' data-box)
-          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.ui-mono.text-blueprint ui-p-[20px,80px]
+        div
+          .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            p.ui-mono.text-blueprint
+              | ui-p-[20px,80px]
+              span.text-steel  · 
+              | ui-r-[8px,24px]
             span.ui-mono-num.text-steel.box-meta
-          .border.border-dashed.border-blueprint(class='bg-blueprint/10')
-            p.ui-small.text-center.py-3 Inner content
-        .ui-box.border.border-line(class='ui-p-[12px,48px] ui-r-[4px,16px]' data-box)
-          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.ui-mono.text-blueprint ui-p-[12px,48px]
+          .ui-box.border.border-line(class='ui-p-[20px,80px] ui-r-[8px,24px]' data-box)
+            .border.border-dashed.border-blueprint(class='bg-blueprint/10')
+              p.ui-small.text-center.py-3 Inner content
+        div
+          .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            p.ui-mono.text-blueprint
+              | ui-p-[12px,48px]
+              span.text-steel  · 
+              | ui-r-[4px,16px]
             span.ui-mono-num.text-steel.box-meta
-          .border.border-dashed.border-blueprint(class='bg-blueprint/10')
-            p.ui-small.text-center.py-3 Inner content
-        .ui-box.border.border-ink.bg-paper2(class='ui-p-[1rem,3rem]' data-box)
-          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.ui-mono.text-blueprint ui-p-[1rem,3rem]
+          .ui-box.border.border-line(class='ui-p-[12px,48px] ui-r-[4px,16px]' data-box)
+            .border.border-dashed.border-blueprint(class='bg-blueprint/10')
+              p.ui-small.text-center.py-3 Inner content
+        div
+          .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            p.ui-mono.text-blueprint ui-p-[1rem,3rem]
             span.ui-mono-num.text-steel.box-meta
-          p.ui-small.text-steel rem units work too
+          .ui-box.border.border-ink.bg-paper2(class='ui-p-[1rem,3rem]' data-box)
+            p.ui-small.text-steel rem units work too
 
       h3.ui-h3.mb-4 Arbitrary margin · ui-m-[min,max]
       div.border.border-dashed.border-line.bg-paper2.p-4.mb-10
-        div(class='grid sm:grid-cols-3 gap-0')
-          .ui-box.border.border-ink(class='ui-m-[8px,32px] ui-p-[12px,24px]' data-margin)
-            div.flex.flex-wrap.items-baseline.justify-between.gap-2
-              span.ui-mono.text-blueprint ui-m-[8px,32px]
+        div(class='grid sm:grid-cols-3 gap-4')
+          div
+            .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+              p.ui-mono.text-blueprint
+                | ui-m-[8px,32px]
+                span.text-steel  · 
+                | ui-p-[12px,24px]
               span.ui-mono-num.text-steel.margin-meta
-            p.ui-small.text-steel.mt-1 Outer dashed = parent
-          .ui-box.border.border-ink(class='ui-mx-[12px,48px] ui-my-[8px,24px] ui-p-[12px,24px]' data-margin)
-            div.flex.flex-wrap.items-baseline.justify-between.gap-2
-              span.ui-mono.text-blueprint ui-mx / ui-my
+            .ui-box.border.border-ink(class='ui-m-[8px,32px] ui-p-[12px,24px]' data-margin)
+              p.ui-small.text-steel Outer dashed = parent
+          div
+            .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+              p.ui-mono.text-blueprint
+                | ui-mx-[12px,48px]
+                span.text-steel  · 
+                | ui-my-[8px,24px]
               span.ui-mono-num.text-steel.margin-meta
-            p.ui-small.text-steel.mt-1 Axis split
-          .ui-box.border.border-ink(class='ui-mt-[16px,64px] ui-mb-[8px,24px] ui-p-[12px,24px]' data-margin)
-            div.flex.flex-wrap.items-baseline.justify-between.gap-2
-              span.ui-mono.text-blueprint ui-mt / ui-mb
+            .ui-box.border.border-ink(class='ui-mx-[12px,48px] ui-my-[8px,24px] ui-p-[12px,24px]' data-margin)
+              p.ui-small.text-steel Axis split
+          div
+            .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+              p.ui-mono.text-blueprint
+                | ui-mt-[16px,64px]
+                span.text-steel  · 
+                | ui-mb-[8px,24px]
               span.ui-mono-num.text-steel.margin-meta
-            p.ui-small.text-steel.mt-1 Top & bottom only
+            .ui-box.border.border-ink(class='ui-mt-[16px,64px] ui-mb-[8px,24px] ui-p-[12px,24px]' data-margin)
+              p.ui-small.text-steel Top & bottom only
 
       h3.ui-h3.mb-4 Arbitrary radius · ui-r-[min,max]
       div(class='grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10')
-        .ui-box.border.border-ink.bg-paper2.ui-p-md(class='ui-r-[4px,24px]' data-radius)
-          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.ui-mono.text-blueprint ui-r-[4px,24px]
+        div(data-radius)
+          .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            p.ui-mono.text-blueprint ui-r-[4px,24px]
             span.ui-mono-num.text-steel.radius-meta
-          p.ui-small.text-steel All corners
-        .ui-box.border.border-ink.bg-paper2.ui-p-md(class='ui-r-[8px,40px]' data-radius)
-          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.ui-mono.text-blueprint ui-r-[8px,40px]
+          .ui-box.border.border-ink.bg-paper2.ui-p-md(class='ui-r-[4px,24px]')
+            p.ui-small.text-steel All corners
+        div(data-radius)
+          .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            p.ui-mono.text-blueprint ui-r-[8px,40px]
             span.ui-mono-num.text-steel.radius-meta
-          p.ui-small.text-steel Larger range
-        .ui-box.border.border-ink.bg-paper2.ui-p-md(class='ui-rt-[0px,32px] ui-rb-[0px,8px]' data-radius)
-          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.ui-mono.text-blueprint ui-rt / ui-rb
+          .ui-box.border.border-ink.bg-paper2.ui-p-md(class='ui-r-[8px,40px]')
+            p.ui-small.text-steel Larger range
+        div(data-radius)
+          .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            p.ui-mono.text-blueprint
+              | ui-rt-[0px,32px]
+              span.text-steel  · 
+              | ui-rb-[0px,8px]
             span.ui-mono-num.text-steel.radius-meta
-          p.ui-small.text-steel Top vs bottom
-        .ui-box.border.border-ink.bg-paper2.ui-p-md(class='ui-rl-[0px,28px] ui-rr-[0px,4px]' data-radius)
-          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.ui-mono.text-blueprint ui-rl / ui-rr
+          .ui-box.border.border-ink.bg-paper2.ui-p-md(class='ui-rt-[0px,32px] ui-rb-[0px,8px]')
+            p.ui-small.text-steel Top vs bottom
+        div(data-radius)
+          .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            p.ui-mono.text-blueprint
+              | ui-rl-[0px,28px]
+              span.text-steel  · 
+              | ui-rr-[0px,4px]
             span.ui-mono-num.text-steel.radius-meta
-          p.ui-small.text-steel Left vs right
+          .ui-box.border.border-ink.bg-paper2.ui-p-md(class='ui-rl-[0px,28px] ui-rr-[0px,4px]')
+            p.ui-small.text-steel Left vs right
 
       h3.ui-h3.mb-4 Padding scale (presets)
       div(class='grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10')
         each size in ['xs', 'sm', 'md', 'lg', 'xl']
-          .ui-box.border.border-line(
-            class=`ui-p-${size} ui-r-md`
-            data-box
-          )
-            div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-              span.ui-mono.text-blueprint= `.ui-p-${size}`
+          div
+            .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+              p.ui-mono.text-blueprint
+                = `.ui-p-${size}`
+                span.text-steel  · 
+                | .ui-r-md
               span.ui-mono-num.text-steel.box-meta
-            .border.border-dashed.border-blueprint(class='bg-blueprint/10')
-              p.ui-small.text-center.py-3 Inner content
+            .ui-box.border.border-line(
+              class=`ui-p-${size} ui-r-md`
+              data-box
+            )
+              .border.border-dashed.border-blueprint(class='bg-blueprint/10')
+                p.ui-small.text-center.py-3 Inner content
 
       h3.ui-h3.mb-4 Margin scale (presets)
-      div.border.border-dashed.border-line.bg-paper2.p-2.mb-10
-        div(class='grid sm:grid-cols-3 lg:grid-cols-5 gap-0')
+      div.border.border-dashed.border-line.bg-paper2.p-4.mb-10
+        div(class='grid sm:grid-cols-3 lg:grid-cols-5 gap-4')
           each size in ['xs', 'sm', 'md', 'lg', 'xl']
-            .ui-box.border.border-ink(
-              class=`ui-m-${size} ui-p-sm`
-              data-margin
-            )
-              span.ui-mono.text-blueprint= `.ui-m-${size}`
-              p.ui-mono-num.text-steel.mt-1.margin-meta
+            div
+              .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+                p.ui-mono.text-blueprint
+                  = `.ui-m-${size}`
+                  span.text-steel  · 
+                  | .ui-p-sm
+                span.ui-mono-num.text-steel.margin-meta
+              .ui-box.border.border-ink(
+                class=`ui-m-${size} ui-p-sm`
+                data-margin
+              )
+                p.ui-small.text-steel Box
 
       h3.ui-h3.mb-4 Radius scale (presets)
       div(class='grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10')
         each size in ['sm', 'md', 'lg', 'xl']
-          article(data-radius)
-            .ui-box.border.border-ink.bg-paper2.ui-p-md(
-              class=`ui-r-${size}`
-            )
-              div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-                span.ui-mono.text-blueprint= `.ui-r-${size}`
-                span.ui-mono-num.text-steel.radius-meta
+          div(data-radius)
+            .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+              p.ui-mono.text-blueprint= `.ui-r-${size}`
+              span.ui-mono-num.text-steel.radius-meta
+            .ui-box.border.border-ink.bg-paper2.ui-p-md(class=`ui-r-${size}`)
               p.ui-small.text-steel Corner radius scales with viewport
 
       h3.ui-h3.mb-4 Combinations
       div(class='grid sm:grid-cols-3 gap-4')
-        .ui-box.border.border-line.ui-p-sm.ui-r-sm.ui-m-sm(data-combo)
-          span.ui-mono.text-blueprint .ui-p-sm .ui-r-sm .ui-m-sm
-          p.ui-small.text-steel.mt-1 Preset stack
-          p.ui-mono-num.text-steel.mt-2.combo-meta
-        .ui-box.border.border-line(class='ui-p-[16px,40px] ui-r-[6px,20px] ui-m-[8px,24px]' data-combo)
-          span.ui-mono.text-blueprint ui-p / ui-r / ui-m
-          p.ui-small.text-steel.mt-1 All arbitrary
-          p.ui-mono-num.text-steel.mt-2.combo-meta
-        .ui-box.border.border-ink.bg-ink.text-paper(class='ui-p-[24px,64px] ui-r-[8px,28px]' data-combo)
-          span.ui-mono.text-signal ui-p-[24px,64px]
-          p.ui-small.mt-1(class='text-paper/70') Large feature block
-          p.ui-mono-num.mt-2.combo-meta(class='text-paper/50')
+        div
+          .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            p.ui-mono.text-blueprint .ui-p-sm · .ui-r-sm · .ui-m-sm
+            span.ui-mono-num.text-steel.combo-meta
+          .ui-box.border.border-line.ui-p-sm.ui-r-sm.ui-m-sm(data-combo)
+            p.ui-small.text-steel Preset stack
+        div
+          .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            p.ui-mono.text-blueprint
+              | ui-p-[16px,40px]
+              span.text-steel  · 
+              | ui-r-[6px,20px]
+              span.text-steel  · 
+              | ui-m-[8px,24px]
+            span.ui-mono-num.text-steel.combo-meta
+          .ui-box.border.border-line(class='ui-p-[16px,40px] ui-r-[6px,20px] ui-m-[8px,24px]' data-combo)
+            p.ui-small.text-steel All arbitrary
+        div
+          .flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            p.ui-mono.text-blueprint
+              | ui-p-[24px,64px]
+              span.text-steel  · 
+              | ui-r-[8px,28px]
+            span.ui-mono-num.text-steel.combo-meta
+          .ui-box.border.border-ink.bg-ink.text-paper(class='ui-p-[24px,64px] ui-r-[8px,28px]' data-combo)
+            p.ui-small(class='text-paper/70') Large feature block
 
       p.ui-small.text-steel.mt-8
         | Plugin:
