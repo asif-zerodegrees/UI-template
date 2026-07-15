@@ -1,12 +1,12 @@
 extends /layouts/default.pug
 
 block vars
-  - pageTitle = 'FORGE — Typography'
+  - pageTitle = 'Template — Typography'
   - activeNav = 'typography'
   - showCursor = false
   - showMotionLibs = false
   - scriptSrc = '/src/typography.js'
-  - footerLabel = 'FORGE° — TYPOGRAPHY'
+  - footerLabel = 'Template° — TYPOGRAPHY'
   - footerMeta = '<a href="/" class="hover:text-blueprint transition-colors">← Back to site</a>'
   - footerDark = false
   - headerFixed = false
@@ -14,205 +14,343 @@ block vars
 block content
   main(class='max-w-5xl mx-auto px-5 sm:px-8 py-12 sm:py-16')
 
-    p.fg-mono.text-blueprint.mb-3 Style guide · Sheet 02
-    h1.fg-display-lg.mb-4 Typography
-    p.fg-body-lg.text-steel.max-w-2xl.mb-4
-      | Fluid type scale for FORGE. Resize the viewport — sizes use
-      span.fg-mono-num.text-ink  clamp()
+    p.ui-mono.text-blueprint.mb-3 Style guide · Sheet 02
+    h1.ui-display-lg.mb-4 Typography
+    p.ui-body-lg.text-steel.max-w-2xl.mb-4
+      | Fluid type scale for this UI template. Resize the viewport — sizes use
+      span.ui-mono-num.text-ink  clamp()
       |  so they scale smoothly, not at fixed breakpoints.
-    p.fg-small.text-steel(class='mb-14 sm:mb-20')
+    p.ui-small.text-steel(class='mb-14 sm:mb-20')
       | Live viewport:
-      span#viewportW.fg-mono-num.text-ink  —
+      span#viewportW.ui-mono-num.text-ink  —
       | px · Prefer
-      code.fg-mono-num.text-blueprint  fg-*
+      code.ui-mono-num.text-blueprint  ui-*
       |  for full recipes (family + weight + tracking), or Tailwind
-      code.fg-mono-num.text-blueprint  text-*
+      code.ui-mono-num.text-blueprint  text-*
       |  for size tokens.
 
     //- Families
     section(class='mb-16 sm:mb-20')
       div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-8
-        h2.fg-h2 Families
-        span.fg-mono.text-steel 03
+        h2.ui-h2 Families
+        span.ui-mono.text-steel 03
       .space-y-8
         div
-          p.fg-mono.text-steel.mb-2 Display · Big Shoulders Display
+          p.ui-mono.text-steel.mb-2 Display · Big Shoulders Display
           p.font-display.font-bold.uppercase.tracking-tight.leading-none(class='text-[2rem] sm:text-[2.5rem]')
             | From sketch to shipped product
-          p.fg-mono-num.text-steel.mt-2 font-display · headlines, drawing-title voice
+          p.ui-mono-num.text-steel.mt-2 font-display · headlines, drawing-title voice
         div
-          p.fg-mono.text-steel.mb-2 Body · IBM Plex Sans
+          p.ui-mono.text-steel.mb-2 Body · IBM Plex Sans
           p.font-body.text-xl.font-normal.leading-relaxed.max-w-xl
             | We're a six-person studio that takes hardware ideas through form, function, and manufacturing.
-          p.fg-mono-num.text-steel.mt-2 font-body / font-sans · running copy
+          p.ui-mono-num.text-steel.mt-2 font-body / font-sans · running copy
         div
-          p.fg-mono.text-steel.mb-2 Mono · IBM Plex Mono
+          p.ui-mono.text-steel.mb-2 Mono · IBM Plex Mono
           p.font-mono.text-sm.uppercase.font-medium(class='tracking-[0.08em]')
             | Client · Confidential · Rev A · Scale 1:1
-          p.fg-mono-num.text-steel.mt-2 font-mono · labels, specs, dimension callouts
+          p.ui-mono-num.text-steel.mt-2 font-mono · labels, specs, dimension callouts
 
     //- Display
     section(class='mb-16 sm:mb-20')
       div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-8
-        h2.fg-h2 Display
-        span.fg-mono.text-steel 02
+        h2.ui-h2 Display
+        span.ui-mono.text-steel 02
       .space-y-10
         article.type-row.border-b.border-line.pb-8(data-sample)
           div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-3
-            span.fg-mono.text-blueprint .fg-display-xl
-            span.fg-mono-num.text-steel.meta
-          p.fg-display-xl.sample Shipped.
-          p.fg-small.text-steel.mt-3 800 · lh 0.96 · -0.02em · uppercase · display
+            span.ui-mono.text-blueprint .ui-display-xl
+            span.ui-mono-num.text-steel.meta
+          p.ui-display-xl.sample Shipped.
+          p.ui-small.text-steel.mt-3 800 · lh 0.96 · -0.02em · uppercase · display
         article.type-row.border-b.border-line.pb-8(data-sample)
           div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-3
-            span.fg-mono.text-blueprint .fg-display-lg
-            span.fg-mono-num.text-steel.meta
-          p.fg-display-lg.sample 40+
-          p.fg-small.text-steel.mt-3 700 · lh 1.0 · -0.01em · uppercase · display
+            span.ui-mono.text-blueprint .ui-display-lg
+            span.ui-mono-num.text-steel.meta
+          p.ui-display-lg.sample 40+
+          p.ui-small.text-steel.mt-3 700 · lh 1.0 · -0.01em · uppercase · display
 
     //- Headings
     section(class='mb-16 sm:mb-20')
       div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-8
-        h2.fg-h2 Headings
-        span.fg-mono.text-steel H1–H6
+        h2.ui-h2 Headings
+        span.ui-mono.text-steel H1–H6
       .space-y-8
         article.type-row.border-b.border-line.pb-6(data-sample)
           div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.fg-mono.text-blueprint .fg-h1
-            span.fg-mono-num.text-steel.meta
-          h1.fg-h1.sample Page title heading
+            span.ui-mono.text-blueprint .ui-h1
+            span.ui-mono-num.text-steel.meta
+          h1.ui-h1.sample Page title heading
         article.type-row.border-b.border-line.pb-6(data-sample)
           div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.fg-mono.text-blueprint .fg-h2
-            span.fg-mono-num.text-steel.meta
-          h2.fg-h2.sample Section heading
+            span.ui-mono.text-blueprint .ui-h2
+            span.ui-mono-num.text-steel.meta
+          h2.ui-h2.sample Section heading
         article.type-row.border-b.border-line.pb-6(data-sample)
           div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.fg-mono.text-blueprint .fg-h3
-            span.fg-mono-num.text-steel.meta
-          h3.fg-h3.sample Card or subsection title
+            span.ui-mono.text-blueprint .ui-h3
+            span.ui-mono-num.text-steel.meta
+          h3.ui-h3.sample Card or subsection title
         article.type-row.border-b.border-line.pb-6(data-sample)
           div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.fg-mono.text-blueprint .fg-h4
-            span.fg-mono-num.text-steel.meta
-          h4.fg-h4.sample Supporting heading four
+            span.ui-mono.text-blueprint .ui-h4
+            span.ui-mono-num.text-steel.meta
+          h4.ui-h4.sample Supporting heading four
         article.type-row.border-b.border-line.pb-6(data-sample)
           div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.fg-mono.text-blueprint .fg-h5
-            span.fg-mono-num.text-steel.meta
-          h5.fg-h5.sample Supporting heading five
+            span.ui-mono.text-blueprint .ui-h5
+            span.ui-mono-num.text-steel.meta
+          h5.ui-h5.sample Supporting heading five
         article.type-row.border-b.border-line.pb-6(data-sample)
           div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.fg-mono.text-blueprint .fg-h6
-            span.fg-mono-num.text-steel.meta
-          h6.fg-h6.sample Label heading six
+            span.ui-mono.text-blueprint .ui-h6
+            span.ui-mono-num.text-steel.meta
+          h6.ui-h6.sample Label heading six
 
     //- Body
     section(class='mb-16 sm:mb-20')
       div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-8
-        h2.fg-h2 Body & UI
-        span.fg-mono.text-steel 04
+        h2.ui-h2 Body & UI
+        span.ui-mono.text-steel 04
       .space-y-8
         article.type-row.border-b.border-line.pb-6(data-sample)
           div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.fg-mono.text-blueprint .fg-body-lg
-            span.fg-mono-num.text-steel.meta
-          p.fg-body-lg.sample.text-steel.max-w-2xl
+            span.ui-mono.text-blueprint .ui-body-lg
+            span.ui-mono-num.text-steel.meta
+          p.ui-body-lg.sample.text-steel.max-w-2xl
             | Lead paragraphs and form fields. Concept sketch to working prototype in about six weeks.
         article.type-row.border-b.border-line.pb-6(data-sample)
           div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.fg-mono.text-blueprint .fg-body
-            span.fg-mono-num.text-steel.meta
-          p.fg-body.sample.text-steel.max-w-2xl
+            span.ui-mono.text-blueprint .ui-body
+            span.ui-mono-num.text-steel.meta
+          p.ui-body.sample.text-steel.max-w-2xl
             | Standard running copy for cards and long-form text. Design-for-manufacture, tolerancing,
             | and production-ready CAD your contract manufacturer can actually quote.
         article.type-row.border-b.border-line.pb-6(data-sample)
           div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.fg-mono.text-blueprint .fg-small
-            span.fg-mono-num.text-steel.meta
-          p.fg-small.sample.text-steel Captions, helper text, and supporting meta under display stats.
+            span.ui-mono.text-blueprint .ui-small
+            span.ui-mono-num.text-steel.meta
+          p.ui-small.sample.text-steel Captions, helper text, and supporting meta under display stats.
         article.type-row.border-b.border-line.pb-6(data-sample)
           div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.fg-mono.text-blueprint .fg-mono
-            span.fg-mono-num.text-steel.meta
-          p.fg-mono.sample.text-blueprint Industrial design + mechanical engineering
+            span.ui-mono.text-blueprint .ui-mono
+            span.ui-mono-num.text-steel.meta
+          p.ui-mono.sample.text-blueprint Industrial design + mechanical engineering
         article.type-row.border-b.border-line.pb-6(data-sample)
           div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
-            span.fg-mono.text-blueprint .fg-mono-num
-            span.fg-mono-num.text-steel.meta
-          p.fg-mono-num.sample AVG. 6 WEEKS · ±0.05 · 01 / 02 / 03
+            span.ui-mono.text-blueprint .ui-mono-num
+            span.ui-mono-num.text-steel.meta
+          p.ui-mono-num.sample AVG. 6 WEEKS · ±0.05 · 01 / 02 / 03
 
     //- Tailwind tokens
     section(class='mb-16 sm:mb-20')
       div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-8
-        h2.fg-h2 Tailwind tokens
-        span.fg-mono.text-steel text-*
-      p.fg-body.text-steel.max-w-2xl.mb-8
+        h2.ui-h2 Tailwind tokens
+        span.ui-mono.text-steel text-*
+      p.ui-body.text-steel.max-w-2xl.mb-8
         | Same fluid sizes live in
-        code.fg-mono-num.text-ink  tailwind.config.js
+        code.ui-mono-num.text-ink  tailwind.config.js
         | . Pair with
-        code.fg-mono-num.text-ink  font-display
+        code.ui-mono-num.text-ink  font-display
         |  /
-        code.fg-mono-num.text-ink  font-body
+        code.ui-mono-num.text-ink  font-body
         |  when you need size without the full
-        code.fg-mono-num.text-ink  fg-*
+        code.ui-mono-num.text-ink  ui-*
         |  recipe.
 
       .overflow-x-auto.border.border-line
         table.w-full.text-left
           thead
             tr.border-b.border-ink.bg-paper2
-              th.fg-mono.px-4.py-3.text-steel Class
-              th.fg-mono.px-4.py-3.text-steel Sample
-              th.fg-mono.px-4.py-3.text-steel(class='hidden sm:table-cell') fg-* equivalent
-          tbody.fg-body
+              th.ui-mono.px-4.py-3.text-steel Class
+              th.ui-mono.px-4.py-3.text-steel Sample
+              th.ui-mono.px-4.py-3.text-steel(class='hidden sm:table-cell') ui-* equivalent
+          tbody.ui-body
             -
               var rows = [
-                { tw: 'text-display-xl', sample: 'Aa', sampleClass: 'font-display text-display-xl uppercase leading-none', fg: 'fg-display-xl' },
-                { tw: 'text-h1', sample: 'Heading one', sampleClass: 'font-display text-h1 uppercase', fg: 'fg-h1' },
-                { tw: 'text-h2', sample: 'Heading two', sampleClass: 'font-display text-h2 uppercase', fg: 'fg-h2' },
-                { tw: 'text-h3', sample: 'Heading three', sampleClass: 'font-body text-h3', fg: 'fg-h3' },
-                { tw: 'text-h4', sample: 'Heading four', sampleClass: 'font-body text-h4', fg: 'fg-h4' },
-                { tw: 'text-h5', sample: 'Heading five', sampleClass: 'font-body text-h5', fg: 'fg-h5' },
-                { tw: 'text-h6', sample: 'Heading six', sampleClass: 'font-body text-h6 uppercase', fg: 'fg-h6' },
-                { tw: 'text-body', sample: 'Body copy sample', sampleClass: 'font-body text-body text-steel', fg: 'fg-body' },
-                { tw: 'text-mono', sample: 'Label / Spec', sampleClass: 'font-mono text-mono uppercase tracking-widest', fg: 'fg-mono', last: true }
+                { tw: 'text-display-xl', sample: 'Aa', sampleClass: 'font-display text-display-xl uppercase leading-none', ui: 'ui-display-xl' },
+                { tw: 'text-h1', sample: 'Heading one', sampleClass: 'font-display text-h1 uppercase', ui: 'ui-h1' },
+                { tw: 'text-h2', sample: 'Heading two', sampleClass: 'font-display text-h2 uppercase', ui: 'ui-h2' },
+                { tw: 'text-h3', sample: 'Heading three', sampleClass: 'font-body text-h3', ui: 'ui-h3' },
+                { tw: 'text-h4', sample: 'Heading four', sampleClass: 'font-body text-h4', ui: 'ui-h4' },
+                { tw: 'text-h5', sample: 'Heading five', sampleClass: 'font-body text-h5', ui: 'ui-h5' },
+                { tw: 'text-h6', sample: 'Heading six', sampleClass: 'font-body text-h6 uppercase', ui: 'ui-h6' },
+                { tw: 'text-body', sample: 'Body copy sample', sampleClass: 'font-body text-body text-steel', ui: 'ui-body' },
+                { tw: 'text-mono', sample: 'Label / Spec', sampleClass: 'font-mono text-mono uppercase tracking-widest', ui: 'ui-mono', last: true }
               ]
             each row in rows
               tr(class=row.last ? '' : 'border-b border-line')
-                td.fg-mono-num.px-4.py-3.text-blueprint.whitespace-nowrap= row.tw
+                td.ui-mono-num.px-4.py-3.text-blueprint.whitespace-nowrap= row.tw
                 td.px-4.py-3(class=row.sampleClass)= row.sample
-                td.fg-mono-num.px-4.py-3.text-steel(class='hidden sm:table-cell')= row.fg
+                td.ui-mono-num.px-4.py-3.text-steel(class='hidden sm:table-cell')= row.ui
+
+    //- Boxes — fluid padding + radius
+    section(class='mb-16 sm:mb-20')
+      div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-4
+        h2.ui-h2 Boxes
+        span.ui-mono.text-steel clamp()
+      p.ui-body.text-steel.max-w-2xl.mb-8
+        | Use arbitrary min/max like Tailwind:
+        code.ui-mono-num.text-ink  ui-p-[20px,80px]
+        |  (min → max). Also
+        code.ui-mono-num.text-ink  ui-m-[…]
+        | ,
+        code.ui-mono-num.text-ink  ui-r-[…]
+        | . Presets
+        code.ui-mono-num.text-ink  ui-p-md
+        |  still work.
+
+      h3.ui-h3.mb-4 Arbitrary padding · ui-p-[min,max]
+      div(class='grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10')
+        .ui-box.border.border-line(class='ui-p-[20px,80px] ui-r-[8px,24px]' data-box)
+          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            span.ui-mono.text-blueprint ui-p-[20px,80px]
+            span.ui-mono-num.text-steel.box-meta
+          .border.border-dashed.border-blueprint(class='bg-blueprint/10')
+            p.ui-small.text-center.py-3 Inner content
+        .ui-box.border.border-line(class='ui-p-[12px,48px] ui-r-[4px,16px]' data-box)
+          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            span.ui-mono.text-blueprint ui-p-[12px,48px]
+            span.ui-mono-num.text-steel.box-meta
+          .border.border-dashed.border-blueprint(class='bg-blueprint/10')
+            p.ui-small.text-center.py-3 Inner content
+        .ui-box.border.border-ink.bg-paper2(class='ui-p-[1rem,3rem]' data-box)
+          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            span.ui-mono.text-blueprint ui-p-[1rem,3rem]
+            span.ui-mono-num.text-steel.box-meta
+          p.ui-small.text-steel rem units work too
+
+      h3.ui-h3.mb-4 Arbitrary margin · ui-m-[min,max]
+      div.border.border-dashed.border-line.bg-paper2.p-4.mb-10
+        div(class='grid sm:grid-cols-3 gap-0')
+          .ui-box.border.border-ink(class='ui-m-[8px,32px] ui-p-[12px,24px]' data-margin)
+            div.flex.flex-wrap.items-baseline.justify-between.gap-2
+              span.ui-mono.text-blueprint ui-m-[8px,32px]
+              span.ui-mono-num.text-steel.margin-meta
+            p.ui-small.text-steel.mt-1 Outer dashed = parent
+          .ui-box.border.border-ink(class='ui-mx-[12px,48px] ui-my-[8px,24px] ui-p-[12px,24px]' data-margin)
+            div.flex.flex-wrap.items-baseline.justify-between.gap-2
+              span.ui-mono.text-blueprint ui-mx / ui-my
+              span.ui-mono-num.text-steel.margin-meta
+            p.ui-small.text-steel.mt-1 Axis split
+          .ui-box.border.border-ink(class='ui-mt-[16px,64px] ui-mb-[8px,24px] ui-p-[12px,24px]' data-margin)
+            div.flex.flex-wrap.items-baseline.justify-between.gap-2
+              span.ui-mono.text-blueprint ui-mt / ui-mb
+              span.ui-mono-num.text-steel.margin-meta
+            p.ui-small.text-steel.mt-1 Top & bottom only
+
+      h3.ui-h3.mb-4 Arbitrary radius · ui-r-[min,max]
+      div(class='grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10')
+        .ui-box.border.border-ink.bg-paper2.ui-p-md(class='ui-r-[4px,24px]' data-radius)
+          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            span.ui-mono.text-blueprint ui-r-[4px,24px]
+            span.ui-mono-num.text-steel.radius-meta
+          p.ui-small.text-steel All corners
+        .ui-box.border.border-ink.bg-paper2.ui-p-md(class='ui-r-[8px,40px]' data-radius)
+          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            span.ui-mono.text-blueprint ui-r-[8px,40px]
+            span.ui-mono-num.text-steel.radius-meta
+          p.ui-small.text-steel Larger range
+        .ui-box.border.border-ink.bg-paper2.ui-p-md(class='ui-rt-[0px,32px] ui-rb-[0px,8px]' data-radius)
+          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            span.ui-mono.text-blueprint ui-rt / ui-rb
+            span.ui-mono-num.text-steel.radius-meta
+          p.ui-small.text-steel Top vs bottom
+        .ui-box.border.border-ink.bg-paper2.ui-p-md(class='ui-rl-[0px,28px] ui-rr-[0px,4px]' data-radius)
+          div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+            span.ui-mono.text-blueprint ui-rl / ui-rr
+            span.ui-mono-num.text-steel.radius-meta
+          p.ui-small.text-steel Left vs right
+
+      h3.ui-h3.mb-4 Padding scale (presets)
+      div(class='grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10')
+        each size in ['xs', 'sm', 'md', 'lg', 'xl']
+          .ui-box.border.border-line(
+            class=`ui-p-${size} ui-r-md`
+            data-box
+          )
+            div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+              span.ui-mono.text-blueprint= `.ui-p-${size}`
+              span.ui-mono-num.text-steel.box-meta
+            .border.border-dashed.border-blueprint(class='bg-blueprint/10')
+              p.ui-small.text-center.py-3 Inner content
+
+      h3.ui-h3.mb-4 Margin scale (presets)
+      div.border.border-dashed.border-line.bg-paper2.p-2.mb-10
+        div(class='grid sm:grid-cols-3 lg:grid-cols-5 gap-0')
+          each size in ['xs', 'sm', 'md', 'lg', 'xl']
+            .ui-box.border.border-ink(
+              class=`ui-m-${size} ui-p-sm`
+              data-margin
+            )
+              span.ui-mono.text-blueprint= `.ui-m-${size}`
+              p.ui-mono-num.text-steel.mt-1.margin-meta
+
+      h3.ui-h3.mb-4 Radius scale (presets)
+      div(class='grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10')
+        each size in ['sm', 'md', 'lg', 'xl']
+          article(data-radius)
+            .ui-box.border.border-ink.bg-paper2.ui-p-md(
+              class=`ui-r-${size}`
+            )
+              div.flex.flex-wrap.items-baseline.justify-between.gap-2.mb-2
+                span.ui-mono.text-blueprint= `.ui-r-${size}`
+                span.ui-mono-num.text-steel.radius-meta
+              p.ui-small.text-steel Corner radius scales with viewport
+
+      h3.ui-h3.mb-4 Combinations
+      div(class='grid sm:grid-cols-3 gap-4')
+        .ui-box.border.border-line.ui-p-sm.ui-r-sm.ui-m-sm(data-combo)
+          span.ui-mono.text-blueprint .ui-p-sm .ui-r-sm .ui-m-sm
+          p.ui-small.text-steel.mt-1 Preset stack
+          p.ui-mono-num.text-steel.mt-2.combo-meta
+        .ui-box.border.border-line(class='ui-p-[16px,40px] ui-r-[6px,20px] ui-m-[8px,24px]' data-combo)
+          span.ui-mono.text-blueprint ui-p / ui-r / ui-m
+          p.ui-small.text-steel.mt-1 All arbitrary
+          p.ui-mono-num.text-steel.mt-2.combo-meta
+        .ui-box.border.border-ink.bg-ink.text-paper(class='ui-p-[24px,64px] ui-r-[8px,28px]' data-combo)
+          span.ui-mono.text-signal ui-p-[24px,64px]
+          p.ui-small.mt-1(class='text-paper/70') Large feature block
+          p.ui-mono-num.mt-2.combo-meta(class='text-paper/50')
+
+      p.ui-small.text-steel.mt-8
+        | Plugin:
+        code.ui-mono-num.text-ink  tailwind.fluid.js
+        |  · Underscore alternative:
+        code.ui-mono-num.text-ink  ui-m-[8px_32px]
+        | ,
+        code.ui-mono-num.text-ink  ui-r-[4px_24px]
+        | .
 
     //- Usage
     section.mb-8
       div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-8
-        h2.fg-h2 Usage
-        span.fg-mono.text-steel How
+        h2.ui-h2 Usage
+        span.ui-mono.text-steel How
       div(class='grid sm:grid-cols-2 gap-8')
         div
-          p.fg-mono.text-blueprint.mb-3 Full recipe (recommended)
-          pre.fg-mono-num.bg-ink.text-paper.overflow-x-auto.leading-relaxed(class='p-4 sm:p-5 text-[11px] sm:text-xs')
+          p.ui-mono.text-blueprint.mb-3 Full recipe (recommended)
+          pre.ui-mono-num.bg-ink.text-paper.overflow-x-auto.leading-relaxed(class='p-4 sm:p-5 text-[11px] sm:text-xs')
             code.
-              &lt;h1 class="fg-h1"&gt;Title&lt;/h1&gt;
-              &lt;p class="fg-body text-steel"&gt;Copy&lt;/p&gt;
-              &lt;span class="fg-mono"&gt;Label&lt;/span&gt;
+              &lt;h1 class="ui-h1"&gt;Title&lt;/h1&gt;
+              &lt;p class="ui-body text-steel"&gt;Copy&lt;/p&gt;
+              &lt;span class="ui-mono"&gt;Label&lt;/span&gt;
         div
-          p.fg-mono.text-blueprint.mb-3 Tailwind size token
-          pre.fg-mono-num.bg-ink.text-paper.overflow-x-auto.leading-relaxed(class='p-4 sm:p-5 text-[11px] sm:text-xs')
+          p.ui-mono.text-blueprint.mb-3 Tailwind size token
+          pre.ui-mono-num.bg-ink.text-paper.overflow-x-auto.leading-relaxed(class='p-4 sm:p-5 text-[11px] sm:text-xs')
             code.
               &lt;h2 class="font-display text-h2 uppercase"&gt;
                 Section
               &lt;/h2&gt;
               &lt;p class="font-body text-body-lg"&gt;…&lt;/p&gt;
-      p.fg-small.text-steel.max-w-2xl.mt-8
+      p.ui-small.text-steel.max-w-2xl.mt-8
         | Edit scales in
-        code.fg-mono-num.text-ink  src/styles/_typography.scss
+        code.ui-mono-num.text-ink  src/styles/_typography.scss
         |  and mirror sizes in
-        code.fg-mono-num.text-ink  tailwind.config.js
+        code.ui-mono-num.text-ink  tailwind.config.js
         | . Layout and color stay on Tailwind utilities.
         |  New pages:
-        code.fg-mono-num.text-ink  extends /layouts/default.pug
+        code.ui-mono-num.text-ink  extends /layouts/default.pug
         |  then add components with
-        code.fg-mono-num.text-ink  include /components/your-file.pug
+        code.ui-mono-num.text-ink  include /components/your-file.pug
         | .

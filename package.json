@@ -1,7 +1,7 @@
 {
   "name": "ui-template",
   "version": "1.0.0",
-  "description": "FORGE UI template — Vite + Pug + Tailwind CSS + SCSS",
+  "description": "Shared UI template — Vite + Pug + Tailwind CSS + SCSS",
   "private": true,
   "scripts": {
     "dev": "vite",

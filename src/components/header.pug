@@ -8,11 +8,11 @@
 
 header#siteNav(class=navClass)
   div(class='max-w-7xl mx-auto flex items-center justify-between px-5 sm:px-8 lg:px-12 py-4 sm:py-5')
-    a.fg-h3.tracking-tight.nav-link(href='/')
-      | FORGE
+    a.ui-h3.tracking-tight.nav-link(href='/')
+      | Template
       span.text-signal °
 
-    nav.fg-mono.text-steel(class='hidden md:flex items-center gap-8')
+    nav.ui-mono.text-steel(class='hidden md:flex items-center gap-8')
       a.nav-link.transition-colors(
         href='/#capabilities'
         class=`hover:text-blueprint${activeNav === 'capabilities' ? ' text-ink' : ''}`
@@ -30,7 +30,7 @@ header#siteNav(class=navClass)
         class=`hover:text-blueprint${activeNav === 'contact' ? ' text-ink' : ''}`
       ) Contact
 
-    a.nav-link.magnetic.fg-mono.shrink-0.inline-flex.items-center.gap-2.rounded-sm.bg-ink.text-paper.transition-colors(
+    a.nav-link.magnetic.ui-mono.shrink-0.inline-flex.items-center.gap-2.rounded-sm.bg-ink.text-paper.transition-colors(
       href='/#contact'
       class='px-3.5 py-2.5 sm:px-4 sm:py-2.5 hover:bg-blueprint'
     )

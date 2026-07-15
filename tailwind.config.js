@@ -75,11 +75,31 @@ module.exports = {
           { lineHeight: '1.4', letterSpacing: '0.08em', fontWeight: '500' },
         ],
       },
+      padding: {
+        'fluid-xs': 'clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem)',
+        'fluid-sm': 'clamp(0.75rem, 0.6rem + 0.8vw, 1.25rem)',
+        'fluid-md': 'clamp(1rem, 0.75rem + 1.2vw, 1.75rem)',
+        'fluid-lg': 'clamp(1.5rem, 1rem + 2vw, 2.5rem)',
+        'fluid-xl': 'clamp(2rem, 1.25rem + 3vw, 3.5rem)',
+      },
+      margin: {
+        'fluid-xs': 'clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem)',
+        'fluid-sm': 'clamp(0.75rem, 0.6rem + 0.8vw, 1.25rem)',
+        'fluid-md': 'clamp(1rem, 0.75rem + 1.2vw, 1.75rem)',
+        'fluid-lg': 'clamp(1.5rem, 1rem + 2vw, 2.5rem)',
+        'fluid-xl': 'clamp(2rem, 1.25rem + 3vw, 3.5rem)',
+      },
+      borderRadius: {
+        'fluid-sm': 'clamp(0.125rem, 0.1rem + 0.3vw, 0.375rem)',
+        'fluid-md': 'clamp(0.25rem, 0.15rem + 0.5vw, 0.75rem)',
+        'fluid-lg': 'clamp(0.5rem, 0.3rem + 0.8vw, 1.25rem)',
+        'fluid-xl': 'clamp(0.75rem, 0.4rem + 1.2vw, 1.75rem)',
+      },
       boxShadow: {
         card: '0 1px 2px rgba(27,29,31,0.04), 0 8px 24px rgba(27,29,31,0.07)',
         cardHover: '0 2px 4px rgba(27,29,31,0.06), 0 16px 40px rgba(27,29,31,0.12)',
       },
     },
   },
-  plugins: [],
+  plugins: [require('./tailwind.fluid.js')],
 };
