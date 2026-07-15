@@ -1,8 +1,9 @@
 // =============================================================
 // UI Template — Main stylesheet entry
-// Tailwind layers (via PostCSS) + SCSS modules
 // =============================================================
 
+@use "tokens";
 @use "typography";
 @use "spacing";
+@use "components";
 @use "site";

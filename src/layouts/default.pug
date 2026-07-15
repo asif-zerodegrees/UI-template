@@ -5,6 +5,8 @@ block vars
   - var scriptSrc = '/src/main.js'
   - var showCursor = false
   - var showMotionLibs = false
+  - var showHeader = true
+  - var showFooter = true
   - var footerLabel = 'Template° — SHEET 01/01'
   - var footerMeta = '© 2026 Your Studio. ALL RIGHTS RESERVED.'
   - var footerDark = false
@@ -27,17 +29,20 @@ html(lang='en')
     if showCursor
       include /components/cursor.pug
 
-    //- include /components/header.pug
+    if showHeader
+      include /components/header.pug
 
     block content
 
-    //- include /components/footer.pug
+    if showFooter
+      include /components/footer.pug
 
     if showMotionLibs
       script(src='https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js')
       script(src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js')
       script(src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js')
 
+    script(type='module' src='/src/chrome.js')
     script(type='module' src=scriptSrc)
 
     block scripts

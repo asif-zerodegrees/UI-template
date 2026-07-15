@@ -1,0 +1,241 @@
+extends /layouts/default.pug
+
+include /components/picture.pug
+
+block vars
+  - pageTitle = 'Template — Fluid media'
+  - activeNav = 'media'
+  - showCursor = false
+  - showMotionLibs = true
+  - scriptSrc = '/src/media.js'
+  - footerLabel = 'Template° — FLUID MEDIA'
+  - footerMeta = '<a href="/typography" class="hover:text-blueprint transition-colors">← Style guide</a>'
+  - footerDark = false
+  - headerFixed = false
+
+block content
+  main.overflow-x-clip(class='py-12 sm:py-16')
+
+    .max-w-5xl.mx-auto(class='px-5 sm:px-8')
+      p.ui-mono.text-blueprint.mb-3 Style guide · Sheet 04
+      h1.ui-display-lg.mb-4 Fluid media
+      p.ui-body-lg.text-steel.max-w-2xl.mb-4
+        | Responsive
+        code.ui-mono-num.text-ink  picture
+        |  sources for phone → tablet → laptop → desktop → wide, plus scroll parallax on selected frames. Resize the window to watch crops and assets change.
+      p.ui-small.text-steel.mb-6
+        | Jump:
+        a.ui-mono-num.text-blueprint.ml-2(href='#ratios' class='hover:text-ink') Ratios
+        a.ui-mono-num.text-blueprint.ml-3(href='#parallax' class='hover:text-ink') Parallax
+        a.ui-mono-num.text-blueprint.ml-3(href='#grid' class='hover:text-ink') Grid
+        a.ui-mono-num.text-blueprint.ml-3(href='#usage' class='hover:text-ink') Usage
+      p.ui-small.text-steel(class='mb-14 sm:mb-20')
+        | Live viewport:
+        span#viewportW.ui-mono-num.text-ink  —
+
+      //- ================= RATIOS =================
+      section#ratios(class='mb-10 sm:mb-12')
+        .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+          h2.ui-h2 Fluid ratios
+          span.ui-mono.text-steel stage · billboard
+        p.ui-body.text-steel.max-w-2xl.mb-8
+          | Frames widen on laptop and large screens so images stay composed instead of feeling letterboxed or cropped incorrectly.
+
+        .js-media-reveal.mb-10
+          p.ui-mono.text-blueprint.mb-2 Stage · 4:3 → 16:10 → 16:9 → ultrawide
+          +uiPicture({
+            alt: 'Workshop interior stretching across a wide frame',
+            src: 'https://picsum.photos/id/201/1600/900',
+            mobile: 'https://picsum.photos/id/201/800/600',
+            tablet: 'https://picsum.photos/id/201/1200/750',
+            laptop: 'https://picsum.photos/id/201/1400/788',
+            desktop: 'https://picsum.photos/id/201/1800/820',
+            wide: 'https://picsum.photos/id/201/2400/1000',
+            ratio: 'stage',
+            className: 'rounded-sm shadow-card',
+            width: 2400,
+            height: 1000,
+            loading: 'eager',
+            fetchpriority: 'high'
+          })
+
+    //- Full-bleed sits outside max-w (no 100vw breakout)
+    .js-media-reveal.ui-media-bleed(class='mb-16 sm:mb-20')
+      p.ui-mono.text-blueprint.mb-2.max-w-5xl.mx-auto(class='px-5 sm:px-8') Billboard · full-bleed, tall on phone · cinematic on large
+      +uiPicture({
+        alt: 'Wide landscape used as a cinematic band',
+        src: 'https://picsum.photos/id/1015/1800/900',
+        mobile: 'https://picsum.photos/id/1015/800/533',
+        tablet: 'https://picsum.photos/id/1015/1200/675',
+        laptop: 'https://picsum.photos/id/1015/1440/640',
+        desktop: 'https://picsum.photos/id/1015/1920/720',
+        wide: 'https://picsum.photos/id/1015/2560/880',
+        ratio: 'billboard',
+        width: 2560,
+        height: 880
+      })
+
+    .max-w-5xl.mx-auto(class='px-5 sm:px-8')
+      //- ================= PARALLAX =================
+      section#parallax(class='mb-10 sm:mb-12')
+        .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+          h2.ui-h2 Parallax
+          span.ui-mono.text-steel js-parallax
+        p.ui-body.text-steel.max-w-2xl.mb-8
+          | Pass
+          code.ui-mono-num.text-ink  parallax: true
+          |  on
+          code.ui-mono-num.text-ink  +uiPicture
+          | . The image is taller than the frame and moves with scroll (GSAP ScrollTrigger). Respects
+          code.ui-mono-num.text-ink  prefers-reduced-motion
+          | .
+
+        .js-media-reveal.mb-10
+          p.ui-mono.text-blueprint.mb-2 Hero parallax · stage frame
+          +uiPicture({
+            alt: 'Metal detail with subtle vertical parallax',
+            src: 'https://picsum.photos/id/60/1600/1000',
+            mobile: 'https://picsum.photos/id/60/800/600',
+            tablet: 'https://picsum.photos/id/60/1200/750',
+            laptop: 'https://picsum.photos/id/60/1400/900',
+            desktop: 'https://picsum.photos/id/60/1800/1000',
+            wide: 'https://picsum.photos/id/60/2400/1200',
+            ratio: 'stage',
+            parallax: true,
+            className: 'rounded-sm',
+            width: 2400,
+            height: 1200
+          })
+
+        .js-media-reveal.grid(class='lg:grid-cols-2 ui-gap-[24px,48px] items-center')
+          div
+            p.ui-mono.text-blueprint.mb-3 Split · media + copy
+            h3.ui-h3.mb-3 Parallax beside content
+            p.ui-body.text-steel
+              | On laptop and up, pair a parallax frame with body copy. On smaller screens the stack stays single-column so the crop stays readable.
+          +uiPicture({
+            alt: 'Assembled prototype with parallax scroll',
+            src: 'https://picsum.photos/id/96/1200/1500',
+            mobile: 'https://picsum.photos/id/96/700/900',
+            tablet: 'https://picsum.photos/id/96/900/1100',
+            laptop: 'https://picsum.photos/id/96/1000/1250',
+            desktop: 'https://picsum.photos/id/96/1200/1500',
+            wide: 'https://picsum.photos/id/96/1400/1750',
+            ratio: '3x2',
+            parallax: true,
+            className: 'rounded-sm border border-line',
+            width: 1400,
+            height: 1750
+          })
+
+    .js-media-reveal.ui-media-bleed(class='mb-16 sm:mb-20')
+      p.ui-mono.text-blueprint.mb-2.max-w-5xl.mx-auto(class='px-5 sm:px-8') Billboard parallax · edge-to-edge on large displays
+      +uiPicture({
+        alt: 'Cinematic band with parallax for large screens',
+        src: 'https://picsum.photos/id/1018/2000/900',
+        mobile: 'https://picsum.photos/id/1018/800/533',
+        tablet: 'https://picsum.photos/id/1018/1200/675',
+        laptop: 'https://picsum.photos/id/1018/1440/720',
+        desktop: 'https://picsum.photos/id/1018/1920/800',
+        wide: 'https://picsum.photos/id/1018/2560/900',
+        ratio: 'billboard',
+        parallax: true,
+        width: 2560,
+        height: 900
+      })
+
+    .max-w-5xl.mx-auto(class='px-5 sm:px-8')
+      //- ================= GRID =================
+      section#grid(class='mb-16 sm:mb-20')
+        .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+          h2.ui-h2 Responsive grid
+          span.ui-mono.text-steel 1 → 2 → 3
+        p.ui-body.text-steel.max-w-2xl.mb-8
+          | Cards stay square on phone, open up on laptop, and form a three-up row on large screens.
+
+        .grid(class='sm:grid-cols-2 xl:grid-cols-3 ui-gap-[16px,32px]')
+          each item in [{ id: 28, label: 'A' }, { id: 42, label: 'B' }, { id: 48, label: 'C' }]
+            .js-media-reveal
+              p.ui-mono.text-blueprint.mb-2 Card #{item.label}
+              +uiPicture({
+                alt: 'Gallery card specimen ' + item.label,
+                src: 'https://picsum.photos/id/' + item.id + '/1200/900',
+                mobile: 'https://picsum.photos/id/' + item.id + '/600/600',
+                tablet: 'https://picsum.photos/id/' + item.id + '/900/900',
+                laptop: 'https://picsum.photos/id/' + item.id + '/1000/800',
+                desktop: 'https://picsum.photos/id/' + item.id + '/1200/900',
+                wide: 'https://picsum.photos/id/' + item.id + '/1400/1000',
+                ratio: 'card',
+                className: 'rounded-sm border border-line',
+                width: 1400,
+                height: 1000
+              })
+
+      //- ================= USAGE =================
+      section#usage(class='mb-8')
+        .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+          h2.ui-h2 Usage
+          span.ui-mono.text-steel +uiPicture
+        p.ui-body.text-steel.max-w-2xl.mb-6
+          | Enable motion libs on the page (
+          code.ui-mono-num.text-ink  showMotionLibs = true
+          | ) and import
+          code.ui-mono-num.text-ink  /src/media.js
+          |  — or copy the parallax block into your page script.
+
+        pre.ui-mono-num.bg-ink.text-paper.overflow-x-auto.leading-relaxed(class='p-4 sm:p-5 text-[11px] sm:text-xs')
+          code.
+            include /components/picture.pug
+
+            +uiPicture({
+              alt: 'Description',
+              src: '/img/hero.jpg',
+              mobile: '/img/hero-m.jpg',
+              tablet: '/img/hero-t.jpg',
+              laptop: '/img/hero-laptop.jpg',
+              desktop: '/img/hero-d.jpg',
+              wide: '/img/hero-wide.jpg',
+              ratio: 'stage',
+              parallax: true,
+              className: 'rounded-sm',
+              loading: 'lazy'
+            })
+
+            //- Full-bleed: put the block outside max-w, as a child of <main>
+            //- .ui-media-bleed
+            //-   +uiPicture({ … ratio: 'billboard', parallax: true })
+
+        .mt-8.grid(class='sm:grid-cols-2 ui-gap-[12px,24px]')
+          .border.border-line.rounded-sm(class='p-4 sm:p-5')
+            p.ui-mono.text-blueprint.mb-2 Breakpoints
+            ul.ui-small.text-steel.space-y-1
+              li
+                span.ui-mono-num.text-ink mobile
+                |  ≤ 639
+              li
+                span.ui-mono-num.text-ink tablet
+                |  ≥ 640
+              li
+                span.ui-mono-num.text-ink laptop
+                |  ≥ 1024
+              li
+                span.ui-mono-num.text-ink desktop
+                |  ≥ 1440 (with laptop) or ≥ 1024
+              li
+                span.ui-mono-num.text-ink wide
+                |  ≥ 1536
+          .border.border-line.rounded-sm(class='p-4 sm:p-5')
+            p.ui-mono.text-blueprint.mb-2 Ratios
+            ul.ui-small.text-steel.space-y-1
+              li
+                span.ui-mono-num.text-ink stage
+                |  phone → laptop → ultrawide
+              li
+                span.ui-mono-num.text-ink billboard
+                |  cinematic band / large screens
+              li
+                span.ui-mono-num.text-ink hero · card
+                |  existing style-guide frames
+              li
+                span.ui-mono-num.text-ink parallax: true
+                |  ScrollTrigger scrub

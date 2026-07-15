@@ -9,22 +9,22 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        paper: '#EAE6DC',
-        paper2: '#F4F2EB',
-        ink: '#1B1D1F',
-        blueprint: '#2F4B7A',
-        blueprint2: '#4A6FA8',
-        steel: '#7A7F87',
-        signal: '#D9A62E',
-        line: '#C7C2B5',
+        // RGB channels enable opacity modifiers (bg-paper/90, text-ink/60, …)
+        paper: 'rgb(var(--color-paper-rgb) / <alpha-value>)',
+        paper2: 'rgb(var(--color-paper2-rgb) / <alpha-value>)',
+        ink: 'rgb(var(--color-ink-rgb) / <alpha-value>)',
+        blueprint: 'rgb(var(--color-blueprint-rgb) / <alpha-value>)',
+        blueprint2: 'rgb(var(--color-blueprint2-rgb) / <alpha-value>)',
+        steel: 'rgb(var(--color-steel-rgb) / <alpha-value>)',
+        signal: 'rgb(var(--color-signal-rgb) / <alpha-value>)',
+        line: 'rgb(var(--color-line-rgb) / <alpha-value>)',
       },
       fontFamily: {
-        display: ['Big Shoulders Display', 'sans-serif'],
-        body: ['IBM Plex Sans', 'sans-serif'],
-        sans: ['IBM Plex Sans', 'sans-serif'],
-        mono: ['IBM Plex Mono', 'monospace'],
+        display: 'var(--font-display)',
+        body: 'var(--font-body)',
+        sans: 'var(--font-body)',
+        mono: 'var(--font-mono)',
       },
-      // Mirrors src/styles/_typography.scss fluid scale
       fontSize: {
         'display-xl': [
           'clamp(2.75rem, 2rem + 4vw, 6rem)',
@@ -89,6 +89,13 @@ module.exports = {
         'fluid-lg': 'clamp(1.5rem, 1rem + 2vw, 2.5rem)',
         'fluid-xl': 'clamp(2rem, 1.25rem + 3vw, 3.5rem)',
       },
+      gap: {
+        'fluid-xs': 'clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem)',
+        'fluid-sm': 'clamp(0.75rem, 0.6rem + 0.8vw, 1.25rem)',
+        'fluid-md': 'clamp(1rem, 0.75rem + 1.2vw, 1.75rem)',
+        'fluid-lg': 'clamp(1.5rem, 1rem + 2vw, 2.5rem)',
+        'fluid-xl': 'clamp(2rem, 1.25rem + 3vw, 3.5rem)',
+      },
       borderRadius: {
         'fluid-sm': 'clamp(0.125rem, 0.1rem + 0.3vw, 0.375rem)',
         'fluid-md': 'clamp(0.25rem, 0.15rem + 0.5vw, 0.75rem)',
@@ -96,8 +103,8 @@ module.exports = {
         'fluid-xl': 'clamp(0.75rem, 0.4rem + 1.2vw, 1.75rem)',
       },
       boxShadow: {
-        card: '0 1px 2px rgba(27,29,31,0.04), 0 8px 24px rgba(27,29,31,0.07)',
-        cardHover: '0 2px 4px rgba(27,29,31,0.06), 0 16px 40px rgba(27,29,31,0.12)',
+        card: 'var(--shadow-card)',
+        cardHover: 'var(--shadow-card-hover)',
       },
     },
   },

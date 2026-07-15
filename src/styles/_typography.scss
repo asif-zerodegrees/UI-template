@@ -6,14 +6,12 @@
 @use "sass:list";
 
 // ---- Font families ----------------------------------------------------
-$font-display: 'Big Shoulders Display', sans-serif;   // headlines, drawing-title voice
-$font-body:    'IBM Plex Sans', sans-serif;            // running copy
-$font-mono:    'IBM Plex Mono', monospace;              // labels, specs, dimension callouts
+$font-display: var(--font-display);
+$font-body:    var(--font-body);
+$font-mono:    var(--font-mono);
 
 // ---- Fluid scale tokens -------------------------------------------------
 // Each entry: (min-size, preferred string, max-size)
-// Preferred is stored as a string so Sass does not try to add rem + vw.
-// It is interpolated into clamp() as raw CSS (e.g. 2rem + 4vw).
 $scale: (
   'display-xl': (2.75rem,  '2rem + 4vw',     6rem),
   'display-lg': (2rem,     '1.5rem + 2.5vw',  3.5rem),
@@ -52,10 +50,18 @@ html {
 
 body {
   font-family: $font-body;
+  @include type('body', 400, 1.65);
 }
 
+// ---- Element defaults (after Tailwind Preflight) ------------------------
+h1 { @include type('h1', 700, 1.05, -0.01em, $font-display); text-transform: uppercase; }
+h2 { @include type('h2', 700, 1.15, -0.01em, $font-display); text-transform: uppercase; }
+h3 { @include type('h3', 600, 1.3,  0, $font-body); }
+h4 { @include type('h4', 600, 1.35, 0, $font-body); }
+h5 { @include type('h5', 600, 1.4,  0, $font-body); }
+h6 { @include type('h6', 600, 1.45, 0.02em, $font-body); text-transform: uppercase; }
+
 // ---- Utility classes -------------------------------------------------
-// Use alongside Tailwind for layout/spacing; these only govern type.
 .ui-display-xl { @include type('display-xl', 800, 0.96, -0.02em, $font-display); text-transform: uppercase; }
 .ui-display-lg { @include type('display-lg', 700, 1.0,  -0.01em, $font-display); text-transform: uppercase; }
 .ui-h1         { @include type('h1', 700, 1.05, -0.01em, $font-display); text-transform: uppercase; }
@@ -70,7 +76,6 @@ body {
 .ui-mono       { @include type('mono', 500, 1.4, 0.08em, $font-mono); text-transform: uppercase; }
 .ui-mono-num   { @include type('mono', 500, 1.2, 0, $font-mono); font-variant-numeric: tabular-nums; }
 
-// Bare font-size-only hooks, in case a design only needs the scale
 @each $key, $vals in $scale {
   .fs-#{$key} { font-size: fs($key); }
 }

@@ -1,5 +1,7 @@
 extends /layouts/default.pug
 
+include /components/picture.pug
+
 block vars
   - pageTitle = 'Template — Industrial Design & Engineering'
   - activeNav = 'home'
@@ -54,16 +56,19 @@ block content
             ) See capabilities
 
         div(class='lg:col-span-6')
-          div.hero-image.relative.w-full.rounded-sm.overflow-hidden.shadow-card.opacity-0(class='aspect-[4/3] sm:aspect-[16/11]')
-            img.w-full.h-full.object-cover(
-              src='https://picsum.photos/id/201/1200/900'
-              srcset='https://picsum.photos/id/201/700/525 700w, https://picsum.photos/id/201/1200/900 1200w'
-              sizes='(min-width: 1024px) 560px, 100vw'
-              alt='Machined aluminum prototype parts on a workbench'
-              width='1200'
-              height='900'
-              loading='eager'
-            )
+          div.hero-image.relative.w-full.rounded-sm.overflow-hidden.shadow-card.opacity-0
+            +uiPicture({
+              alt: 'Machined aluminum prototype parts on a workbench',
+              src: 'https://picsum.photos/id/201/1200/900',
+              mobile: 'https://picsum.photos/id/201/800/600',
+              tablet: 'https://picsum.photos/id/201/1100/760',
+              desktop: 'https://picsum.photos/id/201/1600/1100',
+              ratio: 'hero',
+              width: 1600,
+              height: 1100,
+              loading: 'eager',
+              fetchpriority: 'high'
+            })
             .duotone.absolute.inset-0
             .corner.corner-tl(class='border-paper/80')
             .corner.corner-tr(class='border-paper/80')

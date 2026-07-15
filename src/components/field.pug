@@ -1,0 +1,44 @@
+//- Form fields
+//-   include /components/field.pug
+//-   +uiField({ name: 'email', label: 'Email', type: 'email', placeholder: 'you@co.com' })
+//-   +uiField({ name: 'brief', label: 'Brief', control: 'textarea', rows: 4, onDark: true })
+
+mixin uiField(opts)
+  -
+    var o = opts || {}
+    var id = o.id || ('field-' + (o.name || 'input'))
+    var control = o.control || 'input'
+    var fieldClass = 'ui-field' + (o.onDark ? ' ui-field--on-dark' : '') + (o.className ? ' ' + o.className : '')
+
+  label.ui-field(class=fieldClass for=id)
+    if o.label
+      span.ui-field__label= o.label
+
+    if control === 'textarea'
+      textarea.ui-field__control(
+        id=id
+        name=o.name
+        rows=o.rows || 4
+        placeholder=o.placeholder || null
+        required=o.required || false
+        disabled=o.disabled || false
+        aria-invalid=o.invalid ? 'true' : null
+        aria-describedby=o.hint || o.error ? id + '-msg' : null
+      )= o.value || ''
+    else
+      input.ui-field__control(
+        id=id
+        type=o.type || 'text'
+        name=o.name
+        value=o.value || null
+        placeholder=o.placeholder || null
+        required=o.required || false
+        disabled=o.disabled || false
+        aria-invalid=o.invalid ? 'true' : null
+        aria-describedby=o.hint || o.error ? id + '-msg' : null
+      )
+
+    if o.error
+      p.ui-field__error(id=id + '-msg')= o.error
+    else if o.hint
+      p.ui-field__hint(id=id + '-msg')= o.hint
