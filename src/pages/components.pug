@@ -1,0 +1,189 @@
+extends /layouts/default.pug
+
+include /components/picture.pug
+include /components/button.pug
+include /components/field.pug
+
+block vars
+  - pageTitle = 'Template — Components'
+  - activeNav = 'components'
+  - showCursor = false
+  - showMotionLibs = false
+  - scriptSrc = '/src/components.js'
+  - footerLabel = 'Template° — COMPONENTS'
+  - footerMeta = '<a href="/" class="hover:text-blueprint transition-colors">← Back to site</a>'
+  - footerDark = false
+  - headerFixed = false
+
+block content
+  main(class='max-w-5xl mx-auto px-5 sm:px-8 py-12 sm:py-16 pt-28 md:pt-16')
+
+    p.ui-mono.text-blueprint.mb-3 Style guide · Sheet 03
+    h1.mb-4 Components
+    p.ui-body-lg.text-steel.max-w-2xl.mb-12
+      | Buttons, fields, gaps, and responsive
+      code.ui-mono-num.text-ink  picture
+      |  media for project teams.
+
+    //- Buttons
+    section.mb-16
+      .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2 Buttons
+        span.ui-mono.text-steel ui-btn
+      .flex.flex-wrap.items-center(class='ui-gap-[12px,24px]')
+        +uiButton('Primary', { variant: 'primary' })
+        +uiButton('Secondary', { variant: 'secondary' })
+        +uiButton('Ghost', { variant: 'ghost' })
+        +uiButton('Signal', { variant: 'signal' })
+        +uiButton('Small', { variant: 'primary', size: 'sm' })
+        +uiButton('Large', { variant: 'primary', size: 'lg' })
+        +uiButton('Disabled', { variant: 'primary', disabled: true })
+        +uiButton('As link', { variant: 'secondary', href: '/typography' })
+      p.ui-small.text-steel.mt-4
+        | Mixin:
+        code.ui-mono-num.text-ink  +uiButton('Label', { variant: 'primary' })
+
+    //- Fields
+    section.mb-16
+      .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2 Form fields
+        span.ui-mono.text-steel ui-field
+      form(class='grid sm:grid-cols-2 ui-gap-[20px,40px] max-w-3xl')
+        +uiField({ name: 'name', label: 'Name', placeholder: 'Jordan Lee' })
+        +uiField({ name: 'email', label: 'Email', type: 'email', placeholder: 'jordan@company.com' })
+        div(class='sm:col-span-2')
+          +uiField({ name: 'brief', label: 'Project brief', control: 'textarea', rows: 4, placeholder: 'What are you building?', hint: 'Optional helper text under the field.' })
+        div(class='sm:col-span-2')
+          +uiField({ name: 'bad', label: 'With error', placeholder: 'Invalid value', invalid: true, error: 'This field is required.' })
+        div
+          +uiButton('Submit brief', { type: 'submit', variant: 'signal' })
+
+      .mt-10.bg-ink.text-paper.rounded-sm.border.border-ink(class='p-6 sm:p-8')
+        p.ui-mono.text-signal.mb-4 On dark surfaces
+        form(class='grid sm:grid-cols-2 ui-gap-[16px,28px]')
+          +uiField({ name: 'name2', label: 'Name', placeholder: 'Jordan Lee', onDark: true })
+          +uiField({ name: 'email2', label: 'Email', type: 'email', placeholder: 'jordan@company.com', onDark: true })
+
+    //- Gap
+    section.mb-16
+      .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2 Fluid gap
+        span.ui-mono.text-steel ui-gap-[min,max]
+      p.ui-mono.text-blueprint.mb-3 ui-gap-[12px,40px]
+      .flex.flex-wrap.border.border-dashed.border-line.bg-paper2.p-4(class='ui-gap-[12px,40px]')
+        each n in [1, 2, 3, 4]
+          .ui-box.border.border-ink.ui-p-sm.ui-r-sm
+            span.ui-mono-num Item #{n}
+
+    //- Picture / aspect
+    section.mb-16
+      .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2 Responsive images
+        span.ui-mono.text-steel picture
+      p.ui-body.text-steel.max-w-2xl.mb-8
+        | Use
+        code.ui-mono-num.text-ink  +uiPicture
+        |  with device-specific sources and an aspect-ratio frame (
+        code.ui-mono-num.text-ink  ui-media--*
+        | ).
+
+      .grid(class='sm:grid-cols-2 ui-gap-[16px,32px]')
+        div
+          p.ui-mono.text-blueprint.mb-2 Hero · mobile 4:3 → sm 16:11
+          +uiPicture({
+            alt: 'Workshop bench with prototype parts',
+            src: 'https://picsum.photos/id/201/1400/900',
+            mobile: 'https://picsum.photos/id/201/800/600',
+            tablet: 'https://picsum.photos/id/201/1200/825',
+            desktop: 'https://picsum.photos/id/201/1600/1100',
+            ratio: 'hero',
+            className: 'rounded-sm shadow-card',
+            width: 1600,
+            height: 1100,
+            loading: 'lazy'
+          })
+        div
+          p.ui-mono.text-blueprint.mb-2 Card · 1:1 → lg 16:10
+          +uiPicture({
+            alt: 'CNC machined metal detail',
+            src: 'https://picsum.photos/id/60/1200/750',
+            mobile: 'https://picsum.photos/id/60/600/600',
+            tablet: 'https://picsum.photos/id/60/900/900',
+            desktop: 'https://picsum.photos/id/60/1400/875',
+            ratio: 'card',
+            className: 'rounded-sm border border-line',
+            width: 1400,
+            height: 875,
+            loading: 'lazy'
+          })
+
+      .mt-8
+        p.ui-mono.text-blueprint.mb-2 Fixed 16:9
+        +uiPicture({
+          alt: 'Assembled prototype on a test rig',
+          src: 'https://picsum.photos/id/96/1600/900',
+          mobile: 'https://picsum.photos/id/96/800/450',
+          tablet: 'https://picsum.photos/id/96/1200/675',
+          desktop: 'https://picsum.photos/id/96/1800/1012',
+          ratio: '16x9',
+          className: 'rounded-sm',
+          width: 1800,
+          height: 1012
+        })
+
+      pre.ui-mono-num.bg-ink.text-paper.overflow-x-auto.mt-8.leading-relaxed(class='p-4 sm:p-5 text-[11px] sm:text-xs')
+        code.
+          include /components/picture.pug
+          +uiPicture({
+            alt: 'Description',
+            src: '/img/hero.jpg',
+            mobile: '/img/hero-m.jpg',
+            tablet: '/img/hero-t.jpg',
+            desktop: '/img/hero-d.jpg',
+            ratio: 'hero',
+            className: 'rounded-sm',
+            loading: 'lazy'
+          })
+
+    //- Colors
+    section.mb-8
+      .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2 Color tokens
+        span.ui-mono.text-steel :root
+      p.ui-body.text-steel.mb-6
+        | Defined in
+        code.ui-mono-num.text-ink  src/styles/_tokens.scss
+        |  and mapped in Tailwind.
+      .grid.grid-cols-2(class='sm:grid-cols-4 ui-gap-[12px,20px]')
+        div
+          .h-16.rounded-sm.mb-2.bg-paper.border.border-line
+          p.ui-mono-num.text-ink paper
+          p.ui-small.text-steel --color-paper
+        div
+          .h-16.rounded-sm.mb-2.bg-paper2.border.border-line
+          p.ui-mono-num.text-ink paper2
+          p.ui-small.text-steel --color-paper2
+        div
+          .h-16.rounded-sm.mb-2.bg-ink.text-paper
+          p.ui-mono-num.text-ink ink
+          p.ui-small.text-steel --color-ink
+        div
+          .h-16.rounded-sm.mb-2.bg-blueprint.text-paper
+          p.ui-mono-num.text-ink blueprint
+          p.ui-small.text-steel --color-blueprint
+        div
+          .h-16.rounded-sm.mb-2.bg-blueprint2.text-paper
+          p.ui-mono-num.text-ink blueprint2
+          p.ui-small.text-steel --color-blueprint2
+        div
+          .h-16.rounded-sm.mb-2.bg-steel.text-paper
+          p.ui-mono-num.text-ink steel
+          p.ui-small.text-steel --color-steel
+        div
+          .h-16.rounded-sm.mb-2.bg-signal.text-ink
+          p.ui-mono-num.text-ink signal
+          p.ui-small.text-steel --color-signal
+        div
+          .h-16.rounded-sm.mb-2.bg-line.text-ink
+          p.ui-mono-num.text-ink line
+          p.ui-small.text-steel --color-line

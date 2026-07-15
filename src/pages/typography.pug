@@ -1,12 +1,16 @@
 extends /layouts/default.pug
 
+include /components/picture.pug
+include /components/button.pug
+include /components/field.pug
+
 block vars
-  - pageTitle = 'Template — Typography'
+  - pageTitle = 'Template — Style guide'
   - activeNav = 'typography'
   - showCursor = false
   - showMotionLibs = false
   - scriptSrc = '/src/typography.js'
-  - footerLabel = 'Template° — TYPOGRAPHY'
+  - footerLabel = 'Template° — STYLE GUIDE'
   - footerMeta = '<a href="/" class="hover:text-blueprint transition-colors">← Back to site</a>'
   - footerDark = false
   - headerFixed = false
@@ -15,24 +19,32 @@ block content
   main(class='max-w-5xl mx-auto px-5 sm:px-8 py-12 sm:py-16')
 
     p.ui-mono.text-blueprint.mb-3 Style guide · Sheet 02
-    h1.ui-display-lg.mb-4 Typography
+    h1.ui-display-lg.mb-4 Style guide
     p.ui-body-lg.text-steel.max-w-2xl.mb-4
-      | Fluid type scale for this UI template. Resize the viewport — sizes use
+      | Typography, fluid spacing, buttons, fields, gaps, and responsive
+      code.ui-mono-num.text-ink  picture
+      |  media. Resize the viewport — values use
       span.ui-mono-num.text-ink  clamp()
-      |  so they scale smoothly, not at fixed breakpoints.
+      | .
+    p.ui-small.text-steel.mb-6
+      | Jump:
+      a.ui-mono-num.text-blueprint.ml-2(href='#type' class='hover:text-ink') Type
+      a.ui-mono-num.text-blueprint.ml-3(href='#boxes' class='hover:text-ink') Spacing
+      a.ui-mono-num.text-blueprint.ml-3(href='#buttons' class='hover:text-ink') Buttons
+      a.ui-mono-num.text-blueprint.ml-3(href='#fields' class='hover:text-ink') Fields
+      a.ui-mono-num.text-blueprint.ml-3(href='#gap' class='hover:text-ink') Gap
+      a.ui-mono-num.text-blueprint.ml-3(href='#images' class='hover:text-ink') Images
+      a.ui-mono-num.text-blueprint.ml-3(href='#colors' class='hover:text-ink') Colors
     p.ui-small.text-steel(class='mb-14 sm:mb-20')
       | Live viewport:
       span#viewportW.ui-mono-num.text-ink  —
-      | px · Prefer
-      code.ui-mono-num.text-blueprint  ui-*
-      |  for full recipes (family + weight + tracking), or Tailwind
-      code.ui-mono-num.text-blueprint  text-*
-      |  for size tokens.
+      | px
 
+    //- ================= TYPE =================
     //- Families
-    section(class='mb-16 sm:mb-20')
+    section#type(class='mb-16 sm:mb-20')
       div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-8
-        h2.ui-h2 Families
+        h2.ui-h2 Type · Families
         span.ui-mono.text-steel 03
       .space-y-8
         div
@@ -185,9 +197,9 @@ block content
                 td.ui-mono-num.px-4.py-3.text-steel(class='hidden sm:table-cell')= row.ui
 
     //- Boxes — fluid padding + radius
-    section(class='mb-16 sm:mb-20')
+    section#boxes(class='mb-16 sm:mb-20')
       div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-4
-        h2.ui-h2 Boxes
+        h2.ui-h2 Spacing · Boxes
         span.ui-mono.text-steel clamp()
       p.ui-body.text-steel.max-w-2xl.mb-8
         | Use arbitrary min/max like Tailwind:
@@ -375,6 +387,179 @@ block content
         code.ui-mono-num.text-ink  ui-r-[4px_24px]
         | .
 
+    //- Buttons
+    section#buttons(class='mb-16 sm:mb-20')
+      .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2.ui-h2 Buttons
+        span.ui-mono.text-steel ui-btn
+      .flex.flex-wrap.items-center(class='ui-gap-[12px,24px]')
+        +uiButton('Primary', { variant: 'primary' })
+        +uiButton('Secondary', { variant: 'secondary' })
+        +uiButton('Ghost', { variant: 'ghost' })
+        +uiButton('Signal', { variant: 'signal' })
+        +uiButton('Small', { variant: 'primary', size: 'sm' })
+        +uiButton('Large', { variant: 'primary', size: 'lg' })
+        +uiButton('Disabled', { variant: 'primary', disabled: true })
+        +uiButton('As link', { variant: 'secondary', href: '/' })
+      p.ui-small.text-steel.mt-4
+        | Mixin:
+        code.ui-mono-num.text-ink  +uiButton('Label', { variant: 'primary' })
+        |  · File:
+        code.ui-mono-num.text-ink  src/components/button.pug
+
+    //- Fields
+    section#fields(class='mb-16 sm:mb-20')
+      .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2.ui-h2 Form fields
+        span.ui-mono.text-steel ui-field
+      form(class='grid sm:grid-cols-2 ui-gap-[20px,40px] max-w-3xl')
+        +uiField({ name: 'name', label: 'Name', placeholder: 'Jordan Lee' })
+        +uiField({ name: 'email', label: 'Email', type: 'email', placeholder: 'jordan@company.com' })
+        div(class='sm:col-span-2')
+          +uiField({ name: 'brief', label: 'Project brief', control: 'textarea', rows: 4, placeholder: 'What are you building?', hint: 'Optional helper text under the field.' })
+        div(class='sm:col-span-2')
+          +uiField({ name: 'bad', label: 'With error', placeholder: 'Invalid value', invalid: true, error: 'This field is required.' })
+        div
+          +uiButton('Submit brief', { type: 'submit', variant: 'signal' })
+
+      .mt-10.bg-ink.text-paper.rounded-sm.border.border-ink(class='p-6 sm:p-8')
+        p.ui-mono.text-signal.mb-4 On dark surfaces
+        form(class='grid sm:grid-cols-2 ui-gap-[16px,28px]')
+          +uiField({ name: 'name2', label: 'Name', placeholder: 'Jordan Lee', onDark: true })
+          +uiField({ name: 'email2', label: 'Email', type: 'email', placeholder: 'jordan@company.com', onDark: true })
+
+      p.ui-small.text-steel.mt-4
+        | Mixin:
+        code.ui-mono-num.text-ink  +uiField({ name, label, … })
+        |  · File:
+        code.ui-mono-num.text-ink  src/components/field.pug
+
+    //- Gap
+    section#gap(class='mb-16 sm:mb-20')
+      .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2.ui-h2 Fluid gap
+        span.ui-mono.text-steel ui-gap-[min,max]
+      p.ui-mono.text-blueprint.mb-3 ui-gap-[12px,40px]
+      .flex.flex-wrap.border.border-dashed.border-line.bg-paper2.p-4(class='ui-gap-[12px,40px]')
+        each n in [1, 2, 3, 4]
+          .ui-box.border.border-ink.ui-p-sm.ui-r-sm
+            span.ui-mono-num Item #{n}
+
+    //- Picture / aspect
+    section#images(class='mb-16 sm:mb-20')
+      .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2.ui-h2 Responsive images
+        span.ui-mono.text-steel picture
+      p.ui-body.text-steel.max-w-2xl.mb-8
+        | Use
+        code.ui-mono-num.text-ink  +uiPicture
+        |  with device-specific sources and an aspect-ratio frame (
+        code.ui-mono-num.text-ink  ui-media--*
+        | ). For laptop / large crops and parallax see
+        a.ui-mono-num.text-blueprint(href='/media' class='hover:text-ink')  /media
+        | .
+
+      .grid(class='sm:grid-cols-2 ui-gap-[16px,32px]')
+        div
+          p.ui-mono.text-blueprint.mb-2 Hero · mobile 4:3 → sm 16:11
+          +uiPicture({
+            alt: 'Workshop bench with prototype parts',
+            src: 'https://picsum.photos/id/201/1400/900',
+            mobile: 'https://picsum.photos/id/201/800/600',
+            tablet: 'https://picsum.photos/id/201/1200/825',
+            desktop: 'https://picsum.photos/id/201/1600/1100',
+            ratio: 'hero',
+            className: 'rounded-sm shadow-card',
+            width: 1600,
+            height: 1100,
+            loading: 'lazy'
+          })
+        div
+          p.ui-mono.text-blueprint.mb-2 Card · 1:1 → lg 16:10
+          +uiPicture({
+            alt: 'CNC machined metal detail',
+            src: 'https://picsum.photos/id/60/1200/750',
+            mobile: 'https://picsum.photos/id/60/600/600',
+            tablet: 'https://picsum.photos/id/60/900/900',
+            desktop: 'https://picsum.photos/id/60/1400/875',
+            ratio: 'card',
+            className: 'rounded-sm border border-line',
+            width: 1400,
+            height: 875,
+            loading: 'lazy'
+          })
+
+      .mt-8
+        p.ui-mono.text-blueprint.mb-2 Fixed 16:9
+        +uiPicture({
+          alt: 'Assembled prototype on a test rig',
+          src: 'https://picsum.photos/id/96/1600/900',
+          mobile: 'https://picsum.photos/id/96/800/450',
+          tablet: 'https://picsum.photos/id/96/1200/675',
+          desktop: 'https://picsum.photos/id/96/1800/1012',
+          ratio: '16x9',
+          className: 'rounded-sm',
+          width: 1800,
+          height: 1012
+        })
+
+      pre.ui-mono-num.bg-ink.text-paper.overflow-x-auto.mt-8.leading-relaxed(class='p-4 sm:p-5 text-[11px] sm:text-xs')
+        code.
+          include /components/picture.pug
+          +uiPicture({
+            alt: 'Description',
+            src: '/img/hero.jpg',
+            mobile: '/img/hero-m.jpg',
+            tablet: '/img/hero-t.jpg',
+            desktop: '/img/hero-d.jpg',
+            ratio: 'hero',
+            className: 'rounded-sm',
+            loading: 'lazy'
+          })
+
+    //- Colors
+    section#colors(class='mb-16 sm:mb-20')
+      .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2.ui-h2 Color tokens
+        span.ui-mono.text-steel :root
+      p.ui-body.text-steel.mb-6
+        | Defined in
+        code.ui-mono-num.text-ink  src/styles/_tokens.scss
+        |  and mapped in Tailwind.
+      .grid.grid-cols-2(class='sm:grid-cols-4 ui-gap-[12px,20px]')
+        div
+          .h-16.rounded-sm.mb-2.bg-paper.border.border-line
+          p.ui-mono-num.text-ink paper
+          p.ui-small.text-steel --color-paper
+        div
+          .h-16.rounded-sm.mb-2.bg-paper2.border.border-line
+          p.ui-mono-num.text-ink paper2
+          p.ui-small.text-steel --color-paper2
+        div
+          .h-16.rounded-sm.mb-2.bg-ink.text-paper
+          p.ui-mono-num.text-ink ink
+          p.ui-small.text-steel --color-ink
+        div
+          .h-16.rounded-sm.mb-2.bg-blueprint.text-paper
+          p.ui-mono-num.text-ink blueprint
+          p.ui-small.text-steel --color-blueprint
+        div
+          .h-16.rounded-sm.mb-2.bg-blueprint2.text-paper
+          p.ui-mono-num.text-ink blueprint2
+          p.ui-small.text-steel --color-blueprint2
+        div
+          .h-16.rounded-sm.mb-2.bg-steel.text-paper
+          p.ui-mono-num.text-ink steel
+          p.ui-small.text-steel --color-steel
+        div
+          .h-16.rounded-sm.mb-2.bg-signal.text-ink
+          p.ui-mono-num.text-ink signal
+          p.ui-small.text-steel --color-signal
+        div
+          .h-16.rounded-sm.mb-2.bg-line.text-ink
+          p.ui-mono-num.text-ink line
+          p.ui-small.text-steel --color-line
+
     //- Usage
     section.mb-8
       div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-8
@@ -399,11 +584,9 @@ block content
       p.ui-small.text-steel.max-w-2xl.mt-8
         | Edit scales in
         code.ui-mono-num.text-ink  src/styles/_typography.scss
-        |  and mirror sizes in
-        code.ui-mono-num.text-ink  tailwind.config.js
-        | . Layout and color stay on Tailwind utilities.
-        |  New pages:
-        code.ui-mono-num.text-ink  extends /layouts/default.pug
-        |  then add components with
-        code.ui-mono-num.text-ink  include /components/your-file.pug
-        | .
+        |  and tokens in
+        code.ui-mono-num.text-ink  src/styles/_tokens.scss
+        | . Components:
+        code.ui-mono-num.text-ink  include /components/button.pug
+        |  etc.
+

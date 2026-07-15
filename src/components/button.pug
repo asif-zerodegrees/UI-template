@@ -1,0 +1,28 @@
+//- Buttons
+//-   include /components/button.pug
+//-   +uiButton('Label', { variant: 'primary', href: '#', size: 'lg' })
+//-   +uiButton('Submit', { type: 'submit', variant: 'signal' })
+
+mixin uiButton(label, opts)
+  -
+    var o = opts || {}
+    var variant = o.variant || 'primary'
+    var size = o.size || ''
+    var classes = 'ui-btn ui-btn--' + variant + (size ? ' ui-btn--' + size : '') + (o.className ? ' ' + o.className : '')
+
+  if o.href
+    a(
+      href=o.href
+      class=classes
+      aria-disabled=o.disabled ? 'true' : null
+    )= label
+      if block
+        block
+  else
+    button(
+      type=o.type || 'button'
+      class=classes
+      disabled=o.disabled || false
+    )= label
+      if block
+        block

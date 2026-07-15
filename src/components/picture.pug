@@ -1,0 +1,57 @@
+//- Responsive picture with aspect-ratio frame
+//- Usage:
+//-   include /components/picture.pug
+//-   +uiPicture({
+//-     alt: 'Description',
+//-     src: 'https://…/1200.jpg',
+//-     mobile: 'https://…/640.jpg',
+//-     tablet: 'https://…/960.jpg',
+//-     laptop: 'https://…/1280.jpg',   //- 1024–1439
+//-     desktop: 'https://…/1600.jpg', //- 1440+ (or 1024+ if no laptop)
+//-     wide: 'https://…/2400.jpg',    //- 1536+ large / ultra-wide
+//-     ratio: 'hero',                 //- 1x1 | 4x3 | 16x9 | 16x11 | 3x2 | hero | card | stage | billboard
+//-     parallax: true,                //- tall crop + js-parallax target
+//-     className: 'rounded-sm',
+//-     loading: 'lazy',
+//-     width: 1200,
+//-     height: 900
+//-   })
+
+mixin uiPicture(opts)
+  -
+    var o = opts || {}
+    var ratio = o.ratio || '16x9'
+    var loading = o.loading || 'lazy'
+    var extras = []
+    if (o.className) extras.push(o.className)
+    if (o.parallax) extras.push('ui-media--parallax')
+    var mediaClass = 'ui-media ui-media--' + ratio + (extras.length ? ' ' + extras.join(' ') : '')
+    var decoding = o.decoding || 'async'
+    var fetchpriority = o.fetchpriority || null
+    var imgClass = o.parallax ? 'js-parallax' : null
+    var hasLaptop = !!o.laptop
+    //- Sources are ordered largest → smallest so the first match wins
+    var desktopMin = hasLaptop ? '(min-width: 1440px)' : '(min-width: 1024px)'
+
+  .ui-media(class=mediaClass)
+    picture
+      if o.wide
+        source(media='(min-width: 1536px)' srcset=o.wide)
+      if o.desktop
+        source(media=desktopMin srcset=o.desktop)
+      if o.laptop
+        source(media='(min-width: 1024px)' srcset=o.laptop)
+      if o.tablet
+        source(media='(min-width: 640px)' srcset=o.tablet)
+      if o.mobile
+        source(media='(max-width: 639px)' srcset=o.mobile)
+      img(
+        class=imgClass
+        src=o.src
+        alt=o.alt || ''
+        loading=loading
+        decoding=decoding
+        width=o.width || null
+        height=o.height || null
+        fetchpriority=fetchpriority
+      )

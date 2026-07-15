@@ -1,4 +1,10 @@
 import './styles-entry.js';
+import {
+  initUiParallax,
+  applyUiParallaxOptions,
+  readUiParallaxOptions,
+  VARIANT_SPEED,
+} from './lib/parallax.js';
 
 const { gsap, ScrollTrigger, Lenis } = window;
 
@@ -15,6 +21,82 @@ if (!reduceMotion && Lenis) {
 }
 
 gsap.registerPlugin(ScrollTrigger);
+
+initUiParallax();
+initParallaxPlayground();
+
+// ---------- Parallax lab: live class / attribute controls ----------
+function initParallaxPlayground() {
+  const frame = document.getElementById('pxPreviewFrame');
+  if (!frame) return;
+
+  const speedInput = document.getElementById('pxSpeed');
+  const ratioSelect = document.getElementById('pxRatio');
+  const readout = document.getElementById('pxAttrReadout');
+  const labelSpeed = document.getElementById('pxLabelSpeed');
+  const labelDir = document.getElementById('pxLabelDir');
+  const labelVariant = document.getElementById('pxLabelVariant');
+  const labelRatio = document.getElementById('pxLabelRatio');
+
+  function syncReadout() {
+    const state = readUiParallaxOptions(frame);
+    if (!state) return;
+    if (labelSpeed) labelSpeed.textContent = state.speed;
+    if (labelDir) labelDir.textContent = state.direction;
+    if (labelVariant) labelVariant.textContent = state.variant;
+    if (labelRatio) labelRatio.textContent = state.ratio;
+    if (readout) {
+      readout.textContent = [
+        `class="${state.className}"`,
+        `data-ui-px="${state.attrs['data-ui-px']}"`,
+        `data-ui-px-speed="${state.attrs['data-ui-px-speed']}"`,
+        `data-ui-px-direction="${state.attrs['data-ui-px-direction']}"`,
+        `data-ui-px-variant="${state.attrs['data-ui-px-variant'] || state.variant}"`,
+        `data-ui-px-ratio="${state.attrs['data-ui-px-ratio'] || state.ratio}"`,
+      ].join('\n');
+    }
+  }
+
+  function apply(partial) {
+    applyUiParallaxOptions(frame, partial);
+    syncReadout();
+  }
+
+  document.querySelectorAll('[data-px-variant]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const variant = btn.getAttribute('data-px-variant');
+      const speed = VARIANT_SPEED[variant];
+      document.querySelectorAll('[data-px-variant]').forEach((b) => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      if (speedInput && speed != null) speedInput.value = String(speed);
+      apply({ variant, speed });
+    });
+  });
+
+  document.querySelectorAll('[data-px-direction]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const direction = btn.getAttribute('data-px-direction');
+      document.querySelectorAll('[data-px-direction]').forEach((b) => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      apply({ direction });
+    });
+  });
+
+  if (speedInput) {
+    speedInput.addEventListener('input', () => {
+      document.querySelectorAll('[data-px-variant]').forEach((b) => b.classList.remove('is-active'));
+      apply({ speed: Number(speedInput.value) });
+    });
+  }
+
+  if (ratioSelect) {
+    ratioSelect.addEventListener('change', () => {
+      apply({ ratio: ratioSelect.value });
+    });
+  }
+
+  syncReadout();
+}
 
 // Internal anchor links scroll via Lenis with a header offset
 document.querySelectorAll('.nav-link[href^="#"]').forEach((a) => {

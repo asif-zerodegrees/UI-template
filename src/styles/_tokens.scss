@@ -1,0 +1,30 @@
+// =============================================================
+// UI Template — Design tokens (CSS variables)
+// =============================================================
+
+:root {
+  --color-paper: #eae6dc;
+  --color-paper-rgb: 234 230 220;
+  --color-paper2: #f4f2eb;
+  --color-paper2-rgb: 244 242 235;
+  --color-ink: #1b1d1f;
+  --color-ink-rgb: 27 29 31;
+  --color-blueprint: #2f4b7a;
+  --color-blueprint-rgb: 47 75 122;
+  --color-blueprint2: #4a6fa8;
+  --color-blueprint2-rgb: 74 111 168;
+  --color-steel: #7a7f87;
+  --color-steel-rgb: 122 127 135;
+  --color-signal: #d9a62e;
+  --color-signal-rgb: 217 166 46;
+  --color-line: #c7c2b5;
+  --color-line-rgb: 199 194 181;
+
+  --font-display: 'Big Shoulders Display', sans-serif;
+  --font-body: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --focus-ring: 0 0 0 2px var(--color-paper), 0 0 0 4px var(--color-blueprint);
+  --shadow-card: 0 1px 2px rgba(27, 29, 31, 0.04), 0 8px 24px rgba(27, 29, 31, 0.07);
+  --shadow-card-hover: 0 2px 4px rgba(27, 29, 31, 0.06), 0 16px 40px rgba(27, 29, 31, 0.12);
+}

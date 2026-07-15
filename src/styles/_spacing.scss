@@ -45,6 +45,13 @@ $radius: (
   .ui-mb-#{$key} { margin-bottom: sp($key); }
 }
 
+// ---- Gap presets ------------------------------------------------------
+@each $key, $vals in $space {
+  .ui-gap-#{$key}  { gap: sp($key); }
+  .ui-gap-x-#{$key} { column-gap: sp($key); }
+  .ui-gap-y-#{$key} { row-gap: sp($key); }
+}
+
 // ---- Border-radius presets --------------------------------------------
 @each $key, $vals in $radius {
   .ui-r-#{$key}  { border-radius: rd($key); }
@@ -60,7 +67,7 @@ $radius: (
 
 // ---- Demo / specimen box ----------------------------------------------
 .ui-box {
-  background: #f4f2eb;
-  border: 1px solid #c7c2b5;
-  color: #1b1d1f;
+  background: var(--color-paper2);
+  border: 1px solid var(--color-line);
+  color: var(--color-ink);
 }

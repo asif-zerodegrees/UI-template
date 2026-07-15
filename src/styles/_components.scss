@@ -1,0 +1,290 @@
+// =============================================================
+// UI Template — Media, forms, buttons, focus
+// =============================================================
+
+// ---- Responsive picture / media frame --------------------------------
+.ui-media {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background: var(--color-paper2);
+
+  > picture,
+  > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+// Aspect ratio helpers (override with style or Tailwind aspect-* as needed)
+.ui-media--1x1 { aspect-ratio: 1 / 1; }
+.ui-media--4x3 { aspect-ratio: 4 / 3; }
+.ui-media--16x9 { aspect-ratio: 16 / 9; }
+.ui-media--16x11 { aspect-ratio: 16 / 11; }
+.ui-media--3x2 { aspect-ratio: 3 / 2; }
+
+.ui-media--hero {
+  aspect-ratio: 4 / 3;
+
+  @media (min-width: 640px) {
+    aspect-ratio: 16 / 11;
+  }
+}
+
+.ui-media--card {
+  aspect-ratio: 1 / 1;
+
+  @media (min-width: 1024px) {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+// Fluid stage: phone → laptop → large / ultra-wide
+.ui-media--stage {
+  aspect-ratio: 4 / 3;
+
+  @media (min-width: 640px) {
+    aspect-ratio: 16 / 10;
+  }
+
+  @media (min-width: 1024px) {
+    aspect-ratio: 16 / 9;
+  }
+
+  @media (min-width: 1440px) {
+    aspect-ratio: 2.2 / 1;
+  }
+
+  @media (min-width: 1536px) {
+    aspect-ratio: 2.4 / 1;
+  }
+}
+
+// Full-bleed cinematic band for large screens
+.ui-media--billboard {
+  aspect-ratio: 3 / 2;
+
+  @media (min-width: 768px) {
+    aspect-ratio: 16 / 9;
+  }
+
+  @media (min-width: 1024px) {
+    aspect-ratio: 21 / 9;
+  }
+
+  @media (min-width: 1536px) {
+    aspect-ratio: 2.75 / 1;
+  }
+}
+
+// Extra crop room so ScrollTrigger can move the image without gaps
+.ui-media--parallax {
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 130%;
+    object-fit: cover;
+    object-position: center;
+    will-change: transform;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-media--parallax img {
+    height: 100%;
+    will-change: auto;
+  }
+}
+
+// Full-bleed band — place as a direct child of <main> (not inside max-w)
+// Avoids 100vw, which includes scrollbar width and causes horizontal scroll
+.ui-media-bleed {
+  width: 100%;
+  max-width: none;
+  margin-inline: 0;
+}
+
+// ---- Buttons ---------------------------------------------------------
+.ui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 0.7rem + 0.1vw, 0.875rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.4;
+  border-radius: 0.125rem;
+  border: 1px solid transparent;
+  padding: 0.75rem 1.5rem;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+
+  &:disabled,
+  &[aria-disabled='true'] {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+}
+
+.ui-btn--primary {
+  background: var(--color-blueprint);
+  color: var(--color-paper);
+
+  &:hover {
+    background: var(--color-ink);
+  }
+}
+
+.ui-btn--secondary {
+  background: transparent;
+  color: var(--color-ink);
+  border-color: var(--color-ink);
+
+  &:hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+}
+
+.ui-btn--ghost {
+  background: transparent;
+  color: var(--color-blueprint);
+  border-color: transparent;
+  padding-inline: 0.5rem;
+
+  &:hover {
+    color: var(--color-ink);
+  }
+}
+
+.ui-btn--signal {
+  background: var(--color-signal);
+  color: var(--color-ink);
+
+  &:hover {
+    background: var(--color-paper);
+  }
+}
+
+.ui-btn--sm {
+  padding: 0.5rem 1rem;
+}
+
+.ui-btn--lg {
+  padding: 0.9rem 1.75rem;
+}
+
+// ---- Form fields -----------------------------------------------------
+.ui-field {
+  display: block;
+  width: 100%;
+}
+
+.ui-field__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 0.7rem + 0.1vw, 0.875rem);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-steel);
+  margin-bottom: 0.5rem;
+}
+
+.ui-field__control {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-ink) 30%, transparent);
+  border-radius: 0;
+  padding: 0.5rem 0;
+  font-family: var(--font-body);
+  font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  color: var(--color-ink);
+  outline: none;
+  transition: border-color 0.2s ease;
+  resize: none;
+
+  &::placeholder {
+    color: color-mix(in srgb, var(--color-ink) 30%, transparent);
+  }
+
+  &:hover {
+    border-bottom-color: color-mix(in srgb, var(--color-ink) 55%, transparent);
+  }
+
+  &:focus-visible {
+    border-bottom-color: var(--color-signal);
+    box-shadow: none;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &[aria-invalid='true'] {
+    border-bottom-color: #b42318;
+  }
+}
+
+.ui-field__hint {
+  margin-top: 0.35rem;
+  font-size: clamp(0.8125rem, 0.8rem + 0.1vw, 0.9375rem);
+  color: var(--color-steel);
+}
+
+.ui-field__error {
+  margin-top: 0.35rem;
+  font-size: clamp(0.8125rem, 0.8rem + 0.1vw, 0.9375rem);
+  color: #b42318;
+}
+
+// Dark surface variants (contact forms on ink)
+.ui-field--on-dark .ui-field__label {
+  color: color-mix(in srgb, var(--color-paper) 60%, transparent);
+}
+
+.ui-field--on-dark .ui-field__control {
+  color: var(--color-paper);
+  border-bottom-color: color-mix(in srgb, var(--color-paper) 30%, transparent);
+
+  &::placeholder {
+    color: color-mix(in srgb, var(--color-paper) 30%, transparent);
+  }
+
+  &:focus-visible {
+    border-bottom-color: var(--color-signal);
+  }
+}
+
+// Global focus for interactive chrome
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
