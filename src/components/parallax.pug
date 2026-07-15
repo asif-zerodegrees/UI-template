@@ -1,0 +1,90 @@
+//- =============================================================
+//- +uiParallax — standalone scroll-parallax frame (team component)
+//- Does NOT modify +uiPicture or media.js — use this mixin only.
+//- =============================================================
+//-
+//- Page setup (once):
+//-   - showMotionLibs = true
+//-   - scriptSrc that calls initUiParallax() from /src/lib/parallax.js
+//-
+//- Variants (named intensity):
+//-   variant: 'subtle' | 'default' | 'strong'
+//-
+//- Or set speed manually (overrides variant):
+//-   speed: 8 | 12 | 18 | any number (± travel %)
+//-
+//- Direction:
+//-   direction: 'y' | 'x'     //- vertical (default) or horizontal
+//-
+//- Ratio:
+//-   ratio: '16x9' | '4x3' | '1x1' | '3x2' | '16x11' | 'hero' | 'card' | 'stage' | 'billboard'
+//-
+//- Full-bleed (wrap outside max-w yourself, or pass bleed: true):
+//-   bleed: true
+//-
+//- Example:
+//-   include /components/parallax.pug
+//-   +uiParallax({
+//-     alt: 'Workshop',
+//-     src: '/img/hero.jpg',
+//-     mobile: '/img/hero-m.jpg',
+//-     tablet: '/img/hero-t.jpg',
+//-     desktop: '/img/hero-d.jpg',
+//-     variant: 'default',
+//-     direction: 'y',
+//-     ratio: 'stage',
+//-     className: 'rounded-sm'
+//-   })
+//-
+//- Custom inner layer:
+//-   +uiParallax({ variant: 'subtle', ratio: '16x9' })
+//-     img.ui-px__layer.js-ui-px(src='…' alt='…')
+
+mixin uiParallax(opts)
+  -
+    var UI_PX_SPEED = { subtle: 8, default: 12, strong: 18 }
+    var o = opts || {}
+    var variant = o.variant || 'default'
+    var speed = o.speed != null ? o.speed : (UI_PX_SPEED[variant] != null ? UI_PX_SPEED[variant] : 12)
+    var direction = o.direction === 'x' ? 'x' : 'y'
+    var ratio = o.ratio || '16x9'
+    var loading = o.loading || 'lazy'
+    var decoding = o.decoding || 'async'
+    var fetchpriority = o.fetchpriority || null
+    var classes = ['ui-px', 'ui-px--' + ratio, 'ui-px--' + variant, 'ui-px--dir-' + direction]
+    if (o.bleed) classes.push('ui-px--bleed')
+    if (o.className) classes.push(o.className)
+    var hasLaptop = !!o.laptop
+    var desktopMin = hasLaptop ? '(min-width: 1440px)' : '(min-width: 1024px)'
+
+  .ui-px(
+    class=classes.join(' ')
+    data-ui-px='true'
+    data-ui-px-speed=speed
+    data-ui-px-direction=direction
+    data-ui-px-variant=variant
+    data-ui-px-ratio=ratio
+  )
+    if block
+      block
+    else
+      picture.ui-px__picture
+        if o.wide
+          source(media='(min-width: 1536px)' srcset=o.wide)
+        if o.desktop
+          source(media=desktopMin srcset=o.desktop)
+        if o.laptop
+          source(media='(min-width: 1024px)' srcset=o.laptop)
+        if o.tablet
+          source(media='(min-width: 640px)' srcset=o.tablet)
+        if o.mobile
+          source(media='(max-width: 639px)' srcset=o.mobile)
+        img.ui-px__layer.js-ui-px(
+          src=o.src
+          alt=o.alt || ''
+          loading=loading
+          decoding=decoding
+          width=o.width || null
+          height=o.height || null
+          fetchpriority=fetchpriority
+        )

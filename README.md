@@ -14,20 +14,23 @@ npm.cmd run preview
 - Home: http://localhost:5173/
 - Typography / spacing: http://localhost:5173/typography
 - Components: http://localhost:5173/components
-- Fluid media / parallax: http://localhost:5173/media
+- Fluid media: http://localhost:5173/media
+- Parallax (all variants): http://localhost:5173/parallax
 
 ## Project layout
 
 ```
 src/
   layouts/default.pug       # shared shell (header + footer)
-  components/               # header, footer, button, field, picture…
+  components/               # header, footer, button, field, picture, parallax…
+  lib/parallax.js           # initUiParallax() for +uiParallax only
   pages/                    # one .pug file → one HTML route
   styles/
     _tokens.scss            # CSS variables (colors, fonts)
     _typography.scss        # type scale + h1–h6 defaults
     _spacing.scss           # fluid padding / margin / gap / radius
     _components.scss        # buttons, fields, media frames
+    _parallax.scss          # +uiParallax frames (standalone)
     _site.scss              # demo-site extras
 ```
 
@@ -65,6 +68,33 @@ Sizes: `sm` · `lg`
 
 `+uiField({ name, label, type, control: 'textarea', onDark, hint, error, invalid })`
 
+### Parallax (`+uiParallax`)
+
+Standalone component — does not change `+uiPicture` or `/media`. Full variant sheet: `/parallax`.
+
+```pug
+include /components/parallax.pug
++uiParallax({
+  alt: 'Description',
+  src: '/img/hero.jpg',
+  mobile: '/img/hero-m.jpg',
+  tablet: '/img/hero-t.jpg',
+  desktop: '/img/hero-d.jpg',
+  variant: 'default',     // subtle | default | strong
+  direction: 'y',         // y | x
+  ratio: 'stage',         // 1x1 | 4x3 | 16x9 | 3x2 | hero | card | stage | billboard
+  bleed: false,
+  className: 'rounded-sm'
+})
+```
+
+```js
+import { initUiParallax } from './lib/parallax.js';
+initUiParallax();
+```
+
+Requires `showMotionLibs = true`.
+
 ### Responsive images
 
 ```pug
@@ -78,7 +108,7 @@ include /components/picture.pug
   desktop: '/img/hero-d.jpg',
   wide: '/img/hero-wide.jpg',
   ratio: 'stage',         // also: hero | card | billboard | 16x9…
-  parallax: true,         // ScrollTrigger (needs showMotionLibs + media.js)
+  parallax: true,         // older media-page path (ScrollTrigger in media.js)
   className: 'rounded-sm',
   loading: 'lazy'
 })
@@ -86,7 +116,7 @@ include /components/picture.pug
 
 Breakpoints: `mobile` ≤639 · `tablet` ≥640 · `laptop` ≥1024 · `desktop` ≥1440 (or ≥1024 without laptop) · `wide` ≥1536.
 
-`hero` = 4:3 → 16:11 · `card` = 1:1 → 16:10 · `stage` / `billboard` = fluid frames for laptop → large. Full-bleed: place `.ui-media-bleed` outside any `max-w-*` wrapper (not via `100vw`). Demo: `/media`.
+`hero` = 4:3 → 16:11 · `card` = 1:1 → 16:10 · `stage` / `billboard` = fluid frames for laptop → large. Full-bleed: place `.ui-media-bleed` outside any `max-w-*` wrapper (not via `100vw`). Full demo: `/media`.
 
 ## Fluid spacing
 

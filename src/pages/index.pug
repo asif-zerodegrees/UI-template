@@ -1,6 +1,7 @@
 extends /layouts/default.pug
 
 include /components/picture.pug
+include /components/parallax.pug
 
 block vars
   - pageTitle = 'Template — Industrial Design & Engineering'
@@ -54,6 +55,13 @@ block content
               href='/#capabilities'
               class='px-6 py-3.5 hover:bg-ink hover:text-paper'
             ) See capabilities
+
+          p.hero-fade.ui-small.text-steel.opacity-0(class='mt-5 sm:mt-6')
+            | Style guide:
+            a.ui-mono-num.text-blueprint.ml-2(href='/typography' class='hover:text-ink') Typography
+            a.ui-mono-num.text-blueprint.ml-3(href='/components' class='hover:text-ink') Components
+            a.ui-mono-num.text-blueprint.ml-3(href='/media' class='hover:text-ink') Media
+            a.ui-mono-num.text-blueprint.ml-3(href='/#parallax' class='hover:text-ink') Parallax
 
         div(class='lg:col-span-6')
           div.hero-image.relative.w-full.rounded-sm.overflow-hidden.shadow-card.opacity-0
@@ -109,6 +117,196 @@ block content
             | ±
             span.js-counter(data-target='0.05' data-decimals='2' data-suffix='') 0
           div.ui-small.mt-1(class='text-paper/60') mm typical tolerance
+
+  //- ================= PARALLAX LAB (team component playground) =================
+  section#parallax.border-t.border-ink.bg-paper2
+    div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-24')
+      div.js-reveal.flex.flex-col.gap-4(class='sm:flex-row sm:items-end sm:justify-between mb-10 sm:mb-12')
+        div
+          p.ui-mono.text-blueprint.mb-3 Team component · +uiParallax
+          h2.ui-h2 Parallax lab
+          p.ui-body.text-steel.max-w-xl.mt-3
+            | Live controls update the classes and data attributes that drive the effect. Scroll to feel speed and direction change.
+        a.ui-mono.text-blueprint.shrink-0(href='/parallax' class='hover:text-ink') Full variant sheet →
+
+      //- Live playground
+      #pxPlayground.js-reveal.grid(class='lg:grid-cols-12 ui-gap-[24px,40px] mb-16 sm:mb-20')
+        div(class='lg:col-span-7')
+          p.ui-mono.text-blueprint.mb-3 Live preview
+          #pxPreviewFrame(
+            class='ui-px ui-px--stage ui-px--default ui-px--dir-y rounded-sm border border-ink shadow-card overflow-hidden'
+            data-ui-px='true'
+            data-ui-px-speed='12'
+            data-ui-px-direction='y'
+            data-ui-px-variant='default'
+            data-ui-px-ratio='stage'
+          )
+            img.ui-px__layer.js-ui-px(
+              src='https://picsum.photos/id/201/1800/1000'
+              alt='Parallax playground preview'
+              width='1800'
+              height='1000'
+              loading='eager'
+            )
+
+        div.flex.flex-col(class='lg:col-span-5 ui-gap-[16px,24px]')
+          .border.border-ink.rounded-sm.bg-paper(class='p-5 sm:p-6')
+            p.ui-mono.text-blueprint.mb-4 Dynamic controls
+            p.ui-small.text-steel.mb-5
+              | These write
+              code.ui-mono-num.text-ink  data-ui-px-speed
+              | ,
+              code.ui-mono-num.text-ink  data-ui-px-direction
+              | , and
+              code.ui-mono-num.text-ink  .ui-px--*
+              |  classes on the preview.
+
+            //- Variant presets
+            label.block.mb-5
+              span.ui-mono.text-steel Variant
+              span.ui-mono-num.text-ink.ml-2#pxLabelVariant default
+              .flex.flex-wrap.mt-2(class='gap-2')
+                each v in ['subtle', 'default', 'strong']
+                  button.px-ctrl-btn.ui-mono(
+                    type='button'
+                    data-px-variant=v
+                    class=`px-3 py-2 border border-line rounded-sm hover:border-ink${v === 'default' ? ' is-active' : ''}`
+                  )= v
+
+            //- Speed
+            label.block.mb-5
+              .flex.items-center.justify-between
+                span.ui-mono.text-steel Speed
+                span.ui-mono-num.text-ink
+                  | data-ui-px-speed=
+                  span#pxLabelSpeed 12
+              input#pxSpeed.mt-2.w-full.accent-blueprint(
+                type='range'
+                min='0'
+                max='30'
+                step='1'
+                value='12'
+              )
+              .flex.justify-between.ui-small.text-steel.mt-1
+                span 0 (off)
+                span 8 subtle
+                span 18 strong
+                span 30
+
+            //- Direction
+            label.block.mb-5
+              span.ui-mono.text-steel Direction
+              span.ui-mono-num.text-ink.ml-2
+                | data-ui-px-direction=
+                span#pxLabelDir y
+              .flex.mt-2(class='gap-2')
+                button.px-ctrl-btn.ui-mono.is-active(
+                  type='button'
+                  data-px-direction='y'
+                  class='px-3 py-2 border border-line rounded-sm hover:border-ink'
+                ) y · vertical
+                button.px-ctrl-btn.ui-mono(
+                  type='button'
+                  data-px-direction='x'
+                  class='px-3 py-2 border border-line rounded-sm hover:border-ink'
+                ) x · horizontal
+
+            //- Ratio
+            label.block
+              span.ui-mono.text-steel Ratio
+              span.ui-mono-num.text-ink.ml-2
+                | .ui-px--
+                span#pxLabelRatio stage
+              select#pxRatio.mt-2.w-full.ui-mono-num.bg-paper.border.border-line.rounded-sm.py-2.px-3(
+                class='focus:border-ink outline-none'
+              )
+                option(value='stage' selected) stage
+                option(value='hero') hero
+                option(value='card') card
+                option(value='billboard') billboard
+                option(value='16x9') 16x9
+                option(value='4x3') 4x3
+                option(value='3x2') 3x2
+                option(value='1x1') 1x1
+
+          //- Live attribute readout
+          .border.border-ink.rounded-sm.bg-ink.text-paper(class='p-5 sm:p-6')
+            p.ui-mono.text-signal.mb-3 Live class / attributes
+            pre#pxAttrReadout.ui-mono-num.overflow-x-auto.leading-relaxed(class='text-[11px] sm:text-xs text-paper/85')
+              code.
+                class="ui-px ui-px--stage ui-px--default ui-px--dir-y …"
+                data-ui-px="true"
+                data-ui-px-speed="12"
+                data-ui-px-direction="y"
+                data-ui-px-variant="default"
+                data-ui-px-ratio="stage"
+
+      //- All standard variants visible
+      div.js-reveal.mb-4
+        .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-8
+          div
+            h3.ui-h3 Speed variants
+            p.ui-small.text-steel.mt-1 subtle · default · strong
+          span.ui-mono.text-steel scroll ↓
+
+      .js-reveal.grid(class='sm:grid-cols-3 ui-gap-[16px,28px] mb-14')
+        each item in [{ variant: 'subtle', speed: 8, id: 60 }, { variant: 'default', speed: 12, id: 201 }, { variant: 'strong', speed: 18, id: 96 }]
+          div
+            p.ui-mono.text-blueprint.mb-1 variant: '#{item.variant}'
+            p.ui-mono-num.text-steel.mb-3 data-ui-px-speed="#{item.speed}"
+            +uiParallax({
+              alt: item.variant + ' parallax',
+              src: 'https://picsum.photos/id/' + item.id + '/1200/800',
+              mobile: 'https://picsum.photos/id/' + item.id + '/700/500',
+              tablet: 'https://picsum.photos/id/' + item.id + '/1000/700',
+              desktop: 'https://picsum.photos/id/' + item.id + '/1200/800',
+              variant: item.variant,
+              ratio: '4x3',
+              className: 'rounded-sm border border-line',
+              width: 1200,
+              height: 800
+            })
+
+      .js-reveal.mb-4
+        .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-8
+          div
+            h3.ui-h3 Direction variants
+            p.ui-small.text-steel.mt-1 data-ui-px-direction · y / x
+          span.ui-mono.text-steel scroll ↓
+
+      .js-reveal.grid(class='lg:grid-cols-2 ui-gap-[16px,28px]')
+        div
+          p.ui-mono.text-blueprint.mb-1 direction: 'y'
+          p.ui-mono-num.text-steel.mb-3 .ui-px--dir-y
+          +uiParallax({
+            alt: 'Vertical parallax',
+            src: 'https://picsum.photos/id/42/1200/1400',
+            mobile: 'https://picsum.photos/id/42/700/900',
+            tablet: 'https://picsum.photos/id/42/900/1100',
+            desktop: 'https://picsum.photos/id/42/1200/1400',
+            variant: 'default',
+            direction: 'y',
+            ratio: '3x2',
+            className: 'rounded-sm border border-line',
+            width: 1200,
+            height: 1400
+          })
+        div
+          p.ui-mono.text-blueprint.mb-1 direction: 'x'
+          p.ui-mono-num.text-steel.mb-3 .ui-px--dir-x
+          +uiParallax({
+            alt: 'Horizontal parallax',
+            src: 'https://picsum.photos/id/1015/1600/900',
+            mobile: 'https://picsum.photos/id/1015/800/450',
+            tablet: 'https://picsum.photos/id/1015/1200/675',
+            desktop: 'https://picsum.photos/id/1015/1600/900',
+            variant: 'default',
+            direction: 'x',
+            ratio: '16x9',
+            className: 'rounded-sm border border-line',
+            width: 1600,
+            height: 900
+          })
 
   //- ================= CAPABILITIES =================
   section#capabilities
