@@ -40,13 +40,9 @@ header#siteNav(class=navClass)
         class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'components' ? ' text-ink' : ''}`
       ) Components
       a.transition-colors(
-        href='/media'
-        class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'media' ? ' text-ink' : ''}`
+        href='/media#parallax'
+        class=`py-3 md:py-0 hover:text-blueprint${activeNav === 'media' ? ' text-ink' : ''}`
       ) Media
-      a.transition-colors(
-        href='/parallax'
-        class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'parallax' ? ' text-ink' : ''}`
-      ) Parallax
       a.nav-link.transition-colors(
         href='/#contact'
         class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'contact' ? ' text-ink' : ''}`

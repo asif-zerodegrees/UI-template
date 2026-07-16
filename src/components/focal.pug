@@ -1,0 +1,72 @@
+//- =============================================================
+//- +uiFocal — responsive object-position (desktop + mobile)
+//- Set focal points via attrs; CSS applies object-position.
+//- =============================================================
+//-
+//-   include /components/focal.pug
+//-   +uiFocal({
+//-     alt: 'Workshop',
+//-     src: '/img/hero.jpg',
+//-     mobileSrc: '/img/hero-m.jpg',   //- optional swap
+//-     desktop: '62% 28%',             //- object-position ≥640px
+//-     mobile: '40% 55%',              //- object-position ≤639px
+//-     ratio: '16x9',
+//-     fit: 'cover',                   //- cover | contain
+//-     className: 'rounded-sm'
+//-   })
+//-
+//- Attributes written on the frame (use these in real pages too):
+//-   data-focal-desktop="62% 28%"
+//-   data-focal-mobile="40% 55%"
+//-   data-focal-fit="cover"
+
+mixin uiFocal(opts)
+  -
+    var o = opts || {}
+    var ratio = o.ratio || '16x9'
+    var fit = o.fit || 'cover'
+    var desktop = o.desktop || o.positionDesktop || '50% 50%'
+    var mobile = o.mobile || o.positionMobile || '50% 50%'
+    var loading = o.loading || 'lazy'
+    var classes = ['ui-focal', 'ui-focal--' + ratio, 'ui-focal--' + fit]
+    if (o.className) classes.push(o.className)
+    var dParts = desktop.replace(/%/g, '').trim().split(/\s+/)
+    var mParts = mobile.replace(/%/g, '').trim().split(/\s+/)
+    var dx = (dParts[0] || '50') + '%'
+    var dy = (dParts[1] || dParts[0] || '50') + '%'
+    var mx = (mParts[0] || '50') + '%'
+    var my = (mParts[1] || mParts[0] || '50') + '%'
+    var styleVars = [
+      '--focal-desktop-x: ' + dx,
+      '--focal-desktop-y: ' + dy,
+      '--focal-mobile-x: ' + mx,
+      '--focal-mobile-y: ' + my,
+      '--focal-desktop: ' + desktop,
+      '--focal-mobile: ' + mobile
+    ].join('; ')
+
+  .ui-focal(
+    class=classes.join(' ')
+    style=styleVars
+    data-focal='true'
+    data-focal-desktop=desktop
+    data-focal-mobile=mobile
+    data-focal-fit=fit
+  )
+    if block
+      block
+    else
+      picture.ui-focal__picture
+        if o.desktopSrc
+          source(media='(min-width: 640px)' srcset=o.desktopSrc)
+        if o.mobileSrc
+          source(media='(max-width: 639px)' srcset=o.mobileSrc)
+        img.ui-focal__img(
+          src=o.src
+          alt=o.alt || ''
+          loading=loading
+          decoding=o.decoding || 'async'
+          width=o.width || null
+          height=o.height || null
+          style='object-position: ' + dx + ' ' + dy + ';'
+        )
