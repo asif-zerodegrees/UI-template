@@ -1,0 +1,132 @@
+// =============================================================
+// +uiFocal — responsive object-position via CSS vars / data attrs
+// =============================================================
+
+.ui-focal {
+  --focal-desktop-x: 50%;
+  --focal-desktop-y: 50%;
+  --focal-mobile-x: 50%;
+  --focal-mobile-y: 50%;
+  --focal-x: var(--focal-mobile-x);
+  --focal-y: var(--focal-mobile-y);
+
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background: var(--color-paper2);
+
+  @media (min-width: 640px) {
+    --focal-x: var(--focal-desktop-x);
+    --focal-y: var(--focal-desktop-y);
+  }
+}
+
+// Lab: force a device focal regardless of viewport
+.ui-focal--preview-desktop {
+  --focal-x: var(--focal-desktop-x) !important;
+  --focal-y: var(--focal-desktop-y) !important;
+}
+
+.ui-focal--preview-mobile {
+  --focal-x: var(--focal-mobile-x) !important;
+  --focal-y: var(--focal-mobile-y) !important;
+}
+
+.ui-focal__picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ui-focal__img,
+.ui-focal img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: var(--focal-x) var(--focal-y);
+  transition: object-position 0.15s ease;
+}
+
+.ui-focal--contain .ui-focal__img,
+.ui-focal--contain img {
+  object-fit: contain;
+}
+
+// Background mode
+.ui-focal--bg {
+  background-image: var(--focal-image);
+  background-size: cover;
+  background-position: var(--focal-x) var(--focal-y);
+  background-repeat: no-repeat;
+
+  .ui-focal__img,
+  img {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.ui-focal--bg.ui-focal--contain {
+  background-size: contain;
+}
+
+// Ratios
+.ui-focal--1x1 { aspect-ratio: 1 / 1; }
+.ui-focal--4x3 { aspect-ratio: 4 / 3; }
+.ui-focal--16x9 { aspect-ratio: 16 / 9; }
+.ui-focal--16x11 { aspect-ratio: 16 / 11; }
+.ui-focal--3x2 { aspect-ratio: 3 / 2; }
+.ui-focal--hero {
+  aspect-ratio: 4 / 3;
+  @media (min-width: 640px) { aspect-ratio: 16 / 11; }
+}
+.ui-focal--card {
+  aspect-ratio: 1 / 1;
+  @media (min-width: 1024px) { aspect-ratio: 16 / 10; }
+}
+.ui-focal--stage {
+  aspect-ratio: 4 / 3;
+  @media (min-width: 640px) { aspect-ratio: 16 / 10; }
+  @media (min-width: 1024px) { aspect-ratio: 16 / 9; }
+}
+.ui-focal--billboard {
+  aspect-ratio: 3 / 2;
+  @media (min-width: 768px) { aspect-ratio: 16 / 9; }
+  @media (min-width: 1024px) { aspect-ratio: 21 / 9; }
+}
+
+// Phone preview shell in the lab
+.ui-focal-lab__phone {
+  width: min(100%, 240px);
+  margin-inline: auto;
+}
+
+.ui-focal-lab__mark {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid var(--color-signal);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-signal) 25%, transparent);
+  box-shadow: 0 0 0 1px var(--color-ink);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ui-focal-lab__frame {
+  cursor: crosshair;
+  user-select: none;
+  touch-action: none;
+}
+
+.ui-focal-lab__frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-ink) 12%, transparent);
+  pointer-events: none;
+  z-index: 1;
+}

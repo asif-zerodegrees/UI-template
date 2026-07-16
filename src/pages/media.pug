@@ -2,6 +2,7 @@ extends /layouts/default.pug
 
 include /components/picture.pug
 include /components/parallax.pug
+include /components/focal.pug
 
 block vars
   - pageTitle = 'Template — Fluid media'
@@ -23,12 +24,15 @@ block content
       p.ui-body-lg.text-steel.max-w-2xl.mb-4
         | Responsive
         code.ui-mono-num.text-ink  +uiPicture
-        |  frames, plus the team
+        |  frames,
+        code.ui-mono-num.text-ink  +uiFocal
+        |  for desktop/mobile crop points, and
         code.ui-mono-num.text-ink  +uiParallax
-        |  guide — live controls, variants, and copy-paste usage. Home shows the real result; this page shows how to use it.
+        |  for scroll depth. Home shows real results; this page is the team guide.
       p.ui-small.text-steel.mb-6
         | Jump:
         a.ui-mono-num.text-blueprint.ml-2(href='#ratios' class='hover:text-ink') Ratios
+        a.ui-mono-num.text-blueprint.ml-3(href='#focal' class='hover:text-ink') Focal point
         a.ui-mono-num.text-blueprint.ml-3(href='#parallax' class='hover:text-ink') Parallax guide
         a.ui-mono-num.text-blueprint.ml-3(href='#grid' class='hover:text-ink') Grid
         a.ui-mono-num.text-blueprint.ml-3(href='#usage' class='hover:text-ink') Usage
@@ -77,6 +81,210 @@ block content
         width: 2560,
         height: 880
       })
+
+    .max-w-5xl.mx-auto(class='px-5 sm:px-8')
+      //- ================= FOCAL POINT LAB =================
+      section#focal(class='mb-14 sm:mb-20')
+        .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+          h2.ui-h2 Focal point
+          span.ui-mono.text-steel +uiFocal
+        p.ui-body.text-steel.max-w-2xl.mb-4
+          | Set a different crop focus for
+          strong.text-ink  desktop
+          |  and
+          strong.text-ink  mobile
+          | . Click a preview (or drag the sliders). Copy the attributes / CSS and use
+          code.ui-mono-num.text-ink  +uiFocal
+          |  in the real layout.
+        p.ui-small.text-steel.mb-10
+          | Driven by
+          code.ui-mono-num.text-ink  data-focal-desktop
+          |  and
+          code.ui-mono-num.text-ink  data-focal-mobile
+          |  → CSS
+          code.ui-mono-num.text-ink  object-position
+          | .
+
+        #focalLab.js-media-reveal
+          //- Previews
+          .grid(class='lg:grid-cols-2 ui-gap-[24px,40px] mb-8')
+            div
+              .flex.items-center.justify-between.mb-3
+                p.ui-mono.text-blueprint Desktop preview
+                span.ui-mono-num.text-steel ≥ 640px
+              .ui-focal.ui-focal--16x9.ui-focal--preview-desktop.ui-focal-lab__frame.rounded-sm.border.border-ink.overflow-hidden.relative#focalDesktopFrame(
+                data-focal='true'
+                data-focal-desktop='50% 50%'
+                data-focal-mobile='50% 50%'
+                data-focal-fit='cover'
+                data-focal-device='desktop'
+                style='--focal-desktop: 50% 50%; --focal-mobile: 50% 50%;'
+              )
+                img.ui-focal__img#focalDesktopImg(
+                  src='https://picsum.photos/id/1015/1200/1800'
+                  alt='Desktop focal preview'
+                  width='1200'
+                  height='1800'
+                  draggable='false'
+                )
+                span.ui-focal-lab__mark#focalDesktopMark(style='left: 50%; top: 50%;')
+
+            div
+              .flex.items-center.justify-between.mb-3
+                p.ui-mono.text-blueprint Mobile preview
+                span.ui-mono-num.text-steel ≤ 639px
+              .ui-focal-lab__phone
+                .ui-focal.ui-focal--3x2.ui-focal--preview-mobile.ui-focal-lab__frame.rounded-sm.border.border-ink.overflow-hidden.relative#focalMobileFrame(
+                  data-focal='true'
+                  data-focal-desktop='50% 50%'
+                  data-focal-mobile='50% 50%'
+                  data-focal-fit='cover'
+                  data-focal-device='mobile'
+                  style='--focal-desktop: 50% 50%; --focal-mobile: 50% 50%;'
+                )
+                  img.ui-focal__img#focalMobileImg(
+                    src='https://picsum.photos/id/1015/1200/1800'
+                    alt='Mobile focal preview'
+                    width='1200'
+                    height='1800'
+                    draggable='false'
+                  )
+                  span.ui-focal-lab__mark#focalMobileMark(style='left: 50%; top: 50%;')
+
+          //- Controls
+          .grid(class='lg:grid-cols-2 ui-gap-[16px,28px] mb-8')
+            .border.border-line.rounded-sm.bg-paper(class='p-5')
+              p.ui-mono.text-blueprint.mb-4 Desktop · data-focal-desktop
+              label.block.mb-4
+                .flex.justify-between
+                  span.ui-mono.text-steel X
+                  span.ui-mono-num.text-ink
+                    span#focalDeskXLabel 50
+                    | %
+                input#focalDeskX.mt-2.w-full.accent-blueprint(type='range' min='0' max='100' value='50')
+              label.block.mb-4
+                .flex.justify-between
+                  span.ui-mono.text-steel Y
+                  span.ui-mono-num.text-ink
+                    span#focalDeskYLabel 50
+                    | %
+                input#focalDeskY.mt-2.w-full.accent-blueprint(type='range' min='0' max='100' value='50')
+              .flex.flex-wrap(class='gap-2')
+                each preset in [{ label: 'center', x: 50, y: 50 }, { label: 'top', x: 50, y: 0 }, { label: 'left', x: 0, y: 50 }, { label: 'right', x: 100, y: 50 }, { label: 'bottom', x: 50, y: 100 }]
+                  button.px-ctrl-btn.ui-mono(
+                    type='button'
+                    data-focal-preset='desktop'
+                    data-x=preset.x
+                    data-y=preset.y
+                    class='px-2.5 py-1.5 border border-line rounded-sm hover:border-ink'
+                  )= preset.label
+
+            .border.border-line.rounded-sm.bg-paper(class='p-5')
+              p.ui-mono.text-blueprint.mb-4 Mobile · data-focal-mobile
+              label.block.mb-4
+                .flex.justify-between
+                  span.ui-mono.text-steel X
+                  span.ui-mono-num.text-ink
+                    span#focalMobXLabel 50
+                    | %
+                input#focalMobX.mt-2.w-full.accent-blueprint(type='range' min='0' max='100' value='50')
+              label.block.mb-4
+                .flex.justify-between
+                  span.ui-mono.text-steel Y
+                  span.ui-mono-num.text-ink
+                    span#focalMobYLabel 50
+                    | %
+                input#focalMobY.mt-2.w-full.accent-blueprint(type='range' min='0' max='100' value='50')
+              .flex.flex-wrap(class='gap-2')
+                each preset in [{ label: 'center', x: 50, y: 50 }, { label: 'top', x: 50, y: 0 }, { label: 'left', x: 0, y: 50 }, { label: 'right', x: 100, y: 50 }, { label: 'bottom', x: 50, y: 100 }]
+                  button.px-ctrl-btn.ui-mono(
+                    type='button'
+                    data-focal-preset='mobile'
+                    data-x=preset.x
+                    data-y=preset.y
+                    class='px-2.5 py-1.5 border border-line rounded-sm hover:border-ink'
+                  )= preset.label
+
+          //- Fit + image URL
+          .border.border-line.rounded-sm.bg-paper.mb-8(class='p-5')
+            .grid(class='sm:grid-cols-2 ui-gap-[16px,24px]')
+              label.block
+                span.ui-mono.text-steel Fit
+                select#focalFit.mt-2.w-full.ui-mono-num.bg-paper.border.border-line.rounded-sm.py-2.px-3
+                  option(value='cover' selected) cover (crop)
+                  option(value='contain') contain (letterbox)
+              label.block
+                span.ui-mono.text-steel Image URL (both previews)
+                input#focalSrc.mt-2.w-full.ui-mono-num.bg-paper.border.border-line.rounded-sm.py-2.px-3(
+                  type='url'
+                  value='https://picsum.photos/id/1015/1200/1800'
+                )
+
+          //- Live property output
+          .border.border-ink.rounded-sm.bg-ink.text-paper(class='p-5 sm:p-6 mb-8')
+            .flex.flex-wrap.items-center.justify-between(class='gap-3 mb-4')
+              p.ui-mono.text-signal Copy these properties
+              button#focalCopy.ui-mono.rounded-sm.border.px-3.py-2(
+                type='button'
+                class='border-paper/30 hover:bg-paper hover:text-ink transition-colors'
+              ) Copy
+            pre#focalReadout.ui-mono-num.overflow-x-auto.leading-relaxed(class='text-[11px] sm:text-xs text-paper/85')
+              code.
+                data-focal-desktop="50% 50%"
+                data-focal-mobile="50% 50%"
+                data-focal-fit="cover"
+
+                /* CSS */
+                --focal-desktop: 50% 50%;
+                --focal-mobile: 50% 50%;
+                object-position: var(--focal-pos);
+
+            p.ui-mono.text-signal.mt-6.mb-3 Pug usage
+            pre#focalPugReadout.ui-mono-num.overflow-x-auto.leading-relaxed(class='text-[11px] sm:text-xs text-paper/85')
+              code.
+                +uiFocal({
+                  alt: '…',
+                  src: '/img/hero.jpg',
+                  desktop: '50% 50%',
+                  mobile: '50% 50%',
+                  fit: 'cover',
+                  ratio: '16x9'
+                })
+
+          //- Live result — same attrs, forced desktop + mobile crops so you can see both
+          p.ui-mono.text-blueprint.mb-2 Result · live attrs applied (tall image in wide / phone crops)
+          p.ui-small.text-steel.mb-4
+            | Drag the sliders — the crop should jump. Tall source inside landscape/phone frames makes the focal shift obvious.
+          #focalResultWrap.grid(class='lg:grid-cols-2 ui-gap-[16px,28px]')
+            div
+              p.ui-mono-num.text-steel.mb-2 Desktop crop · data-focal-desktop
+              .ui-focal.ui-focal--16x9.ui-focal--preview-desktop.rounded-sm.border.border-ink.overflow-hidden(
+                data-focal='true'
+                data-focal-desktop='50% 50%'
+                data-focal-mobile='50% 50%'
+                data-focal-fit='cover'
+              )
+                img.ui-focal__img.focal-result-img(
+                  src='https://picsum.photos/id/1015/1200/1800'
+                  alt='Result desktop crop'
+                  width='1200'
+                  height='1800'
+                )
+            div
+              p.ui-mono-num.text-steel.mb-2 Mobile crop · data-focal-mobile
+              .ui-focal-lab__phone
+                .ui-focal.ui-focal--3x2.ui-focal--preview-mobile.rounded-sm.border.border-ink.overflow-hidden(
+                  data-focal='true'
+                  data-focal-desktop='50% 50%'
+                  data-focal-mobile='50% 50%'
+                  data-focal-fit='cover'
+                )
+                  img.ui-focal__img.focal-result-img(
+                    src='https://picsum.photos/id/1015/1200/1800'
+                    alt='Result mobile crop'
+                    width='1200'
+                    height='1800'
+                  )
 
     .max-w-5xl.mx-auto(class='px-5 sm:px-8')
       //- ================= PARALLAX GUIDE (+uiParallax) =================
