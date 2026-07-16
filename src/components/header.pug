@@ -13,39 +13,43 @@ header#siteNav(class=navClass)
       span.text-signal °
 
     nav#siteMenu.ui-mono.text-steel(
-      class='hidden md:flex absolute md:static top-full left-0 right-0 flex-col md:flex-row items-stretch md:items-center gap-0 md:gap-8 bg-paper md:bg-transparent border-b md:border-0 border-line px-5 py-4 md:p-0 z-20'
+      class='hidden lg:flex absolute lg:static top-full left-0 right-0 flex-col lg:flex-row items-stretch lg:items-center gap-0 lg:gap-6 xl:gap-8 bg-paper lg:bg-transparent border-b lg:border-0 border-line px-5 py-4 lg:p-0 z-20'
     )
       a.nav-link.transition-colors(
         href='/#capabilities'
-        class=`py-3 md:py-0 hover:text-blueprint${activeNav === 'capabilities' ? ' text-ink' : ''}`
+        class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'capabilities' ? ' text-ink' : ''}`
       ) Capabilities
       a.nav-link.transition-colors(
         href='/#work'
-        class=`py-3 md:py-0 hover:text-blueprint${activeNav === 'work' ? ' text-ink' : ''}`
+        class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'work' ? ' text-ink' : ''}`
       ) Work
       a.nav-link.transition-colors(
         href='/#parallax'
-        class=`py-3 md:py-0 hover:text-blueprint${activeNav === 'parallax' ? ' text-ink' : ''}`
+        class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'parallax' ? ' text-ink' : ''}`
       ) Parallax
       a.transition-colors(
         href='/typography'
-        class=`py-3 md:py-0 hover:text-blueprint${activeNav === 'typography' ? ' text-ink' : ''}`
+        class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'typography' ? ' text-ink' : ''}`
       ) Typography
       a.transition-colors(
+        href='/images'
+        class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'images' ? ' text-ink' : ''}`
+      ) Images
+      a.transition-colors(
         href='/components'
-        class=`py-3 md:py-0 hover:text-blueprint${activeNav === 'components' ? ' text-ink' : ''}`
+        class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'components' ? ' text-ink' : ''}`
       ) Components
       a.transition-colors(
         href='/media'
-        class=`py-3 md:py-0 hover:text-blueprint${activeNav === 'media' ? ' text-ink' : ''}`
+        class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'media' ? ' text-ink' : ''}`
       ) Media
       a.transition-colors(
         href='/parallax'
-        class=`py-3 md:py-0 hover:text-blueprint${activeNav === 'parallax' ? ' text-ink' : ''}`
+        class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'parallax' ? ' text-ink' : ''}`
       ) Parallax
       a.nav-link.transition-colors(
         href='/#contact'
-        class=`py-3 md:py-0 hover:text-blueprint${activeNav === 'contact' ? ' text-ink' : ''}`
+        class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'contact' ? ' text-ink' : ''}`
       ) Contact
 
     .flex.items-center.gap-3
@@ -59,7 +63,7 @@ header#siteNav(class=navClass)
 
       button#navToggle.items-center.justify-center.rounded-sm.border.border-line.px-3.py-2(
         type='button'
-        class='inline-flex md:hidden'
+        class='inline-flex lg:hidden'
         aria-expanded='false'
         aria-controls='siteMenu'
         aria-label='Open menu'

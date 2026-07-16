@@ -12,7 +12,7 @@ if (toggle && menu) {
 
   menu.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
-      if (window.matchMedia('(max-width: 767px)').matches) {
+      if (window.matchMedia('(max-width: 1023px)').matches) {
         menu.classList.add('hidden');
         menu.classList.remove('flex');
         toggle.setAttribute('aria-expanded', 'false');

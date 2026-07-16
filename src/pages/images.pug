@@ -1,0 +1,405 @@
+extends /layouts/default.pug
+
+include /components/picture.pug
+
+block vars
+  - pageTitle = 'Template — Responsive images'
+  - activeNav = 'images'
+  - showCursor = false
+  - showMotionLibs = false
+  - scriptSrc = '/src/images.js'
+  - footerLabel = 'Template° — RESPONSIVE IMAGES'
+  - footerMeta = '<a href="/typography" class="hover:text-blueprint transition-colors">← Style guide</a>'
+  - footerDark = false
+  - headerFixed = false
+
+block content
+  main(class='max-w-5xl mx-auto px-5 sm:px-8 py-12 sm:py-16')
+
+    p.ui-mono.text-blueprint.mb-3 Style guide · Sheet 05
+    h1.ui-display-lg.mb-4 Responsive images
+    p.ui-body-lg.text-steel.max-w-2xl.mb-4
+      | Interactive specimens and simple guidelines for fluid image scaling, background covers, resolution switching, art direction, and next-gen format delivery.
+    p.ui-small.text-steel.mb-6
+      | Jump:
+      a.ui-mono-num.text-blueprint.ml-2(href='#inspector' class='hover:text-ink') Live inspector
+      a.ui-mono-num.text-blueprint.ml-3(href='#fit-specimen' class='hover:text-ink') Object-Fit & Crop
+      a.ui-mono-num.text-blueprint.ml-3(href='#background' class='hover:text-ink') Background cover
+      a.ui-mono-num.text-blueprint.ml-3(href='#srcset-width' class='hover:text-ink') Srcset (width)
+      a.ui-mono-num.text-blueprint.ml-3(href='#srcset-dpr' class='hover:text-ink') Srcset (density)
+      a.ui-mono-num.text-blueprint.ml-3(href='#art-direction' class='hover:text-ink') Art direction
+      a.ui-mono-num.text-blueprint.ml-3(href='#best-practices' class='hover:text-ink') Guidelines
+    p.ui-small.text-steel(class='mb-12 sm:mb-16')
+      | Live viewport:
+      span#viewportW.ui-mono-num.text-ink  —
+      |  · DPR:
+      span#deviceDPR.ui-mono-num.text-ink  —
+
+    //- ================= LIVE INSPECTOR =================
+    section#inspector(class='mb-16 sm:mb-20 border border-line p-6 rounded-sm bg-paper2/50 relative')
+      div.corner.corner-tl.border-blueprint
+      div.corner.corner-tr.border-blueprint
+      div.corner.corner-bl.border-blueprint
+      div.corner.corner-br.border-blueprint
+      
+      div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2.ui-h2 Live Image Inspector
+        span.ui-mono.text-steel interactive probe
+      p.ui-body.text-steel.max-w-2xl.mb-8
+        | Below is an active responsive image. As you resize your viewport or switch device simulations, the browser will dynamically fetch and swap assets. The panel updates with real-time stats queried from the browser's DOM.
+
+      .grid(class='grid-cols-1 lg:grid-cols-12 gap-8 items-start')
+        div(class='lg:col-span-7 w-full')
+          .ui-media.ui-media--16x9.rounded-sm.border.border-line.overflow-hidden
+            img#inspectImg(
+              srcset='https://picsum.photos/id/10/480/270 480w, https://picsum.photos/id/10/800/450 800w, https://picsum.photos/id/10/1200/675 1200w, https://picsum.photos/id/10/1600/900 1600w'
+              sizes='(max-width: 639px) 100vw, (max-width: 1023px) 80vw, 800px'
+              src='https://picsum.photos/id/10/1200/675'
+              alt='Inspector test landscape'
+              class='w-full h-full object-cover transition-opacity duration-300'
+            )
+        div(class='lg:col-span-5 w-full bg-paper border border-line p-5 rounded-sm')
+          p.ui-mono.text-blueprint.mb-4 Probed DOM Properties
+          div.space-y-3.ui-mono.text-xs
+            div.flex.justify-between.border-b.border-line.pb-2
+              span.text-steel rendered size
+              span#probeRendered.text-ink.font-medium —
+            div.flex.justify-between.border-b.border-line.pb-2
+              span.text-steel natural size
+              span#probeNatural.text-ink.font-medium —
+            div.flex.justify-between.border-b.border-line.pb-2.items-center
+              span.text-steel selected resource
+              span#probeSrc.text-blueprint.truncate.inline-block.text-right(class='max-w-[160px] sm:max-w-[240px]') —
+            div.flex.justify-between.border-b.border-line.pb-2
+              span.text-steel aspect-ratio
+              span#probeRatio.text-ink.font-medium.text-right —
+            div.flex.justify-between.pt-1
+              span.text-steel loading mode
+              span.text-signal native srcset
+
+    //- ================= OBJECT-FIT COMPARISON =================
+    section#fit-specimen(class='mb-16 sm:mb-20')
+      div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2.ui-h2 Object-Fit Comparison: Why Images Cut Off
+        span.ui-mono.text-steel scaling & crop
+      p.ui-body.text-steel.max-w-2xl.mb-6
+        | Setting fixed sizes or aspect-ratio boxes forces the image to occupy that space. 
+        strong CSS Object-Fit
+        |  controls whether the image is cropped, stretched, or displayed fully. Let's compare behaviors side-by-side using the same image:
+
+      .grid.grid-cols-1(class='sm:grid-cols-2 lg:grid-cols-4 gap-6')
+        //- Cover
+        div.border.border-line.rounded-sm.p-4.bg-paper2.flex.flex-col.justify-between
+          div
+            span.ui-mono-num.text-blueprint.text-xs.block.mb-1 object-fit: cover
+            p.ui-small.text-steel.mb-3 Fills container. Cuts off/crops edges if aspect ratios do not match. No distortion.
+          .h-40.w-full.rounded-sm.border.border-line.overflow-hidden.bg-paper.mb-4
+            img(
+              src='https://picsum.photos/id/1050/600/400'
+              alt='Cover'
+              class='w-full h-full object-cover'
+            )
+          pre.ui-mono-num.bg-ink.text-paper.p-2(class='text-[10px]')
+            code.
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+
+        //- Contain
+        div.border.border-line.rounded-sm.p-4.bg-paper2.flex.flex-col.justify-between
+          div
+            span.ui-mono-num.text-blueprint.text-xs.block.mb-1 object-fit: contain
+            p.ui-small.text-steel.mb-3 Shows entire image. Shrinks to fit without any cutting off. Adds empty bars on sides.
+          .h-40.w-full.rounded-sm.border.border-line.overflow-hidden.bg-paper.mb-4
+            img(
+              src='https://picsum.photos/id/1050/600/400'
+              alt='Contain'
+              class='w-full h-full object-contain'
+            )
+          pre.ui-mono-num.bg-ink.text-paper.p-2(class='text-[10px]')
+            code.
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+              }
+
+        //- Fill (Stretched)
+        div.border.border-line.rounded-sm.p-4.bg-paper2.flex.flex-col.justify-between
+          div
+            span.ui-mono-num.text-blueprint.text-xs.block.mb-1 object-fit: fill
+            p.ui-small.text-steel.mb-3 Stretches or squishes the image to fill the layout shape. Distorts aspect ratio.
+          .h-40.w-full.rounded-sm.border.border-line.overflow-hidden.bg-paper.mb-4
+            img(
+              src='https://picsum.photos/id/1050/600/400'
+              alt='Fill'
+              class='w-full h-full object-fill'
+            )
+          pre.ui-mono-num.bg-ink.text-paper.p-2(class='text-[10px]')
+            code.
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+              }
+
+        //- Native Fluid (No Aspect Limitation)
+        div.border.border-line.rounded-sm.p-4.bg-paper2.flex.flex-col.justify-between
+          div
+            span.ui-mono-num.text-blueprint.text-xs.block.mb-1 max-width & height: auto
+            p.ui-small.text-steel.mb-3 Native fluid. Entire image shrinks/scales without cropping or distortion.
+          .h-40.w-full.flex.items-center.justify-center.rounded-sm.border.border-line.bg-paper.mb-4.overflow-hidden
+            img(
+              src='https://picsum.photos/id/1050/600/400'
+              alt='Native Fluid'
+              class='block max-w-full h-auto max-h-full'
+            )
+          pre.ui-mono-num.bg-ink.text-paper.p-2(class='text-[10px]')
+            code.
+              img {
+                display: block;
+                max-width: 100%;
+                height: auto;
+              }
+
+    //- ================= BACKGROUND COVER =================
+    section#background(class='mb-16 sm:mb-20')
+      div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2.ui-h2 1. Background Image Responsiveness
+        span.ui-mono.text-steel CSS backgrounds
+      p.ui-body.text-steel.max-w-2xl.mb-6
+        | Background images behave differently than normal images. Setting a fixed pixel height is common, but it cuts off details on narrow screens. Aspect-ratio styling offers a more fluid result.
+
+      .grid(class='md:grid-cols-2 gap-8')
+        div.border.border-line.rounded-sm.p-5.bg-paper2.min-w-0
+          p.ui-mono.text-blueprint.mb-3 Traditional Fixed Height
+          div(
+            class='w-full rounded-sm mb-4 bg-center bg-no-repeat bg-cover'
+            style="background-image: url('https://picsum.photos/id/29/800/400'); height: 200px;"
+          )
+          p.ui-small.text-steel.mb-4
+            | Traditional: Height stays exactly 200px. As width shrinks on mobile, the background crops heavily from sides.
+          pre.ui-mono-num.bg-ink.text-paper.overflow-x-auto.leading-relaxed(class='p-4 text-[11px]')
+            code.
+              .bg-fixed {
+                background: url('hero.jpg') no-repeat center;
+                background-size: cover;
+                height: 200px; /* Fixed height */
+              }
+
+        div.border.border-line.rounded-sm.p-5.bg-paper2.min-w-0
+          p.ui-mono.text-blueprint.mb-3 Responsive Aspect Ratio
+          div(
+            class='w-full rounded-sm mb-4 bg-center bg-no-repeat bg-cover'
+            style="background-image: url('https://picsum.photos/id/29/800/400'); aspect-ratio: 16 / 9;"
+          )
+          p.ui-small.text-steel.mb-4
+            | Responsive: Height shrinks in proportion to width. Preserves the full layout composition.
+          pre.ui-mono-num.bg-ink.text-paper.overflow-x-auto.leading-relaxed(class='p-4 text-[11px]')
+            code.
+              .bg-fluid {
+                background: url('hero.jpg') no-repeat center;
+                background-size: cover;
+                width: 100%;
+                aspect-ratio: 16 / 9; /* Fluid height! */
+              }
+
+    //- ================= RESOLUTION SWITCHING: WIDTH =================
+    section#srcset-width(class='mb-16 sm:mb-20')
+      div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2.ui-h2 2. Resolution Switching: Viewport Sizes
+        span.ui-mono.text-steel srcset="...w" + sizes
+      p.ui-body.text-steel.max-w-2xl.mb-6
+        | Viewport resolution switching downloads smaller assets for phones and larger ones for desktops. Use the 
+        code.ui-mono-num.text-ink srcset
+        |  list of widths alongside 
+        code.ui-mono-num.text-ink sizes
+        |  to instruct the browser.
+
+      div.border.border-line.rounded-sm.p-6.bg-paper2.mb-8
+        p.ui-mono.text-blueprint.mb-4 Dynamic Width Specimen
+        .ui-media.ui-media--16x9.rounded-sm.border.border-line.overflow-hidden.max-w-3xl.mx-auto.mb-6
+          img#widthSwitchImg(
+            srcset='https://picsum.photos/id/48/480/270 480w, https://picsum.photos/id/48/800/450 800w, https://picsum.photos/id/48/1200/675 1200w'
+            sizes='(max-width: 600px) 480px, 800px'
+            src='https://picsum.photos/id/48/800/450'
+            alt='Width Switching Specimen'
+            class='w-full h-full object-cover'
+          )
+        
+        div.grid.grid-cols-2(class='sm:grid-cols-3 gap-4 bg-paper p-4 rounded-sm border border-line text-xs ui-mono mb-4')
+          div
+            span.text-steel rendered width: 
+            span#widthRendered.text-ink.block.mt-1 —
+          div
+            span.text-steel selected asset: 
+            span#widthSrc.text-blueprint.block.truncate.mt-1 —
+          div(class='col-span-2 sm:col-span-1')
+            span.text-steel browser target: 
+            span.text-signal.block.mt-1 480px (≤600px) / 800px (>600px)
+
+        pre.ui-mono-num.bg-ink.text-paper.overflow-x-auto.leading-relaxed(class='p-4 text-[11px] sm:text-xs')
+          code.
+            &lt;img
+              srcset="elva-fairy-480w.jpg 480w, elva-fairy-800w.jpg 800w"
+              sizes="(max-width: 600px) 480px, 800px"
+              src="elva-fairy-800w.jpg"
+              alt="Elva dressed as a fairy" /&gt;
+
+    //- ================= RESOLUTION SWITCHING: DPR =================
+    section#srcset-dpr(class='mb-16 sm:mb-20')
+      div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2.ui-h2 3. Resolution Switching: Screen Densities (DPR)
+        span.ui-mono.text-steel srcset="... 1x, ... 2x"
+      p.ui-body.text-steel.max-w-2xl.mb-6
+        | For images that render at a fixed layout size on all viewports, use pixel density descriptors (
+        code.ui-mono-num.text-ink 1x
+        | , 
+        code.ui-mono-num.text-ink 2x
+        | ) to deliver high-resolution Retina imagery without bloating standard screens.
+
+      .grid(class='md:grid-cols-2 gap-8 items-start')
+        div.border.border-line.rounded-sm.p-5.bg-paper2.min-w-0
+          p.ui-mono.text-blueprint.mb-3 Density Specimen (320x240px Layout)
+          .flex.justify-center.p-4.bg-paper.mb-4.rounded-sm.border.border-line
+            img#dprSwitchImg(
+              srcset='https://picsum.photos/id/1062/320/240 1x, https://picsum.photos/id/1062/480/360 1.5x, https://picsum.photos/id/1062/640/480 2x'
+              src='https://picsum.photos/id/1062/640/480'
+              alt='Density Switching Specimen'
+              width='320'
+              height='240'
+              class='rounded-sm border border-line w-full max-w-[320px] h-auto'
+            )
+          p.ui-small.text-steel.mb-4
+            | Layout is fixed at 320x240px. Normal screens load 1x, high-DPI/Retina screens load 2x to ensure crisp edges.
+          
+        div.border.border-line.rounded-sm.p-5.bg-paper2.h-full.flex.flex-col.justify-between.min-w-0
+          div
+            p.ui-mono.text-blueprint.mb-3 Dynamic DPR Readings
+            div.space-y-2.ui-mono.text-xs.mb-6.bg-paper.p-4.border.border-line.rounded-sm
+              div.flex.justify-between.items-center
+                span.text-steel device pixel ratio:
+                span#dprVal.text-ink —
+              div.flex.justify-between.items-center
+                span.text-steel resolved resource:
+                span#dprSrc.text-blueprint.truncate.inline-block.text-right(class='max-w-[150px] sm:max-w-[220px]') —
+          
+          pre.ui-mono-num.bg-ink.text-paper.overflow-x-auto.leading-relaxed(class='p-4 text-[11px]')
+            code.
+              &lt;img
+                srcset="fairy-320w.jpg 1x, fairy-480w.jpg 1.5x, fairy-640w.jpg 2x"
+                src="fairy-640w.jpg"
+                alt="Elva dressed as a fairy"
+                width="320"
+                height="240" /&gt;
+
+    //- ================= ART DIRECTION =================
+    section#art-direction(class='mb-16 sm:mb-20')
+      div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2.ui-h2 4. Art Direction: Adapting Crops
+        span.ui-mono.text-steel &lt;picture&gt; element
+      p.ui-body.text-steel.max-w-2xl.mb-6
+        | Art direction changes the subject framing or aspect-ratio depending on viewport. We serve a tight vertical crop on mobile for detail legibility, and wide layouts on desktop.
+
+      div.border.border-line.rounded-sm.p-6.bg-paper2.mb-8
+        p.ui-mono.text-blueprint.mb-4 Live Breakpoint Crop Switcher
+        .ui-media.rounded-sm.border.border-line.overflow-hidden.max-w-3xl.mx-auto.mb-6(style='aspect-ratio: 16/9; font-size: 0;')
+          picture
+            source(media='(max-width: 639px)' srcset='https://picsum.photos/id/65/500/700')
+            source(media='(max-width: 1023px)' srcset='https://picsum.photos/id/65/800/800')
+            img#artImg(
+              src='https://picsum.photos/id/65/1200/500'
+              alt='Art Direction Specimen'
+              class='w-full h-full object-cover'
+            )
+        
+        div.grid.grid-cols-2(class='sm:grid-cols-3 gap-4 bg-paper p-4 rounded-sm border border-line text-xs ui-mono mb-4')
+          div
+            span.text-steel media breakpoint query: 
+            span#artMedia.text-ink.block.mt-1 —
+          div
+            span.text-steel loaded crop aspect: 
+            span#artAspect.text-blueprint.block.truncate.mt-1 —
+          div(class='col-span-2 sm:col-span-1')
+            span.text-steel target logic: 
+            span.text-signal.block.mt-1 Mobile (5:7) · Tablet (1:1) · Desktop (12:5)
+
+        pre.ui-mono-num.bg-ink.text-paper.overflow-x-auto.leading-relaxed(class='p-4 text-[11px] sm:text-xs')
+          code.
+            &lt;picture&gt;
+              &lt;!-- Mobile: close-up portrait crop --&gt;
+              &lt;source media="(max-width: 639px)" srcset="elva-close-portrait.jpg" /&gt;
+              &lt;!-- Tablet: square focus --&gt;
+              &lt;source media="(max-width: 1023px)" srcset="elva-square.jpg" /&gt;
+              &lt;!-- Desktop: full wide view --&gt;
+              &lt;img src="elva-wide-landscape.jpg" alt="Description" /&gt;
+            &lt;/picture&gt;
+
+    //- ================= COMPREHENSIVE RULES SHEET =================
+    section#best-practices(class='mb-8')
+      div.flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
+        h2.ui-h2 Quick-Start Guidelines
+        span.ui-mono.text-steel checklist
+      p.ui-body.text-steel.max-w-2xl.mb-8
+        | A complete checklist of standards to make your website imagery responsive, optimized, and performant.
+
+      .grid.gap-6(class='grid-cols-1 sm:grid-cols-2 lg:grid-cols-3')
+        
+        //- Standard Fluid
+        .border.border-line.rounded-sm.p-5(class='bg-paper2/50')
+          span.ui-mono-num.text-blueprint.text-xs.block.mb-1 rule 1
+          p.ui-mono.text-ink.text-sm.font-semibold.mb-2 Fluid Width Scaling
+          p.ui-small.text-steel.leading-relaxed
+            | Standard images must shrink within containers. Prevent layout distortion by declaring:
+            code.ui-mono-num.text-ink.block.mt-1 max-width: 100%; height: auto;
+
+        //- CLS
+        .border.border-line.rounded-sm.p-5(class='bg-paper2/50')
+          span.ui-mono-num.text-blueprint.text-xs.block.mb-1 rule 2
+          p.ui-mono.text-ink.text-sm.font-semibold.mb-2 Prevent Cumulative Layout Shift (CLS)
+          p.ui-small.text-steel.leading-relaxed
+            | Set native 
+            code.ui-mono-num.text-ink width
+            |  and 
+            code.ui-mono-num.text-ink height
+            |  attributes on markup, or declare 
+            code.ui-mono-num.text-ink aspect-ratio
+            |  in CSS. This reserves layout boxes before files finish downloading.
+
+        //- WebP/AVIF Format Fallbacks
+        .border.border-line.rounded-sm.p-5(class='bg-paper2/50')
+          span.ui-mono-num.text-blueprint.text-xs.block.mb-1 rule 3
+          p.ui-mono.text-ink.text-sm.font-semibold.mb-2 Next-Gen Formats (AVIF/WebP)
+          p.ui-small.text-steel.leading-relaxed
+            | Serve highly compressed modern formats (AVIF/WebP) with standard format fallback via 
+            code.ui-mono-num.text-ink &lt;picture&gt;
+            | :
+            code.ui-mono-num.text-ink.block.mt-1 &lt;source type="image/avif" srcset="..." /&gt;
+
+        //- Loading Behavior
+        .border.border-line.rounded-sm.p-5(class='bg-paper2/50')
+          span.ui-mono-num.text-blueprint.text-xs.block.mb-1 rule 4
+          p.ui-mono.text-ink.text-sm.font-semibold.mb-2 Below-The-Fold Lazy Loading
+          p.ui-small.text-steel.leading-relaxed
+            | Save user data by lazy loading non-critical content. Set:
+            code.ui-mono-num.text-ink.block.mt-1 loading="lazy" decoding="async"
+
+        //- Above the Fold Preload
+        .border.border-line.rounded-sm.p-5(class='bg-paper2/50')
+          span.ui-mono-num.text-blueprint.text-xs.block.mb-1 rule 5
+          p.ui-mono.text-ink.text-sm.font-semibold.mb-2 Above-The-Fold Priority
+          p.ui-small.text-steel.leading-relaxed
+            | Fetch critical elements (like Hero banners) immediately. Disable lazy loading and set:
+            code.ui-mono-num.text-ink.block.mt-1 loading="eager" fetchpriority="high"
+
+        //- CSS Background Density
+        .border.border-line.rounded-sm.p-5(class='bg-paper2/50')
+          span.ui-mono-num.text-blueprint.text-xs.block.mb-1 rule 6
+          p.ui-mono.text-ink.text-sm.font-semibold.mb-2 Background Density Scaling
+          p.ui-small.text-steel.leading-relaxed
+            | Support high-density displays inside CSS backgrounds by setting 
+            code.ui-mono-num.text-ink image-set()
+            |  rules:
+            code.ui-mono-num.text-ink.block.mt-1 background-image: image-set(...)
