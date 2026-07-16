@@ -1,6 +1,7 @@
 extends /layouts/default.pug
 
 include /components/picture.pug
+include /components/parallax.pug
 
 block vars
   - pageTitle = 'Template — Fluid media'
@@ -9,7 +10,7 @@ block vars
   - showMotionLibs = true
   - scriptSrc = '/src/media.js'
   - footerLabel = 'Template° — FLUID MEDIA'
-  - footerMeta = '<a href="/typography" class="hover:text-blueprint transition-colors">← Style guide</a>'
+  - footerMeta = '<a href="/" class="hover:text-blueprint transition-colors">← Back to site</a>'
   - footerDark = false
   - headerFixed = false
 
@@ -21,12 +22,14 @@ block content
       h1.ui-display-lg.mb-4 Fluid media
       p.ui-body-lg.text-steel.max-w-2xl.mb-4
         | Responsive
-        code.ui-mono-num.text-ink  picture
-        |  sources for phone → tablet → laptop → desktop → wide, plus scroll parallax on selected frames. Resize the window to watch crops and assets change.
+        code.ui-mono-num.text-ink  +uiPicture
+        |  frames, plus the team
+        code.ui-mono-num.text-ink  +uiParallax
+        |  guide — live controls, variants, and copy-paste usage. Home shows the real result; this page shows how to use it.
       p.ui-small.text-steel.mb-6
         | Jump:
         a.ui-mono-num.text-blueprint.ml-2(href='#ratios' class='hover:text-ink') Ratios
-        a.ui-mono-num.text-blueprint.ml-3(href='#parallax' class='hover:text-ink') Parallax
+        a.ui-mono-num.text-blueprint.ml-3(href='#parallax' class='hover:text-ink') Parallax guide
         a.ui-mono-num.text-blueprint.ml-3(href='#grid' class='hover:text-ink') Grid
         a.ui-mono-num.text-blueprint.ml-3(href='#usage' class='hover:text-ink') Usage
       p.ui-small.text-steel(class='mb-14 sm:mb-20')
@@ -76,70 +79,218 @@ block content
       })
 
     .max-w-5xl.mx-auto(class='px-5 sm:px-8')
-      //- ================= PARALLAX =================
+      //- ================= PARALLAX GUIDE (+uiParallax) =================
       section#parallax(class='mb-10 sm:mb-12')
         .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
-          h2.ui-h2 Parallax
-          span.ui-mono.text-steel js-parallax
-        p.ui-body.text-steel.max-w-2xl.mb-8
-          | Pass
-          code.ui-mono-num.text-ink  parallax: true
-          |  on
-          code.ui-mono-num.text-ink  +uiPicture
-          | . The image is taller than the frame and moves with scroll (GSAP ScrollTrigger). Respects
-          code.ui-mono-num.text-ink  prefers-reduced-motion
+          h2.ui-h2 Parallax guide
+          span.ui-mono.text-steel +uiParallax
+        p.ui-body.text-steel.max-w-2xl.mb-4
+          | Team component:
+          code.ui-mono-num.text-ink  include /components/parallax.pug
+          |  then
+          code.ui-mono-num.text-ink  +uiParallax({ … })
+          | . Live controls below write the classes and data attributes that drive the effect. See the real result on
+          a.ui-mono-num.text-blueprint(href='/' class='hover:text-ink')  home
+          | .
+        p.ui-small.text-steel.mb-10
+          | Requires
+          code.ui-mono-num.text-ink  showMotionLibs = true
+          |  and
+          code.ui-mono-num.text-ink  initUiParallax()
+          |  from
+          code.ui-mono-num.text-ink  /src/lib/parallax.js
           | .
 
-        .js-media-reveal.mb-10
-          p.ui-mono.text-blueprint.mb-2 Hero parallax · stage frame
-          +uiPicture({
-            alt: 'Metal detail with subtle vertical parallax',
-            src: 'https://picsum.photos/id/60/1600/1000',
-            mobile: 'https://picsum.photos/id/60/800/600',
-            tablet: 'https://picsum.photos/id/60/1200/750',
-            laptop: 'https://picsum.photos/id/60/1400/900',
-            desktop: 'https://picsum.photos/id/60/1800/1000',
-            wide: 'https://picsum.photos/id/60/2400/1200',
-            ratio: 'stage',
-            parallax: true,
-            className: 'rounded-sm',
-            width: 2400,
-            height: 1200
-          })
+        //- Live playground
+        #pxPlayground.js-media-reveal.grid(class='lg:grid-cols-12 ui-gap-[24px,40px] mb-14 sm:mb-16')
+          div(class='lg:col-span-7')
+            p.ui-mono.text-blueprint.mb-3 Live preview
+            #pxPreviewFrame(
+              class='ui-px ui-px--stage ui-px--default ui-px--dir-y rounded-sm border border-ink shadow-card overflow-hidden'
+              data-ui-px='true'
+              data-ui-px-speed='12'
+              data-ui-px-direction='y'
+              data-ui-px-variant='default'
+              data-ui-px-ratio='stage'
+            )
+              img.ui-px__layer.js-ui-px(
+                src='https://picsum.photos/id/201/1800/1000'
+                alt='Parallax playground preview'
+                width='1800'
+                height='1000'
+                loading='eager'
+              )
 
-        .js-media-reveal.grid(class='lg:grid-cols-2 ui-gap-[24px,48px] items-center')
+          div.flex.flex-col(class='lg:col-span-5 ui-gap-[16px,24px]')
+            .border.border-ink.rounded-sm.bg-paper(class='p-5 sm:p-6')
+              p.ui-mono.text-blueprint.mb-4 Dynamic controls
+              p.ui-small.text-steel.mb-5
+                | These write
+                code.ui-mono-num.text-ink  data-ui-px-speed
+                | ,
+                code.ui-mono-num.text-ink  data-ui-px-direction
+                | , and
+                code.ui-mono-num.text-ink  .ui-px--*
+                |  classes on the preview.
+
+              label.block.mb-5
+                span.ui-mono.text-steel Variant
+                span.ui-mono-num.text-ink.ml-2#pxLabelVariant default
+                .flex.flex-wrap.mt-2(class='gap-2')
+                  each v in ['subtle', 'default', 'strong']
+                    button.px-ctrl-btn.ui-mono(
+                      type='button'
+                      data-px-variant=v
+                      class=`px-3 py-2 border border-line rounded-sm hover:border-ink${v === 'default' ? ' is-active' : ''}`
+                    )= v
+
+              label.block.mb-5
+                .flex.items-center.justify-between
+                  span.ui-mono.text-steel Speed
+                  span.ui-mono-num.text-ink
+                    | data-ui-px-speed=
+                    span#pxLabelSpeed 12
+                input#pxSpeed.mt-2.w-full.accent-blueprint(
+                  type='range'
+                  min='0'
+                  max='30'
+                  step='1'
+                  value='12'
+                )
+                .flex.justify-between.ui-small.text-steel.mt-1
+                  span 0 (off)
+                  span 8 subtle
+                  span 18 strong
+                  span 30
+
+              label.block.mb-5
+                span.ui-mono.text-steel Direction
+                span.ui-mono-num.text-ink.ml-2
+                  | data-ui-px-direction=
+                  span#pxLabelDir y
+                .flex.mt-2(class='gap-2')
+                  button.px-ctrl-btn.ui-mono.is-active(
+                    type='button'
+                    data-px-direction='y'
+                    class='px-3 py-2 border border-line rounded-sm hover:border-ink'
+                  ) y · vertical
+                  button.px-ctrl-btn.ui-mono(
+                    type='button'
+                    data-px-direction='x'
+                    class='px-3 py-2 border border-line rounded-sm hover:border-ink'
+                  ) x · horizontal
+
+              label.block
+                span.ui-mono.text-steel Ratio
+                span.ui-mono-num.text-ink.ml-2
+                  | .ui-px--
+                  span#pxLabelRatio stage
+                select#pxRatio.mt-2.w-full.ui-mono-num.bg-paper.border.border-line.rounded-sm.py-2.px-3(
+                  class='focus:border-ink outline-none'
+                )
+                  option(value='stage' selected) stage
+                  option(value='hero') hero
+                  option(value='card') card
+                  option(value='billboard') billboard
+                  option(value='16x9') 16x9
+                  option(value='4x3') 4x3
+                  option(value='3x2') 3x2
+                  option(value='1x1') 1x1
+
+            .border.border-ink.rounded-sm.bg-ink.text-paper(class='p-5 sm:p-6')
+              p.ui-mono.text-signal.mb-3 Live class / attributes
+              pre#pxAttrReadout.ui-mono-num.overflow-x-auto.leading-relaxed(class='text-[11px] sm:text-xs text-paper/85')
+                code.
+                  class="ui-px ui-px--stage ui-px--default ui-px--dir-y …"
+                  data-ui-px="true"
+                  data-ui-px-speed="12"
+                  data-ui-px-direction="y"
+                  data-ui-px-variant="default"
+                  data-ui-px-ratio="stage"
+
+        //- Speed variants
+        .js-media-reveal.mb-4
+          .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-8
+            div
+              h3.ui-h3 Speed variants
+              p.ui-small.text-steel.mt-1 subtle · default · strong
+            span.ui-mono.text-steel scroll ↓
+
+        .js-media-reveal.grid(class='sm:grid-cols-3 ui-gap-[16px,28px] mb-14')
+          each item in [{ variant: 'subtle', speed: 8, id: 60 }, { variant: 'default', speed: 12, id: 201 }, { variant: 'strong', speed: 18, id: 96 }]
+            div
+              p.ui-mono.text-blueprint.mb-1 variant: '#{item.variant}'
+              p.ui-mono-num.text-steel.mb-3 data-ui-px-speed="#{item.speed}"
+              +uiParallax({
+                alt: item.variant + ' parallax',
+                src: 'https://picsum.photos/id/' + item.id + '/1200/800',
+                mobile: 'https://picsum.photos/id/' + item.id + '/700/500',
+                tablet: 'https://picsum.photos/id/' + item.id + '/1000/700',
+                desktop: 'https://picsum.photos/id/' + item.id + '/1200/800',
+                variant: item.variant,
+                ratio: '4x3',
+                className: 'rounded-sm border border-line',
+                width: 1200,
+                height: 800
+              })
+
+        //- Direction variants
+        .js-media-reveal.mb-4
+          .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-8
+            div
+              h3.ui-h3 Direction variants
+              p.ui-small.text-steel.mt-1 data-ui-px-direction · y / x
+            span.ui-mono.text-steel scroll ↓
+
+        .js-media-reveal.grid(class='lg:grid-cols-2 ui-gap-[16px,28px] mb-14')
           div
-            p.ui-mono.text-blueprint.mb-3 Split · media + copy
-            h3.ui-h3.mb-3 Parallax beside content
-            p.ui-body.text-steel
-              | On laptop and up, pair a parallax frame with body copy. On smaller screens the stack stays single-column so the crop stays readable.
-          +uiPicture({
-            alt: 'Assembled prototype with parallax scroll',
-            src: 'https://picsum.photos/id/96/1200/1500',
-            mobile: 'https://picsum.photos/id/96/700/900',
-            tablet: 'https://picsum.photos/id/96/900/1100',
-            laptop: 'https://picsum.photos/id/96/1000/1250',
-            desktop: 'https://picsum.photos/id/96/1200/1500',
-            wide: 'https://picsum.photos/id/96/1400/1750',
-            ratio: '3x2',
-            parallax: true,
-            className: 'rounded-sm border border-line',
-            width: 1400,
-            height: 1750
-          })
+            p.ui-mono.text-blueprint.mb-1 direction: 'y'
+            p.ui-mono-num.text-steel.mb-3 .ui-px--dir-y
+            +uiParallax({
+              alt: 'Vertical parallax',
+              src: 'https://picsum.photos/id/42/1200/1400',
+              mobile: 'https://picsum.photos/id/42/700/900',
+              tablet: 'https://picsum.photos/id/42/900/1100',
+              desktop: 'https://picsum.photos/id/42/1200/1400',
+              variant: 'default',
+              direction: 'y',
+              ratio: '3x2',
+              className: 'rounded-sm border border-line',
+              width: 1200,
+              height: 1400
+            })
+          div
+            p.ui-mono.text-blueprint.mb-1 direction: 'x'
+            p.ui-mono-num.text-steel.mb-3 .ui-px--dir-x
+            +uiParallax({
+              alt: 'Horizontal parallax',
+              src: 'https://picsum.photos/id/1015/1600/900',
+              mobile: 'https://picsum.photos/id/1015/800/450',
+              tablet: 'https://picsum.photos/id/1015/1200/675',
+              desktop: 'https://picsum.photos/id/1015/1600/900',
+              variant: 'default',
+              direction: 'x',
+              ratio: '16x9',
+              className: 'rounded-sm border border-line',
+              width: 1600,
+              height: 900
+            })
 
-    .js-media-reveal.ui-media-bleed(class='mb-16 sm:mb-20')
-      p.ui-mono.text-blueprint.mb-2.max-w-5xl.mx-auto(class='px-5 sm:px-8') Billboard parallax · edge-to-edge on large displays
-      +uiPicture({
-        alt: 'Cinematic band with parallax for large screens',
+        p.ui-mono.text-blueprint.mb-2 Bleed · ratio: 'billboard'
+        p.ui-small.text-steel.mb-4 Place outside max-w (or pass bleed: true)
+
+    .js-media-reveal.ui-px-bleed(class='mb-16 sm:mb-20')
+      +uiParallax({
+        alt: 'Full-bleed billboard parallax',
         src: 'https://picsum.photos/id/1018/2000/900',
         mobile: 'https://picsum.photos/id/1018/800/533',
         tablet: 'https://picsum.photos/id/1018/1200/675',
         laptop: 'https://picsum.photos/id/1018/1440/720',
         desktop: 'https://picsum.photos/id/1018/1920/800',
         wide: 'https://picsum.photos/id/1018/2560/900',
+        variant: 'strong',
         ratio: 'billboard',
-        parallax: true,
+        bleed: true,
         width: 2560,
         height: 900
       })
@@ -175,67 +326,61 @@ block content
       section#usage(class='mb-8')
         .flex.items-end.justify-between.border-b.border-ink.pb-3.mb-6
           h2.ui-h2 Usage
-          span.ui-mono.text-steel +uiPicture
+          span.ui-mono.text-steel +uiParallax
         p.ui-body.text-steel.max-w-2xl.mb-6
-          | Enable motion libs on the page (
+          | On the page set
           code.ui-mono-num.text-ink  showMotionLibs = true
-          | ) and import
-          code.ui-mono-num.text-ink  /src/media.js
-          |  — or copy the parallax block into your page script.
+          |  and call
+          code.ui-mono-num.text-ink  initUiParallax()
+          | . Home uses this for the real hero result; this sheet is the team guide.
 
         pre.ui-mono-num.bg-ink.text-paper.overflow-x-auto.leading-relaxed(class='p-4 sm:p-5 text-[11px] sm:text-xs')
           code.
-            include /components/picture.pug
+            include /components/parallax.pug
 
-            +uiPicture({
+            +uiParallax({
               alt: 'Description',
               src: '/img/hero.jpg',
               mobile: '/img/hero-m.jpg',
               tablet: '/img/hero-t.jpg',
-              laptop: '/img/hero-laptop.jpg',
               desktop: '/img/hero-d.jpg',
-              wide: '/img/hero-wide.jpg',
+              variant: 'default',
+              direction: 'y',
               ratio: 'stage',
-              parallax: true,
-              className: 'rounded-sm',
-              loading: 'lazy'
+              className: 'rounded-sm'
             })
 
-            //- Full-bleed: put the block outside max-w, as a child of <main>
-            //- .ui-media-bleed
-            //-   +uiPicture({ … ratio: 'billboard', parallax: true })
+            //- Page script:
+            //- import { initUiParallax } from './lib/parallax.js';
+            //- initUiParallax();
 
         .mt-8.grid(class='sm:grid-cols-2 ui-gap-[12px,24px]')
           .border.border-line.rounded-sm(class='p-4 sm:p-5')
-            p.ui-mono.text-blueprint.mb-2 Breakpoints
+            p.ui-mono.text-blueprint.mb-2 What controls the effect
             ul.ui-small.text-steel.space-y-1
               li
-                span.ui-mono-num.text-ink mobile
-                |  ≤ 639
+                span.ui-mono-num.text-ink data-ui-px-speed
+                |  ± travel %
               li
-                span.ui-mono-num.text-ink tablet
-                |  ≥ 640
+                span.ui-mono-num.text-ink data-ui-px-direction
+                |  y · x
               li
-                span.ui-mono-num.text-ink laptop
-                |  ≥ 1024
+                span.ui-mono-num.text-ink .ui-px--subtle|default|strong
+                |  named speed
               li
-                span.ui-mono-num.text-ink desktop
-                |  ≥ 1440 (with laptop) or ≥ 1024
-              li
-                span.ui-mono-num.text-ink wide
-                |  ≥ 1536
+                span.ui-mono-num.text-ink .ui-px--{ratio}
+                |  frame shape
           .border.border-line.rounded-sm(class='p-4 sm:p-5')
-            p.ui-mono.text-blueprint.mb-2 Ratios
+            p.ui-mono.text-blueprint.mb-2 Files
             ul.ui-small.text-steel.space-y-1
               li
-                span.ui-mono-num.text-ink stage
-                |  phone → laptop → ultrawide
+                span.ui-mono-num.text-ink components/parallax.pug
               li
-                span.ui-mono-num.text-ink billboard
-                |  cinematic band / large screens
+                span.ui-mono-num.text-ink styles/_parallax.scss
               li
-                span.ui-mono-num.text-ink hero · card
-                |  existing style-guide frames
+                span.ui-mono-num.text-ink lib/parallax.js
               li
-                span.ui-mono-num.text-ink parallax: true
-                |  ScrollTrigger scrub
+                span.ui-mono-num.text-ink /
+                |  real result ·
+                span.ui-mono-num.text-ink  /media#parallax
+                |  guide
