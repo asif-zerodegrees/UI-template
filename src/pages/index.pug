@@ -2,9 +2,12 @@ extends /layouts/default.pug
 
 include /components/picture.pug
 include /components/parallax.pug
+include /components/field.pug
+include /components/button.pug
 
 block vars
   - pageTitle = 'Template — Industrial Design & Engineering'
+  - pageDescription = 'Industrial design and mechanical engineering studio — from concept sketches through CNC prototyping to production-ready hardware.'
   - activeNav = 'home'
   - showCursor = true
   - showMotionLibs = true
@@ -16,353 +19,334 @@ block vars
   - headerFixed = true
 
 block content
-  //- ================= HERO =================
-  section#top.relative.overflow-hidden.blueprint-grid(class='pt-24 sm:pt-28')
-    div.pointer-events-none.absolute.rounded-full.blur-3xl(class='-top-24 -right-24 w-96 h-96 bg-blueprint/10')
+  main#main-content
+    //- ================= HERO =================
+    section#top.relative.overflow-hidden.blueprint-grid(class='pt-24 sm:pt-28')
+      div.pointer-events-none.absolute.rounded-full.blur-3xl(class='-top-24 -right-24 w-96 h-96 bg-blueprint/10')
 
-    div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-6 sm:pt-10 lg:pt-14 pb-10 sm:pb-16')
-      div(class='grid lg:grid-cols-12 gap-10 lg:gap-8 items-center')
-        div(class='lg:col-span-6')
-          p.hero-eyebrow.ui-mono.text-blueprint.inline-flex.items-center.opacity-0(class='mb-4 sm:mb-6 gap-3')
-            span.pulse-dot.inline-block.rounded-full.bg-signal(class='w-1.5 h-1.5')
-            | Industrial design + mechanical engineering
+      div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-6 sm:pt-10 lg:pt-14 pb-10 sm:pb-16')
+        div(class='grid lg:grid-cols-12 gap-10 lg:gap-8 items-center')
+          div(class='lg:col-span-6')
+            p.hero-eyebrow.ui-mono.text-blueprint.inline-flex.items-center.opacity-0(class='mb-4 sm:mb-6 gap-3')
+              span.pulse-dot.inline-block.rounded-full.bg-signal(class='w-1.5 h-1.5')
+              | Industrial design + mechanical engineering
 
-          h1.ui-display-xl
-            span.line-mask
-              span.hero-line.line-inner From sketch to
-            span.line-mask
-              span.hero-line.line-inner
-                span.text-blueprint shipped
-                |  product.
+            h1.ui-display-xl
+              span.line-mask
+                span.hero-line.line-inner From sketch to
+              span.line-mask
+                span.hero-line.line-inner
+                  span.text-blueprint shipped
+                  |  product.
 
-          div.hero-fade.flex.items-center.text-steel.opacity-0(class='mt-6 sm:mt-8 gap-3 sm:gap-4')
-            span.dim-line.px-3.ui-mono-num.text-ink AVG. 6 WEEKS
-            span.ui-small concept sketch to working prototype
+            div.hero-fade.flex.items-center.text-steel.opacity-0(class='mt-6 sm:mt-8 gap-3 sm:gap-4')
+              span.dim-line.px-3.ui-mono-num.text-ink AVG. 6 WEEKS
+              span.ui-small concept sketch to working prototype
 
-          p.hero-fade.ui-body-lg.text-steel.max-w-xl.opacity-0(class='mt-6 sm:mt-8')
-            | We're a six-person studio that takes hardware ideas through form, function,
-            | and manufacturing — for founders and product teams who need a working
-            | prototype, not another deck.
+            p.hero-fade.ui-body-lg.text-steel.max-w-xl.opacity-0(class='mt-6 sm:mt-8')
+              | We're a six-person studio that takes hardware ideas through form, function,
+              | and manufacturing — for founders and product teams who need a working
+              | prototype, not another deck.
 
-          div.hero-fade.flex.flex-col.opacity-0(class='mt-8 sm:mt-10 sm:flex-row gap-3 sm:gap-4')
-            a.nav-link.magnetic.group.ui-mono.text-center.bg-blueprint.text-paper.rounded-sm.transition-colors.inline-flex.items-center.justify-center.gap-2(
-              href='/#contact'
-              class='px-6 py-3.5 hover:bg-ink'
+            div.hero-fade.flex.flex-col.opacity-0(class='mt-8 sm:mt-10 sm:flex-row gap-3 sm:gap-4')
+              a.nav-link.magnetic.group.ui-mono.text-center.bg-blueprint.text-paper.rounded-sm.transition-colors.inline-flex.items-center.justify-center.gap-2(
+                href='/#contact'
+                class='px-6 py-3.5 hover:bg-ink'
+              )
+                | Start a project
+                svg.transition-transform(class='group-hover:translate-x-1' width='13' height='13' viewBox='0 0 12 12' fill='none')
+                  path(d='M2 6H10M10 6L6.5 2.5M10 6L6.5 9.5' stroke='currentColor' stroke-width='1.4')
+              a.nav-link.magnetic.ui-mono.text-center.border.border-ink.rounded-sm.transition-colors(
+                href='/#capabilities'
+                class='px-6 py-3.5 hover:bg-ink hover:text-paper'
+              ) See capabilities
+
+            p.hero-fade.ui-small.text-steel.opacity-0(class='mt-5 sm:mt-6')
+              | Style guide:
+              a.ui-mono-num.text-blueprint.ml-2(href='/typography' class='hover:text-ink') Typography
+              a.ui-mono-num.text-blueprint.ml-3(href='/components' class='hover:text-ink') Components
+              a.ui-mono-num.text-blueprint.ml-3(href='/#parallax' class='hover:text-ink') Parallax
+              a.ui-mono-num.text-blueprint.ml-3(href='/media#parallax' class='hover:text-ink') Guide
+
+          div(class='lg:col-span-6')
+            div.hero-image.relative.w-full.rounded-sm.overflow-hidden.shadow-card.opacity-0
+              +uiPicture({
+                alt: 'Machined aluminum prototype parts on a workbench',
+                src: 'https://picsum.photos/id/201/1200/900',
+                mobile: 'https://picsum.photos/id/201/800/600',
+                tablet: 'https://picsum.photos/id/201/1100/760',
+                desktop: 'https://picsum.photos/id/201/1600/1100',
+                ratio: 'hero',
+                width: 1600,
+                height: 1100,
+                loading: 'eager',
+                fetchpriority: 'high'
+              })
+              .duotone.absolute.inset-0
+              .corner.corner-tl(class='border-paper/80')
+              .corner.corner-tr(class='border-paper/80')
+              .corner.corner-bl(class='border-paper/80')
+              .corner.corner-br(class='border-paper/80')
+
+            div.hero-block.relative.bg-paper2.border.border-ink.rounded-sm.shadow-cardHover.opacity-0(
+              class='-mt-10 ml-4 sm:ml-8 max-w-[15rem] sm:max-w-xs px-4 py-3 sm:px-5 sm:py-4'
             )
-              | Start a project
-              svg.transition-transform(class='group-hover:translate-x-1' width='13' height='13' viewBox='0 0 12 12' fill='none')
-                path(d='M2 6H10M10 6L6.5 2.5M10 6L6.5 9.5' stroke='currentColor' stroke-width='1.4')
-            a.nav-link.magnetic.ui-mono.text-center.border.border-ink.rounded-sm.transition-colors(
-              href='/#capabilities'
-              class='px-6 py-3.5 hover:bg-ink hover:text-paper'
-            ) See capabilities
+              div.grid.grid-cols-3.gap-2.ui-mono(class='text-[10px] sm:text-xs')
+                div
+                  .text-steel CLIENT
+                  .text-ink CONFIDENTIAL
+                div
+                  .text-steel SCALE
+                  .text-ink 1:1
+                div
+                  .text-steel REV
+                  .text-signal A
 
-          p.hero-fade.ui-small.text-steel.opacity-0(class='mt-5 sm:mt-6')
-            | Style guide:
-            a.ui-mono-num.text-blueprint.ml-2(href='/typography' class='hover:text-ink') Typography
-            a.ui-mono-num.text-blueprint.ml-3(href='/components' class='hover:text-ink') Components
-            a.ui-mono-num.text-blueprint.ml-3(href='/#parallax' class='hover:text-ink') Parallax
-            a.ui-mono-num.text-blueprint.ml-3(href='/media#parallax' class='hover:text-ink') Guide
+      //- stat strip
+      div.border-t.border-b.border-ink.bg-ink.text-paper.mt-4
+        div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-6 sm:py-8 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-4')
+          div
+            .ui-display-lg.text-signal
+              span.js-counter(data-target='40' data-suffix='+') 0
+            div.ui-small.mt-1(class='text-paper/60') Products shipped
+          div
+            .ui-display-lg.text-signal
+              span.js-counter(data-target='6' data-suffix=' wks') 0
+            div.ui-small.mt-1(class='text-paper/60') Avg. to prototype
+          div
+            .ui-display-lg.text-signal
+              span.js-counter(data-target='12' data-suffix='') 0
+            div.ui-small.mt-1(class='text-paper/60') Manufacturing partners
+          div
+            .ui-display-lg.text-signal
+              | ±
+              span.js-counter(data-target='0.05' data-decimals='2' data-suffix='') 0
+            div.ui-small.mt-1(class='text-paper/60') mm typical tolerance
 
-        div(class='lg:col-span-6')
-          div.hero-image.relative.w-full.rounded-sm.overflow-hidden.shadow-card.opacity-0
-            +uiPicture({
-              alt: 'Machined aluminum prototype parts on a workbench',
-              src: 'https://picsum.photos/id/201/1200/900',
-              mobile: 'https://picsum.photos/id/201/800/600',
-              tablet: 'https://picsum.photos/id/201/1100/760',
-              desktop: 'https://picsum.photos/id/201/1600/1100',
-              ratio: 'hero',
-              width: 1600,
-              height: 1100,
-              loading: 'eager',
-              fetchpriority: 'high'
+    //- ================= PARALLAX (real component results · multiple variants) =================
+    section#parallax.border-t.border-ink
+      div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-24')
+        div.js-reveal.flex.flex-col.gap-4(class='sm:flex-row sm:items-end sm:justify-between mb-10 sm:mb-14')
+          div
+            p.ui-mono.text-blueprint.mb-3 Component · +uiParallax
+            h2.ui-h2 Scroll depth in place
+            p.ui-body.text-steel.max-w-xl.mt-3
+              | Same mixin, multiple variants in one section — subtle, default, strong, and horizontal. How-to guide:
+              a.ui-mono-num.text-blueprint.ml-1(href='/media#parallax' class='hover:text-ink') /media#parallax
+          span.ui-mono.text-steel 04 variants
+
+        //- Speed variants row
+        .js-reveal.grid(class='sm:grid-cols-3 ui-gap-[16px,28px] mb-12 sm:mb-16')
+          div
+            p.ui-mono.text-blueprint.mb-2 Subtle
+            +uiParallax({
+              alt: 'Subtle parallax — metal detail',
+              src: 'https://picsum.photos/id/60/1200/900',
+              mobile: 'https://picsum.photos/id/60/700/550',
+              tablet: 'https://picsum.photos/id/60/1000/750',
+              desktop: 'https://picsum.photos/id/60/1200/900',
+              variant: 'subtle',
+              ratio: '4x3',
+              className: 'rounded-sm border border-line',
+              width: 1200,
+              height: 900
             })
-            .duotone.absolute.inset-0
-            .corner.corner-tl(class='border-paper/80')
-            .corner.corner-tr(class='border-paper/80')
-            .corner.corner-bl(class='border-paper/80')
-            .corner.corner-br(class='border-paper/80')
+          div
+            p.ui-mono.text-blueprint.mb-2 Default
+            +uiParallax({
+              alt: 'Default parallax — workshop shelf',
+              src: 'https://picsum.photos/id/201/1200/900',
+              mobile: 'https://picsum.photos/id/201/700/550',
+              tablet: 'https://picsum.photos/id/201/1000/750',
+              desktop: 'https://picsum.photos/id/201/1200/900',
+              variant: 'default',
+              ratio: '4x3',
+              className: 'rounded-sm border border-line',
+              width: 1200,
+              height: 900
+            })
+          div
+            p.ui-mono.text-blueprint.mb-2 Strong
+            +uiParallax({
+              alt: 'Strong parallax — assembled prototype',
+              src: 'https://picsum.photos/id/96/1200/900',
+              mobile: 'https://picsum.photos/id/96/700/550',
+              tablet: 'https://picsum.photos/id/96/1000/750',
+              desktop: 'https://picsum.photos/id/96/1200/900',
+              variant: 'strong',
+              ratio: '4x3',
+              className: 'rounded-sm border border-line',
+              width: 1200,
+              height: 900
+            })
 
-          div.hero-block.relative.bg-paper2.border.border-ink.rounded-sm.shadow-cardHover.opacity-0(
-            class='-mt-10 ml-4 sm:ml-8 max-w-[15rem] sm:max-w-xs px-4 py-3 sm:px-5 sm:py-4'
-          )
-            div.grid.grid-cols-3.gap-2.ui-mono(class='text-[10px] sm:text-xs')
-              div
-                .text-steel CLIENT
-                .text-ink CONFIDENTIAL
-              div
-                .text-steel SCALE
-                .text-ink 1:1
-              div
-                .text-steel REV
-                .text-signal A
+        //- Direction + stage
+        .js-reveal.grid(class='lg:grid-cols-2 ui-gap-[20px,40px] items-start mb-12 sm:mb-16')
+          div
+            p.ui-mono.text-blueprint.mb-2 Vertical · direction y
+            +uiParallax({
+              alt: 'Vertical parallax beside content',
+              src: 'https://picsum.photos/id/42/1200/1400',
+              mobile: 'https://picsum.photos/id/42/700/900',
+              tablet: 'https://picsum.photos/id/42/900/1100',
+              desktop: 'https://picsum.photos/id/42/1200/1400',
+              variant: 'default',
+              direction: 'y',
+              ratio: '3x2',
+              className: 'rounded-sm border border-line',
+              width: 1200,
+              height: 1400
+            })
+          div
+            p.ui-mono.text-blueprint.mb-2 Horizontal · direction x
+            +uiParallax({
+              alt: 'Horizontal parallax landscape',
+              src: 'https://picsum.photos/id/1015/1600/900',
+              mobile: 'https://picsum.photos/id/1015/800/450',
+              tablet: 'https://picsum.photos/id/1015/1200/675',
+              desktop: 'https://picsum.photos/id/1015/1600/900',
+              variant: 'default',
+              direction: 'x',
+              ratio: '16x9',
+              className: 'rounded-sm border border-line',
+              width: 1600,
+              height: 900
+            })
 
-    //- stat strip
-    div.border-t.border-b.border-ink.bg-ink.text-paper.mt-4
-      div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-6 sm:py-8 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-4')
-        div
-          .ui-display-lg.text-signal
-            span.js-counter(data-target='40' data-suffix='+') 0
-          div.ui-small.mt-1(class='text-paper/60') Products shipped
-        div
-          .ui-display-lg.text-signal
-            span.js-counter(data-target='6' data-suffix=' wks') 0
-          div.ui-small.mt-1(class='text-paper/60') Avg. to prototype
-        div
-          .ui-display-lg.text-signal
-            span.js-counter(data-target='12' data-suffix='') 0
-          div.ui-small.mt-1(class='text-paper/60') Manufacturing partners
-        div
-          .ui-display-lg.text-signal
-            | ±
-            span.js-counter(data-target='0.05' data-decimals='2' data-suffix='') 0
-          div.ui-small.mt-1(class='text-paper/60') mm typical tolerance
-
-  //- ================= PARALLAX (real component results · multiple variants) =================
-  section#parallax.border-t.border-ink
-    div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-24')
-      div.js-reveal.flex.flex-col.gap-4(class='sm:flex-row sm:items-end sm:justify-between mb-10 sm:mb-14')
-        div
-          p.ui-mono.text-blueprint.mb-3 Component · +uiParallax
-          h2.ui-h2 Scroll depth in place
-          p.ui-body.text-steel.max-w-xl.mt-3
-            | Same mixin, multiple variants in one section — subtle, default, strong, and horizontal. How-to guide:
-            a.ui-mono-num.text-blueprint.ml-1(href='/media#parallax' class='hover:text-ink') /media#parallax
-        span.ui-mono.text-steel 04 variants
-
-      //- Speed variants row
-      .js-reveal.grid(class='sm:grid-cols-3 ui-gap-[16px,28px] mb-12 sm:mb-16')
-        div
-          p.ui-mono.text-blueprint.mb-2 Subtle
+        .js-reveal
+          p.ui-mono.text-blueprint.mb-2 Stage · full width
           +uiParallax({
-            alt: 'Subtle parallax — metal detail',
-            src: 'https://picsum.photos/id/60/1200/900',
-            mobile: 'https://picsum.photos/id/60/700/550',
-            tablet: 'https://picsum.photos/id/60/1000/750',
-            desktop: 'https://picsum.photos/id/60/1200/900',
+            alt: 'Wide stage parallax band',
+            src: 'https://picsum.photos/id/28/1800/900',
+            mobile: 'https://picsum.photos/id/28/800/600',
+            tablet: 'https://picsum.photos/id/28/1200/750',
+            laptop: 'https://picsum.photos/id/28/1400/788',
+            desktop: 'https://picsum.photos/id/28/1800/820',
+            wide: 'https://picsum.photos/id/28/2400/1000',
             variant: 'subtle',
-            ratio: '4x3',
-            className: 'rounded-sm border border-line',
-            width: 1200,
-            height: 900
-          })
-        div
-          p.ui-mono.text-blueprint.mb-2 Default
-          +uiParallax({
-            alt: 'Default parallax — workshop shelf',
-            src: 'https://picsum.photos/id/201/1200/900',
-            mobile: 'https://picsum.photos/id/201/700/550',
-            tablet: 'https://picsum.photos/id/201/1000/750',
-            desktop: 'https://picsum.photos/id/201/1200/900',
-            variant: 'default',
-            ratio: '4x3',
-            className: 'rounded-sm border border-line',
-            width: 1200,
-            height: 900
-          })
-        div
-          p.ui-mono.text-blueprint.mb-2 Strong
-          +uiParallax({
-            alt: 'Strong parallax — assembled prototype',
-            src: 'https://picsum.photos/id/96/1200/900',
-            mobile: 'https://picsum.photos/id/96/700/550',
-            tablet: 'https://picsum.photos/id/96/1000/750',
-            desktop: 'https://picsum.photos/id/96/1200/900',
-            variant: 'strong',
-            ratio: '4x3',
-            className: 'rounded-sm border border-line',
-            width: 1200,
-            height: 900
+            ratio: 'stage',
+            className: 'rounded-sm shadow-card',
+            width: 2400,
+            height: 1000
           })
 
-      //- Direction + stage
-      .js-reveal.grid(class='lg:grid-cols-2 ui-gap-[20px,40px] items-start mb-12 sm:mb-16')
-        div
-          p.ui-mono.text-blueprint.mb-2 Vertical · direction y
-          +uiParallax({
-            alt: 'Vertical parallax beside content',
-            src: 'https://picsum.photos/id/42/1200/1400',
-            mobile: 'https://picsum.photos/id/42/700/900',
-            tablet: 'https://picsum.photos/id/42/900/1100',
-            desktop: 'https://picsum.photos/id/42/1200/1400',
-            variant: 'default',
-            direction: 'y',
-            ratio: '3x2',
-            className: 'rounded-sm border border-line',
-            width: 1200,
-            height: 1400
-          })
-        div
-          p.ui-mono.text-blueprint.mb-2 Horizontal · direction x
-          +uiParallax({
-            alt: 'Horizontal parallax landscape',
-            src: 'https://picsum.photos/id/1015/1600/900',
-            mobile: 'https://picsum.photos/id/1015/800/450',
-            tablet: 'https://picsum.photos/id/1015/1200/675',
-            desktop: 'https://picsum.photos/id/1015/1600/900',
-            variant: 'default',
-            direction: 'x',
-            ratio: '16x9',
-            className: 'rounded-sm border border-line',
-            width: 1600,
-            height: 900
-          })
+    //- ================= CAPABILITIES =================
+    section#capabilities
+      div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-28')
+        div.js-reveal.flex.flex-col.gap-4(class='sm:flex-row sm:items-end sm:justify-between mb-10 sm:mb-14')
+          div
+            p.ui-mono.text-blueprint.mb-3 What we bring to a build
+            h2.ui-h2 Bill of materials
+          p.ui-mono.text-steel 03 items
 
-      .js-reveal
-        p.ui-mono.text-blueprint.mb-2 Stage · full width
-        +uiParallax({
-          alt: 'Wide stage parallax band',
-          src: 'https://picsum.photos/id/28/1800/900',
-          mobile: 'https://picsum.photos/id/28/800/600',
-          tablet: 'https://picsum.photos/id/28/1200/750',
-          laptop: 'https://picsum.photos/id/28/1400/788',
-          desktop: 'https://picsum.photos/id/28/1800/820',
-          wide: 'https://picsum.photos/id/28/2400/1000',
-          variant: 'subtle',
-          ratio: 'stage',
-          className: 'rounded-sm shadow-card',
-          width: 2400,
-          height: 1000
-        })
+        div(class='grid sm:grid-cols-3 gap-5 sm:gap-6')
+          div.js-reveal.group.card-hover.bg-paper2.border.border-line.rounded-sm.shadow-card(class='p-6 sm:p-7')
+            .accent-bar.mb-6
+            .flex.items-center.justify-between.mb-5
+              span.ui-mono-num.text-steel 01
+              svg.text-blueprint(width='26' height='26' viewBox='0 0 24 24' fill='none')
+                circle(cx='12' cy='12' r='3.5' stroke='currentColor' stroke-width='1.4')
+                path(d='M12 2.5V6M12 18V21.5M2.5 12H6M18 12H21.5M5 5L7.5 7.5M19 5L16.5 7.5M5 19L7.5 16.5M19 19L16.5 16.5' stroke='currentColor' stroke-width='1.4')
+            h3.ui-h3.mb-2 Industrial design
+            p.ui-body.text-steel
+              | Form, ergonomics, and CMF (color, material, finish) explored through
+              | rapid sketching and physical models before anything goes to CAD.
 
-  //- ================= CAPABILITIES =================
-  section#capabilities
-    div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-28')
-      div.js-reveal.flex.flex-col.gap-4(class='sm:flex-row sm:items-end sm:justify-between mb-10 sm:mb-14')
-        div
-          p.ui-mono.text-blueprint.mb-3 What we bring to a build
-          h2.ui-h2 Bill of materials
-        p.ui-mono.text-steel 03 items
+          div.js-reveal.group.card-hover.bg-paper2.border.border-line.rounded-sm.shadow-card(class='p-6 sm:p-7')
+            .accent-bar.mb-6
+            .flex.items-center.justify-between.mb-5
+              span.ui-mono-num.text-steel 02
+              svg.text-blueprint(width='26' height='26' viewBox='0 0 24 24' fill='none')
+                path(d='M4 12H8L10 6L14 18L16 12H20' stroke='currentColor' stroke-width='1.4' stroke-linejoin='round')
+            h3.ui-h3.mb-2 Mechanical engineering
+            p.ui-body.text-steel
+              | Design-for-manufacture, tolerancing, structural and thermal checks,
+              | and production-ready CAD your contract manufacturer can actually quote.
 
-      div(class='grid sm:grid-cols-3 gap-5 sm:gap-6')
-        div.js-reveal.group.card-hover.bg-paper2.border.border-line.rounded-sm.shadow-card(class='p-6 sm:p-7')
-          .accent-bar.mb-6
-          .flex.items-center.justify-between.mb-5
-            span.ui-mono-num.text-steel 01
-            svg.text-blueprint(width='26' height='26' viewBox='0 0 24 24' fill='none')
-              circle(cx='12' cy='12' r='3.5' stroke='currentColor' stroke-width='1.4')
-              path(d='M12 2.5V6M12 18V21.5M2.5 12H6M18 12H21.5M5 5L7.5 7.5M19 5L16.5 7.5M5 19L7.5 16.5M19 19L16.5 16.5' stroke='currentColor' stroke-width='1.4')
-          h3.ui-h3.mb-2 Industrial design
-          p.ui-body.text-steel
-            | Form, ergonomics, and CMF (color, material, finish) explored through
-            | rapid sketching and physical models before anything goes to CAD.
+          div.js-reveal.group.card-hover.bg-paper2.border.border-line.rounded-sm.shadow-card(class='p-6 sm:p-7')
+            .accent-bar.mb-6
+            .flex.items-center.justify-between.mb-5
+              span.ui-mono-num.text-steel 03
+              svg.text-blueprint(width='26' height='26' viewBox='0 0 24 24' fill='none')
+                rect(x='3.5' y='3.5' width='7' height='7' rx='1' stroke='currentColor' stroke-width='1.4')
+                rect(x='13.5' y='3.5' width='7' height='7' rx='1' stroke='currentColor' stroke-width='1.4')
+                rect(x='3.5' y='13.5' width='7' height='7' rx='1' stroke='currentColor' stroke-width='1.4')
+                rect(x='13.5' y='13.5' width='7' height='7' rx='1' stroke='currentColor' stroke-width='1.4')
+            h3.ui-h3.mb-2 Manufacturing support
+            p.ui-body.text-steel
+              | Vendor sourcing, tooling review, pilot production runs, and
+              | incoming quality checks through the first shipped batch.
 
-        div.js-reveal.group.card-hover.bg-paper2.border.border-line.rounded-sm.shadow-card(class='p-6 sm:p-7')
-          .accent-bar.mb-6
-          .flex.items-center.justify-between.mb-5
-            span.ui-mono-num.text-steel 02
-            svg.text-blueprint(width='26' height='26' viewBox='0 0 24 24' fill='none')
-              path(d='M4 12H8L10 6L14 18L16 12H20' stroke='currentColor' stroke-width='1.4' stroke-linejoin='round')
-          h3.ui-h3.mb-2 Mechanical engineering
-          p.ui-body.text-steel
-            | Design-for-manufacture, tolerancing, structural and thermal checks,
-            | and production-ready CAD your contract manufacturer can actually quote.
+    //- ================= WORK =================
+    section#work.relative.bg-ink.text-paper.blueprint-grid-dark
+      div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-16 sm:pt-24 pb-6 sm:pb-8')
+        p.js-reveal.ui-mono.text-signal.mb-3 Selected work
+        h2.js-reveal.ui-h2 Recent builds
 
-        div.js-reveal.group.card-hover.bg-paper2.border.border-line.rounded-sm.shadow-card(class='p-6 sm:p-7')
-          .accent-bar.mb-6
-          .flex.items-center.justify-between.mb-5
-            span.ui-mono-num.text-steel 03
-            svg.text-blueprint(width='26' height='26' viewBox='0 0 24 24' fill='none')
-              rect(x='3.5' y='3.5' width='7' height='7' rx='1' stroke='currentColor' stroke-width='1.4')
-              rect(x='13.5' y='3.5' width='7' height='7' rx='1' stroke='currentColor' stroke-width='1.4')
-              rect(x='3.5' y='13.5' width='7' height='7' rx='1' stroke='currentColor' stroke-width='1.4')
-              rect(x='13.5' y='13.5' width='7' height='7' rx='1' stroke='currentColor' stroke-width='1.4')
-          h3.ui-h3.mb-2 Manufacturing support
-          p.ui-body.text-steel
-            | Vendor sourcing, tooling review, pilot production runs, and
-            | incoming quality checks through the first shipped batch.
+      .horizontal-wrapper.hidden.relative.overflow-hidden(class='lg:block')
+        .horizontal-track.flex(style='width: 300%;')
+          .panel.relative(style='width: 33.3333%;')
+            div.relative.mx-12.rounded-sm.overflow-hidden(class='aspect-[16/10]')
+              img.w-full.h-full.object-cover(src='https://picsum.photos/id/48/1200/750' alt='Sketch and drafting tools on a desk' width='1200' height='750' loading='lazy')
+              .absolute.inset-0(class='bg-gradient-to-t from-ink/80 via-transparent to-transparent')
+              span.absolute.ui-mono.text-paper(class='bottom-6 left-6') CONCEPT SKETCHING
+          .panel.relative(style='width: 33.3333%;')
+            div.relative.mx-12.rounded-sm.overflow-hidden(class='aspect-[16/10]')
+              img.w-full.h-full.object-cover(src='https://picsum.photos/id/60/1200/750' alt='CNC-machined metal component close-up' width='1200' height='750' loading='lazy')
+              .absolute.inset-0(class='bg-gradient-to-t from-ink/80 via-transparent to-transparent')
+              span.absolute.ui-mono.text-paper(class='bottom-6 left-6') CNC MACHINING
+          .panel.relative(style='width: 33.3333%;')
+            div.relative.mx-12.rounded-sm.overflow-hidden(class='aspect-[16/10]')
+              img.w-full.h-full.object-cover(src='https://picsum.photos/id/96/1200/750' alt='Assembled prototype on a test rig' width='1200' height='750' loading='lazy')
+              .absolute.inset-0(class='bg-gradient-to-t from-ink/80 via-transparent to-transparent')
+              span.absolute.ui-mono.text-paper(class='bottom-6 left-6') BENCH TESTING
 
-  //- ================= WORK =================
-  section#work.relative.bg-ink.text-paper.blueprint-grid-dark
-    div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-16 sm:pt-24 pb-6 sm:pb-8')
-      p.js-reveal.ui-mono.text-signal.mb-3 Selected work
-      h2.js-reveal.ui-h2 Recent builds
+      div(class='lg:hidden max-w-7xl mx-auto px-5 sm:px-8 py-8 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4')
+        div.js-reveal.relative.aspect-square.overflow-hidden.rounded-sm
+          img.w-full.h-full.object-cover(src='https://picsum.photos/id/48/600/600' alt='Sketch and drafting tools on a desk' width='600' height='600' loading='lazy')
+          .absolute.inset-0(class='bg-gradient-to-t from-ink/70 via-transparent to-transparent')
+          span.absolute.ui-mono.text-paper(class='bottom-3 left-3 text-[10px] sm:text-xs') CONCEPT SKETCHING
+        div.js-reveal.relative.aspect-square.overflow-hidden.rounded-sm
+          img.w-full.h-full.object-cover(src='https://picsum.photos/id/60/600/600' alt='CNC-machined metal component close-up' width='600' height='600' loading='lazy')
+          .absolute.inset-0(class='bg-gradient-to-t from-ink/70 via-transparent to-transparent')
+          span.absolute.ui-mono.text-paper(class='bottom-3 left-3 text-[10px] sm:text-xs') CNC MACHINING
+        div.js-reveal.relative.aspect-square.overflow-hidden.rounded-sm.hidden(class='sm:block')
+          img.w-full.h-full.object-cover(src='https://picsum.photos/id/96/600/600' alt='Assembled prototype on a test rig' width='600' height='600' loading='lazy')
+          .absolute.inset-0(class='bg-gradient-to-t from-ink/70 via-transparent to-transparent')
+          span.absolute.ui-mono.text-paper(class='bottom-3 left-3 text-[10px] sm:text-xs') BENCH TESTING
 
-    .horizontal-wrapper.hidden.relative.overflow-hidden(class='lg:block')
-      .horizontal-track.flex(style='width: 300%;')
-        .panel.relative(style='width: 33.3333%;')
-          div.relative.mx-12.rounded-sm.overflow-hidden(class='aspect-[16/10]')
-            img.w-full.h-full.object-cover(src='https://picsum.photos/id/48/1200/750' alt='Sketch and drafting tools on a desk' width='1200' height='750' loading='lazy')
-            .absolute.inset-0(class='bg-gradient-to-t from-ink/80 via-transparent to-transparent')
-            span.absolute.ui-mono.text-paper(class='bottom-6 left-6') CONCEPT SKETCHING
-        .panel.relative(style='width: 33.3333%;')
-          div.relative.mx-12.rounded-sm.overflow-hidden(class='aspect-[16/10]')
-            img.w-full.h-full.object-cover(src='https://picsum.photos/id/60/1200/750' alt='CNC-machined metal component close-up' width='1200' height='750' loading='lazy')
-            .absolute.inset-0(class='bg-gradient-to-t from-ink/80 via-transparent to-transparent')
-            span.absolute.ui-mono.text-paper(class='bottom-6 left-6') CNC MACHINING
-        .panel.relative(style='width: 33.3333%;')
-          div.relative.mx-12.rounded-sm.overflow-hidden(class='aspect-[16/10]')
-            img.w-full.h-full.object-cover(src='https://picsum.photos/id/96/1200/750' alt='Assembled prototype on a test rig' width='1200' height='750' loading='lazy')
-            .absolute.inset-0(class='bg-gradient-to-t from-ink/80 via-transparent to-transparent')
-            span.absolute.ui-mono.text-paper(class='bottom-6 left-6') BENCH TESTING
+    //- ================= CONTACT =================
+    section#contact.relative.border-t.border-ink.bg-ink.text-paper.blueprint-grid-dark.overflow-hidden
+      div.pointer-events-none.absolute.rounded-full.blur-3xl(class='-bottom-32 -left-32 w-96 h-96 bg-blueprint/25')
+      div.pointer-events-none.absolute.rounded-full.blur-3xl(class='-top-24 right-0 w-72 h-72 bg-signal/10')
 
-    div(class='lg:hidden max-w-7xl mx-auto px-5 sm:px-8 py-8 grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4')
-      div.js-reveal.relative.aspect-square.overflow-hidden.rounded-sm
-        img.w-full.h-full.object-cover(src='https://picsum.photos/id/48/600/600' alt='Sketch and drafting tools on a desk' width='600' height='600' loading='lazy')
-        .absolute.inset-0(class='bg-gradient-to-t from-ink/70 via-transparent to-transparent')
-        span.absolute.ui-mono.text-paper(class='bottom-3 left-3 text-[10px] sm:text-xs') CONCEPT SKETCHING
-      div.js-reveal.relative.aspect-square.overflow-hidden.rounded-sm
-        img.w-full.h-full.object-cover(src='https://picsum.photos/id/60/600/600' alt='CNC-machined metal component close-up' width='600' height='600' loading='lazy')
-        .absolute.inset-0(class='bg-gradient-to-t from-ink/70 via-transparent to-transparent')
-        span.absolute.ui-mono.text-paper(class='bottom-3 left-3 text-[10px] sm:text-xs') CNC MACHINING
-      div.js-reveal.relative.aspect-square.overflow-hidden.rounded-sm.hidden(class='sm:block')
-        img.w-full.h-full.object-cover(src='https://picsum.photos/id/96/600/600' alt='Assembled prototype on a test rig' width='600' height='600' loading='lazy')
-        .absolute.inset-0(class='bg-gradient-to-t from-ink/70 via-transparent to-transparent')
-        span.absolute.ui-mono.text-paper(class='bottom-3 left-3 text-[10px] sm:text-xs') BENCH TESTING
+      div.relative(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-28')
+        p.js-reveal.ui-mono.text-signal.mb-4 Approval block
+        h2.js-reveal.ui-h2.max-w-2xl Tell us what you're building.
+        p.js-reveal.ui-body-lg.max-w-xl(class='text-paper/70 mt-4 sm:mt-6')
+          | Send a short brief — what the product does, roughly where you are
+          | (sketch, CAD, working prototype), and your target timeline. We reply
+          | within two business days.
 
-  //- ================= CONTACT =================
-  section#contact.relative.border-t.border-ink.bg-ink.text-paper.blueprint-grid-dark.overflow-hidden
-    div.pointer-events-none.absolute.rounded-full.blur-3xl(class='-bottom-32 -left-32 w-96 h-96 bg-blueprint/25')
-    div.pointer-events-none.absolute.rounded-full.blur-3xl(class='-top-24 right-0 w-72 h-72 bg-signal/10')
-
-    div.relative(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-28')
-      p.js-reveal.ui-mono.text-signal.mb-4 Approval block
-      h2.js-reveal.ui-h2.max-w-2xl Tell us what you're building.
-      p.js-reveal.ui-body-lg.max-w-xl(class='text-paper/70 mt-4 sm:mt-6')
-        | Send a short brief — what the product does, roughly where you are
-        | (sketch, CAD, working prototype), and your target timeline. We reply
-        | within two business days.
-
-      form.js-reveal.relative.grid.max-w-3xl.rounded-sm(
-        class='mt-10 sm:mt-14 grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8 border border-paper/15 p-6 sm:p-8'
-      )
-        .corner.corner-tl.border-signal
-        .corner.corner-tr.border-signal
-        .corner.corner-bl.border-signal
-        .corner.corner-br.border-signal
-
-        label.block
-          span.ui-mono(class='text-paper/60') Name
-          input.mt-2.w-full.bg-transparent.outline-none.py-2.ui-body-lg.transition-colors(
-            type='text'
-            name='name'
-            placeholder='Jordan Lee'
-            class='border-b border-paper/30 focus:border-signal placeholder:text-paper/30'
-          )
-
-        label.block
-          span.ui-mono(class='text-paper/60') Email
-          input.mt-2.w-full.bg-transparent.outline-none.py-2.ui-body-lg.transition-colors(
-            type='email'
-            name='email'
-            placeholder='jordan@company.com'
-            class='border-b border-paper/30 focus:border-signal placeholder:text-paper/30'
-          )
-
-        label.block(class='sm:col-span-2')
-          span.ui-mono(class='text-paper/60') Project brief
-          textarea.mt-2.w-full.bg-transparent.outline-none.py-2.ui-body-lg.resize-none.transition-colors(
-            name='brief'
-            rows='4'
-            placeholder='What are you building, and where are you starting from?'
-            class='border-b border-paper/30 focus:border-signal placeholder:text-paper/30'
-          )
-
-        button.nav-link.magnetic.group.justify-self-start.ui-mono.bg-signal.text-ink.rounded-sm.transition-colors.mt-2.inline-flex.items-center.gap-2(
-          type='submit'
-          class='sm:col-span-2 px-8 py-3.5 hover:bg-paper'
+        form.js-contact-form.js-reveal.relative.grid.max-w-3xl.rounded-sm(
+          class='mt-10 sm:mt-14 grid-cols-1 sm:grid-cols-2 ui-gap-[20px,32px] border border-paper/15 p-6 sm:p-8'
         )
-          | Submit brief
-          svg.transition-transform(class='group-hover:translate-x-1' width='13' height='13' viewBox='0 0 12 12' fill='none')
-            path(d='M2 6H10M10 6L6.5 2.5M10 6L6.5 9.5' stroke='currentColor' stroke-width='1.4')
+          .corner.corner-tl.border-signal
+          .corner.corner-tr.border-signal
+          .corner.corner-bl.border-signal
+          .corner.corner-br.border-signal
+
+          +uiField({ name: 'name', label: 'Name', placeholder: 'Jordan Lee', onDark: true, required: true })
+          +uiField({ name: 'email', label: 'Email', type: 'email', placeholder: 'jordan@company.com', onDark: true, required: true })
+          div(class='sm:col-span-2')
+            +uiField({
+              name: 'brief',
+              label: 'Project brief',
+              control: 'textarea',
+              rows: 4,
+              placeholder: 'What are you building, and where are you starting from?',
+              onDark: true,
+              required: true
+            })
+          div(class='sm:col-span-2')
+            +uiButton('Submit brief', { type: 'submit', variant: 'signal', className: 'magnetic' })

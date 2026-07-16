@@ -11,27 +11,38 @@ npm.cmd run build
 npm.cmd run preview
 ```
 
-- Home: http://localhost:5173/
-- Typography / spacing: http://localhost:5173/typography
-- Components: http://localhost:5173/components
-- Fluid media: http://localhost:5173/media
-- Parallax (all variants): http://localhost:5173/parallax
+### Routes
+
+| Page | URL |
+|------|-----|
+| Home | http://localhost:5173/ |
+| Typography / spacing | http://localhost:5173/typography |
+| Components | http://localhost:5173/components |
+| Fluid media | http://localhost:5173/media |
+| Parallax variants | http://localhost:5173/parallax |
+| Image inspector | http://localhost:5173/images |
+| 404 | http://localhost:5173/404 |
 
 ## Project layout
 
 ```
+public/                     # favicon, robots.txt
 src/
-  layouts/default.pug       # shared shell (header + footer)
-  components/               # header, footer, button, field, picture, parallax…
-  lib/parallax.js           # initUiParallax() for +uiParallax only
+  layouts/default.pug       # shared shell (SEO meta, skip link, header + footer)
+  components/               # header, footer, button, field, picture, parallax, focal…
+  lib/
+    parallax.js             # initUiParallax() for +uiParallax
+    focal.js                # initUiFocal() for +uiFocal
+    forms.js                # initContactForms() — demo validation + submit state
   pages/                    # one .pug file → one HTML route
   styles/
     _tokens.scss            # CSS variables (colors, fonts)
     _typography.scss        # type scale + h1–h6 defaults
     _spacing.scss           # fluid padding / margin / gap / radius
     _components.scss        # buttons, fields, media frames
-    _parallax.scss          # +uiParallax frames (standalone)
-    _site.scss              # demo-site extras
+    _parallax.scss          # +uiParallax frames
+    _focal.scss             # +uiFocal object-position
+    _site.scss              # demo-site extras (skip link, nav lock)
 ```
 
 ## Pages & components
@@ -43,11 +54,12 @@ extends /layouts/default.pug
 
 block vars
   - pageTitle = 'My page'
+  - pageDescription = 'Short summary for SEO and social cards.'
   - activeNav = ''
   - scriptSrc = '/src/main.js'
 
 block content
-  main
+  main#main-content
     h1 Title
 ```
 
@@ -68,9 +80,44 @@ Sizes: `sm` · `lg`
 
 `+uiField({ name, label, type, control: 'textarea', onDark, hint, error, invalid })`
 
+### Contact forms
+
+```pug
+form.js-contact-form
+  +uiField({ name: 'email', label: 'Email', type: 'email', required: true })
+  +uiButton('Submit', { type: 'submit', variant: 'signal' })
+```
+
+```js
+import { initContactForms } from './lib/forms.js';
+initContactForms();
+```
+
+Demo submit simulates success — replace the timeout in `lib/forms.js` with `fetch()` to your API.
+
+### Focal point (`+uiFocal`)
+
+```pug
+include /components/focal.pug
++uiFocal({
+  alt: 'Workshop',
+  src: '/img/hero.jpg',
+  mobileSrc: '/img/hero-m.jpg',
+  desktop: '62% 28%',
+  mobile: '40% 55%',
+  ratio: '16x9',
+  fit: 'cover'
+})
+```
+
+```js
+import { initUiFocal } from './lib/focal.js';
+initUiFocal();
+```
+
 ### Parallax (`+uiParallax`)
 
-Standalone component — does not change `+uiPicture` or `/media`. Full variant sheet: `/parallax`.
+Standalone component — does not change `+uiPicture`. Full variant sheet: `/parallax`.
 
 ```pug
 include /components/parallax.pug
@@ -82,7 +129,7 @@ include /components/parallax.pug
   desktop: '/img/hero-d.jpg',
   variant: 'default',     // subtle | default | strong
   direction: 'y',         // y | x
-  ratio: 'stage',         // 1x1 | 4x3 | 16x9 | 3x2 | hero | card | stage | billboard
+  ratio: 'stage',
   bleed: false,
   className: 'rounded-sm'
 })
@@ -107,8 +154,8 @@ include /components/picture.pug
   laptop: '/img/hero-laptop.jpg',
   desktop: '/img/hero-d.jpg',
   wide: '/img/hero-wide.jpg',
-  ratio: 'stage',         // also: hero | card | billboard | 16x9…
-  parallax: true,         // older media-page path (ScrollTrigger in media.js)
+  ratio: 'stage',
+  parallax: true,
   className: 'rounded-sm',
   loading: 'lazy'
 })
@@ -116,7 +163,7 @@ include /components/picture.pug
 
 Breakpoints: `mobile` ≤639 · `tablet` ≥640 · `laptop` ≥1024 · `desktop` ≥1440 (or ≥1024 without laptop) · `wide` ≥1536.
 
-`hero` = 4:3 → 16:11 · `card` = 1:1 → 16:10 · `stage` / `billboard` = fluid frames for laptop → large. Full-bleed: place `.ui-media-bleed` outside any `max-w-*` wrapper (not via `100vw`). Full demo: `/media`.
+Full-bleed: place `.ui-media-bleed` outside any `max-w-*` wrapper. Demo: `/media`.
 
 ## Fluid spacing
 
@@ -128,7 +175,12 @@ Arbitrary min → max (plugin `tailwind.fluid.js`):
 
 Presets: `ui-p-md`, `ui-m-lg`, `ui-gap-sm`, `ui-r-md`.
 
-Underscore form if commas are awkward: `ui-p-[20px_80px]`.
+## SEO & accessibility
+
+- Set `pageTitle` and `pageDescription` per page in `block vars`
+- Favicon: `public/favicon.svg`
+- Skip link → `#main-content` in layout
+- Mobile nav: Escape closes menu, body scroll lock while open
 
 ## Tokens
 
@@ -138,8 +190,15 @@ Edit colors/fonts in `src/styles/_tokens.scss`. Tailwind maps to the same CSS va
 
 - Bare `h1`–`h6` are styled after Tailwind Preflight.
 - Utilities: `ui-h1`, `ui-body`, `ui-mono`, `ui-display-xl`, …
-- Size tokens: `text-h1`, `font-display`, …
 
 ## Branding
 
 Replace “Template” in `src/components/header.pug` and page titles/footers when starting a client project.
+
+## Still optional for production
+
+- ESLint / Prettier
+- Local `/img/` assets (demos use picsum.photos)
+- AVIF/WebP `<source type>` in picture mixins
+- CI workflow
+- Wire contact form to Formspree / your API

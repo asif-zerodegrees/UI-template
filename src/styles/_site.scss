@@ -16,6 +16,34 @@ html.lenis body {
   overflow: hidden;
 }
 
+body.nav-open {
+  overflow: hidden;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  padding: 0.65rem 1rem;
+  border-radius: 0.125rem;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
+
+  &:focus {
+    transform: translateY(0);
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+}
+
 .blueprint-grid {
   background-image:
     linear-gradient(to right, rgba(27, 29, 31, 0.06) 1px, transparent 1px),

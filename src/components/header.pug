@@ -8,11 +8,12 @@
 
 header#siteNav(class=navClass)
   div(class='max-w-7xl mx-auto flex items-center justify-between px-5 sm:px-8 lg:px-12 py-4 sm:py-5')
-    a.ui-h3.tracking-tight.nav-link(href='/')
+    a.ui-h3.tracking-tight.nav-link(href='/' aria-current=(activeNav === 'home' ? 'page' : null))
       | Template
       span.text-signal °
 
     nav#siteMenu.ui-mono.text-steel(
+      aria-label='Primary'
       class='hidden lg:flex absolute lg:static top-full left-0 right-0 flex-col lg:flex-row items-stretch lg:items-center gap-0 lg:gap-6 xl:gap-8 bg-paper lg:bg-transparent border-b lg:border-0 border-line px-5 py-4 lg:p-0 z-20'
     )
       a.nav-link.transition-colors(
@@ -23,25 +24,30 @@ header#siteNav(class=navClass)
         href='/#work'
         class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'work' ? ' text-ink' : ''}`
       ) Work
-      a.nav-link.transition-colors(
-        href='/#parallax'
+      a.transition-colors(
+        href='/parallax'
+        aria-current=(activeNav === 'parallax' ? 'page' : null)
         class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'parallax' ? ' text-ink' : ''}`
       ) Parallax
       a.transition-colors(
         href='/typography'
+        aria-current=(activeNav === 'typography' ? 'page' : null)
         class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'typography' ? ' text-ink' : ''}`
       ) Typography
       a.transition-colors(
         href='/images'
+        aria-current=(activeNav === 'images' ? 'page' : null)
         class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'images' ? ' text-ink' : ''}`
       ) Images
       a.transition-colors(
         href='/components'
+        aria-current=(activeNav === 'components' ? 'page' : null)
         class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'components' ? ' text-ink' : ''}`
       ) Components
       a.transition-colors(
-        href='/media#parallax'
-        class=`py-3 md:py-0 hover:text-blueprint${activeNav === 'media' ? ' text-ink' : ''}`
+        href='/media'
+        aria-current=(activeNav === 'media' ? 'page' : null)
+        class=`py-3 lg:py-0 hover:text-blueprint${activeNav === 'media' ? ' text-ink' : ''}`
       ) Media
       a.nav-link.transition-colors(
         href='/#contact'

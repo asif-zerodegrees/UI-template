@@ -1,0 +1,21 @@
+extends /layouts/default.pug
+
+block vars
+  - pageTitle = 'Template — Page not found'
+  - pageDescription = 'The page you requested could not be found.'
+  - activeNav = ''
+  - showCursor = false
+  - showMotionLibs = false
+  - scriptSrc = '/src/components.js'
+  - footerLabel = 'Template° — 404'
+  - footerMeta = '<a href="/" class="hover:text-blueprint transition-colors">← Back home</a>'
+  - footerDark = false
+  - headerFixed = false
+
+block content
+  main#main-content(class='max-w-3xl mx-auto px-5 sm:px-8 py-20 sm:py-28 text-center')
+    p.ui-mono.text-blueprint.mb-3 Error · 404
+    h1.ui-display-lg.mb-4 Page not found
+    p.ui-body-lg.text-steel.mb-8
+      | This route does not exist in the template. Check the URL or return to the home page.
+    a.ui-btn.ui-btn--primary(href='/') Back to home
