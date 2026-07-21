@@ -21,107 +21,107 @@ block vars
 block content
   main#main-content
     //- ================= HERO =================
-    section#top.relative.overflow-hidden.blueprint-grid(class='pt-24 sm:pt-28')
+    section#top.relative.overflow-hidden.blueprint-grid
       div.pointer-events-none.absolute.rounded-full.blur-3xl(class='-top-24 -right-24 w-96 h-96 bg-blueprint/10')
 
-      div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 pt-6 sm:pt-10 lg:pt-14 pb-10 sm:pb-16')
-        div(class='grid lg:grid-cols-12 gap-10 lg:gap-8 items-center')
-          div(class='lg:col-span-6')
-            p.hero-eyebrow.ui-mono.text-blueprint.inline-flex.items-center.opacity-0(class='mb-4 sm:mb-6 gap-3')
-              span.pulse-dot.inline-block.rounded-full.bg-signal(class='w-1.5 h-1.5')
-              | Industrial design + mechanical engineering
+      div.hero-container(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12')
 
-            h1.ui-display-xl
-              span.line-mask
-                span.hero-line.line-inner From sketch to
-              span.line-mask
-                span.hero-line.line-inner
-                  span.text-blueprint shipped
-                  |  product.
+        div.hero-left
+          p.hero-eyebrow.ui-mono.text-blueprint.inline-flex.items-center.opacity-0(class='gap-3')
+            span.pulse-dot.inline-block.rounded-full.bg-signal(class='w-1.5 h-1.5')
+            | Industrial design + mechanical engineering
 
-            div.hero-fade.flex.items-center.text-steel.opacity-0(class='mt-6 sm:mt-8 gap-3 sm:gap-4')
-              span.dim-line.px-3.ui-mono-num.text-ink AVG. 6 WEEKS
-              span.ui-small concept sketch to working prototype
+          h1.ui-display-xl
+            span.line-mask
+              span.hero-line.line-inner From sketch to
+            span.line-mask
+              span.hero-line.line-inner
+                span.text-blueprint shipped
+                |  product.
 
-            p.hero-fade.ui-body-lg.text-steel.max-w-xl.opacity-0(class='mt-6 sm:mt-8')
-              | We're a six-person studio that takes hardware ideas through form, function,
-              | and manufacturing — for founders and product teams who need a working
-              | prototype, not another deck.
+          div.hero-fade.hero-fade-gap1.flex.items-center.text-steel.opacity-0(class='gap-3 sm:gap-4')
+            span.dim-line.px-3.ui-mono-num.text-ink AVG. 6 WEEKS
+            span.ui-small concept sketch to working prototype
 
-            div.hero-fade.flex.flex-col.opacity-0(class='mt-8 sm:mt-10 sm:flex-row gap-3 sm:gap-4')
-              a.nav-link.magnetic.group.ui-mono.text-center.bg-blueprint.text-paper.rounded-sm.transition-colors.inline-flex.items-center.justify-center.gap-2(
-                href='/#contact'
-                class='px-6 py-3.5 hover:bg-ink'
-              )
-                | Start a project
-                svg.transition-transform(class='group-hover:translate-x-1' width='13' height='13' viewBox='0 0 12 12' fill='none')
-                  path(d='M2 6H10M10 6L6.5 2.5M10 6L6.5 9.5' stroke='currentColor' stroke-width='1.4')
-              a.nav-link.magnetic.ui-mono.text-center.border.border-ink.rounded-sm.transition-colors(
-                href='/#capabilities'
-                class='px-6 py-3.5 hover:bg-ink hover:text-paper'
-              ) See capabilities
+          p.hero-fade.hero-fade-gap2.hero-desc.ui-body-lg.text-steel.max-w-xl.opacity-0
+            | We're a six-person studio that takes hardware ideas through form, function,
+            | and manufacturing — for founders and product teams who need a working
+            | prototype, not another deck.
 
-            p.hero-fade.ui-small.text-steel.opacity-0(class='mt-5 sm:mt-6')
-              | Style guide:
-              a.ui-mono-num.text-blueprint.ml-2(href='/typography' class='hover:text-ink') Typography
-              a.ui-mono-num.text-blueprint.ml-3(href='/components' class='hover:text-ink') Components
-              a.ui-mono-num.text-blueprint.ml-3(href='/#parallax' class='hover:text-ink') Parallax
-              a.ui-mono-num.text-blueprint.ml-3(href='/media#parallax' class='hover:text-ink') Guide
-
-          div(class='lg:col-span-6')
-            div.hero-image.relative.w-full.rounded-sm.overflow-hidden.shadow-card.opacity-0
-              +uiPicture({
-                alt: 'Machined aluminum prototype parts on a workbench',
-                src: 'https://picsum.photos/id/201/1200/900',
-                mobile: 'https://picsum.photos/id/201/800/600',
-                tablet: 'https://picsum.photos/id/201/1100/760',
-                desktop: 'https://picsum.photos/id/201/1600/1100',
-                ratio: 'hero',
-                width: 1600,
-                height: 1100,
-                loading: 'eager',
-                fetchpriority: 'high'
-              })
-              .duotone.absolute.inset-0
-              .corner.corner-tl(class='border-paper/80')
-              .corner.corner-tr(class='border-paper/80')
-              .corner.corner-bl(class='border-paper/80')
-              .corner.corner-br(class='border-paper/80')
-
-            div.hero-block.relative.bg-paper2.border.border-ink.rounded-sm.shadow-cardHover.opacity-0(
-              class='-mt-10 ml-4 sm:ml-8 max-w-[15rem] sm:max-w-xs px-4 py-3 sm:px-5 sm:py-4'
+          div.hero-fade.hero-fade-gap3.flex.flex-col.opacity-0(class='sm:flex-row gap-3 sm:gap-4')
+            a.nav-link.magnetic.group.ui-mono.text-center.bg-blueprint.text-paper.rounded-sm.transition-colors.inline-flex.items-center.justify-center.gap-2(
+              href='/#contact'
+              class='px-6 py-3.5 hover:bg-ink'
             )
-              div.grid.grid-cols-3.gap-2.ui-mono(class='text-[10px] sm:text-xs')
-                div
-                  .text-steel CLIENT
-                  .text-ink CONFIDENTIAL
-                div
-                  .text-steel SCALE
-                  .text-ink 1:1
-                div
-                  .text-steel REV
-                  .text-signal A
+              | Start a project
+              svg.transition-transform(class='group-hover:translate-x-1' width='13' height='13' viewBox='0 0 12 12' fill='none')
+                path(d='M2 6H10M10 6L6.5 2.5M10 6L6.5 9.5' stroke='currentColor' stroke-width='1.4')
+            a.nav-link.magnetic.ui-mono.text-center.border.border-ink.rounded-sm.transition-colors(
+              href='/#capabilities'
+              class='px-6 py-3.5 hover:bg-ink hover:text-paper'
+            ) See capabilities
 
-      //- stat strip
-      div.border-t.border-b.border-ink.bg-ink.text-paper.mt-4
-        div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-6 sm:py-8 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-4')
-          div
-            .ui-display-lg.text-signal
-              span.js-counter(data-target='40' data-suffix='+') 0
-            div.ui-small.mt-1(class='text-paper/60') Products shipped
-          div
-            .ui-display-lg.text-signal
-              span.js-counter(data-target='6' data-suffix=' wks') 0
-            div.ui-small.mt-1(class='text-paper/60') Avg. to prototype
-          div
-            .ui-display-lg.text-signal
-              span.js-counter(data-target='12' data-suffix='') 0
-            div.ui-small.mt-1(class='text-paper/60') Manufacturing partners
-          div
-            .ui-display-lg.text-signal
-              | ±
-              span.js-counter(data-target='0.05' data-decimals='2' data-suffix='') 0
-            div.ui-small.mt-1(class='text-paper/60') mm typical tolerance
+          p.hero-fade.hero-fade-gap4.ui-small.text-steel.opacity-0
+            | Style guide:
+            a.ui-mono-num.text-blueprint.ml-2(href='/typography' class='hover:text-ink') Typography
+            a.ui-mono-num.text-blueprint.ml-3(href='/components' class='hover:text-ink') Components
+            a.ui-mono-num.text-blueprint.ml-3(href='/#parallax' class='hover:text-ink') Parallax
+            a.ui-mono-num.text-blueprint.ml-3(href='/media#parallax' class='hover:text-ink') Guide
+
+        div.hero-right
+          div.hero-image.opacity-0
+            +uiPicture({
+              alt: 'Machined aluminum prototype parts on a workbench',
+              src: '/hero-design.png',
+              mobile: '/hero-design.png',
+              tablet: '/hero-design.png',
+              desktop: '/hero-design.png',
+              ratio: 'hero',
+              width: 1600,
+              height: 1100,
+              loading: 'eager',
+              fetchpriority: 'high'
+            })
+            .duotone.absolute.inset-0
+            .corner.corner-tl(class='border-paper/80')
+            .corner.corner-tr(class='border-paper/80')
+            .corner.corner-bl(class='border-paper/80')
+            .corner.corner-br(class='border-paper/80')
+
+          div.hero-block.relative.bg-paper2.border.border-ink.rounded-sm.shadow-cardHover.opacity-0(
+            class='-mt-10 ml-4 sm:ml-8 max-w-[15rem] sm:max-w-xs px-4 py-3 sm:px-5 sm:py-4'
+          )
+            div.grid.grid-cols-3.gap-2.ui-mono(class='text-[10px] sm:text-xs')
+              div
+                .text-steel CLIENT
+                .text-ink CONFIDENTIAL
+              div
+                .text-steel SCALE
+                .text-ink 1:1
+              div
+                .text-steel REV
+                .text-signal A
+
+    //- stat strip — below the fold, outside #top section
+    div.border-t.border-b.border-ink.bg-ink.text-paper
+      div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-6 sm:py-8 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-4')
+        div
+          .ui-display-lg.text-signal
+            span.js-counter(data-target='40' data-suffix='+') 0
+          div.ui-small.mt-1(class='text-paper/60') Products shipped
+        div
+          .ui-display-lg.text-signal
+            span.js-counter(data-target='6' data-suffix=' wks') 0
+          div.ui-small.mt-1(class='text-paper/60') Avg. to prototype
+        div
+          .ui-display-lg.text-signal
+            span.js-counter(data-target='12' data-suffix='') 0
+          div.ui-small.mt-1(class='text-paper/60') Manufacturing partners
+        div
+          .ui-display-lg.text-signal
+            | ±
+            span.js-counter(data-target='0.05' data-decimals='2' data-suffix='') 0
+          div.ui-small.mt-1(class='text-paper/60') mm typical tolerance
 
     //- ================= PARALLAX (real component results · multiple variants) =================
     section#parallax.border-t.border-ink
