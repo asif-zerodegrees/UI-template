@@ -135,50 +135,50 @@ block content
               a.ui-mono-num.text-blueprint.ml-1(href='/media#parallax' class='hover:text-ink') /media#parallax
           span.ui-mono.text-steel 04 variants
 
-        //- Speed variants row
-        .js-reveal.grid(class='sm:grid-cols-3 ui-gap-[16px,28px] mb-12 sm:mb-16')
-          div
-            p.ui-mono.text-blueprint.mb-2 Subtle
-            +uiParallax({
-              alt: 'Subtle parallax — metal detail',
-              src: 'https://picsum.photos/id/60/1200/900',
-              mobile: 'https://picsum.photos/id/60/700/550',
-              tablet: 'https://picsum.photos/id/60/1000/750',
-              desktop: 'https://picsum.photos/id/60/1200/900',
-              variant: 'subtle',
-              ratio: '4x3',
-              className: 'rounded-sm border border-line',
-              width: 1200,
-              height: 900
-            })
-          div
-            p.ui-mono.text-blueprint.mb-2 Default
-            +uiParallax({
-              alt: 'Default parallax — workshop shelf',
-              src: 'https://picsum.photos/id/201/1200/900',
-              mobile: 'https://picsum.photos/id/201/700/550',
-              tablet: 'https://picsum.photos/id/201/1000/750',
-              desktop: 'https://picsum.photos/id/201/1200/900',
-              variant: 'default',
-              ratio: '4x3',
-              className: 'rounded-sm border border-line',
-              width: 1200,
-              height: 900
-            })
-          div
-            p.ui-mono.text-blueprint.mb-2 Strong
-            +uiParallax({
-              alt: 'Strong parallax — assembled prototype',
-              src: 'https://picsum.photos/id/96/1200/900',
-              mobile: 'https://picsum.photos/id/96/700/550',
-              tablet: 'https://picsum.photos/id/96/1000/750',
-              desktop: 'https://picsum.photos/id/96/1200/900',
-              variant: 'strong',
-              ratio: '4x3',
-              className: 'rounded-sm border border-line',
-              width: 1200,
-              height: 900
-            })
+      //- Speed variants row
+      .js-reveal.grid(class='sm:grid-cols-3 ui-gap-[16px,28px] mb-12 sm:mb-16')
+        div
+          p.ui-mono.text-blueprint.mb-2 Subtle
+          +uiParallax({
+            alt: 'Subtle parallax — metal detail',
+            src: 'https://picsum.photos/id/60/1200/900',
+            mobile: 'https://picsum.photos/id/60/700/550',
+            tablet: 'https://picsum.photos/id/60/1000/750',
+            desktop: 'https://picsum.photos/id/60/1200/900',
+            variant: 'subtle',
+            ratio: '4x3',
+            className: 'rounded-sm border border-line',
+            width: 1200,
+            height: 900
+          })
+        div
+          p.ui-mono.text-blueprint.mb-2 Default
+          +uiParallax({
+            alt: 'Default parallax — workshop shelf',
+            src: 'https://picsum.photos/id/201/1200/900',
+            mobile: 'https://picsum.photos/id/201/700/550',
+            tablet: 'https://picsum.photos/id/201/1000/750',
+            desktop: 'https://picsum.photos/id/201/1200/900',
+            variant: 'default',
+            ratio: '4x3',
+            className: 'rounded-sm border border-line',
+            width: 1200,
+            height: 900
+          })
+        div
+          p.ui-mono.text-blueprint.mb-2 Strong
+          +uiParallax({
+            alt: 'Strong parallax — assembled prototype',
+            src: 'https://picsum.photos/id/96/1200/900',
+            mobile: 'https://picsum.photos/id/96/700/550',
+            tablet: 'https://picsum.photos/id/96/1000/750',
+            desktop: 'https://picsum.photos/id/96/1200/900',
+            variant: 'strong',
+            ratio: '4x3',
+            className: 'rounded-sm border border-line',
+            width: 1200,
+            height: 900
+          })
 
         //- Direction + stage
         .js-reveal.grid(class='lg:grid-cols-2 ui-gap-[20px,40px] items-start mb-12 sm:mb-16')
@@ -230,6 +230,40 @@ block content
             height: 1000
           })
 
+    section#scroll-pin-box.relative.bg-paper(style='height: 500vh;')
+      div.sticky.top-0.h-screen.w-full.overflow-hidden.flex.flex-col
+        div(class='max-w-7xl w-full mx-auto px-5 sm:px-8 lg:px-12 pt-16 sm:pt-24 z-10 relative pointer-events-none')
+          div.flex.flex-col.gap-4(class='sm:flex-row sm:items-end sm:justify-between mb-6')
+            div
+              p.ui-mono.text-blueprint.mb-3 Component · Stacked Scroll
+              h2.ui-h2 Pin & transition
+            div
+              p.ui-mono.text-steel 05 frames
+
+        div.relative.w-full.max-w-5xl.mx-auto.px-5.flex-1.flex.items-center.justify-center(class='pb-16 sm:pb-24')
+          - 
+            var cards = [
+              { id: '60', title: 'Concept Sketch', desc: 'Initial ideation and form exploration' },
+              { id: '201', title: 'CAD Modeling', desc: 'Detailed engineering and surfacing' },
+              { id: '96', title: 'Prototyping', desc: 'CNC machining and 3D printing' },
+              { id: '42', title: 'Assembly', desc: 'Fitting components and testing' },
+              { id: '1015', title: 'Final Product', desc: 'Ready for manufacturing' }
+            ]
+          each card, index in cards
+            div.stack-card.absolute.w-full.max-w-4xl.bg-paper2.border.border-line.rounded-sm.shadow-card.overflow-hidden.flex.flex-col.will-change-transform(
+              class='h-[60vh] sm:h-[70vh]'
+            )
+              div.relative.flex-1.overflow-hidden
+                img.w-full.h-full.object-cover(
+                  src=`https://picsum.photos/id/${card.id}/1200/900`
+                  alt=card.title
+                )
+                div.absolute.inset-0(class='bg-ink/10')
+              div.p-5.bg-paper2.flex.items-center.justify-between.shrink-0(class='sm:p-8')
+                div
+                  h3.ui-h3.mb-1= card.title
+                  p.ui-body.text-steel= card.desc
+                div.ui-mono-num.text-blueprint.text-xl= `0${index + 1}`
     //- ================= CAPABILITIES =================
     section#capabilities
       div(class='max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-24 lg:py-28')

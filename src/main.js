@@ -112,6 +112,43 @@ if (canAnimate && !reduceMotion) {
     });
   }
 
+  // ---------- Stacked Cards Pin ----------
+  const stackCards = gsap.utils.toArray('.stack-card');
+  if (stackCards.length > 0) {
+    gsap.set(stackCards, { transformOrigin: 'top center' });
+    gsap.set(stackCards.slice(1), { y: '120vh' });
+
+    const stackTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '#scroll-pin-box',
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 1,
+      }
+    });
+
+    stackCards.forEach((card, i) => {
+      if (i > 0) {
+        // The incoming card sweeps up from the bottom
+        stackTl.to(card, {
+          y: 0,
+          duration: 1,
+          ease: 'none'
+        }, i);
+
+        // Previous cards scale down and push upwards
+        for (let j = 0; j < i; j++) {
+          stackTl.to(stackCards[j], {
+            scale: 1 - ((i - j) * 0.04),
+            y: ((i - j)),
+            duration: 1,
+            ease: 'none'
+          }, i);
+        }
+      }
+    });
+  }
+
   // ---------- Horizontal pinned work showcase (desktop only) ----------
   const mm = gsap.matchMedia();
   mm.add('(min-width: 1024px)', () => {
