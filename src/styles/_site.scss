@@ -230,3 +230,117 @@ html.has-cursor button {
     transition: none;
   }
 }
+
+// =============================================================
+// Hero Section — Content height clamped: 750px–900px viewport
+// =============================================================
+//
+// Behaviour (desktop ≥ 1280px wide):
+//   vh < 750px   → section is natural height (~750px), taller than viewport → scroll
+//   750px–900px  → section fills 100dvh exactly → perfect above-the-fold ✓
+//   vh > 900px   → section is natural height (~868px), stat strip visible below ✓
+
+#top.blueprint-grid {
+  padding-top: 7rem; // content always starts below fixed navbar
+
+  @media (min-width: 1280px) {
+    display: flex;
+    flex-direction: column;
+    // clip horizontal overflow (stops the decorative blur causing scrollbar)
+    // but keep vertical overflow visible so hero-block card isn't clipped
+    overflow-x: clip;
+    overflow-y: visible;
+    // Breathing room so hero-block doesn't stick to the stat strip below
+    padding-bottom: 3rem;
+  }
+
+  // ── ONLY fill the full viewport in the 750–900px height sweet spot ──
+  // This is the "above the fold" range from the implementation plan
+  @media (min-width: 1280px) and (min-height: 750px) and (max-height: 900px) {
+    min-height: 100dvh;
+  }
+
+  // ── Spacing helpers (mobile / tablet defaults) ────────────────
+  .hero-eyebrow   { margin-bottom: 1.25rem; }
+  .hero-fade-gap1 { margin-top: 1.5rem; }
+  .hero-fade-gap2 { margin-top: 1.5rem; }
+  .hero-fade-gap3 { margin-top: 2rem; }
+  .hero-fade-gap4 { margin-top: 1.25rem; }
+  .hero-block     { display: block; } // always visible
+
+  .hero-desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: none;
+    overflow: hidden;
+  }
+
+  // ── Desktop two-column grid ───────────────────────────────────
+  @media (min-width: 1280px) {
+    .hero-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      width: 100%;
+      // Clamp the content area:
+      //   vh < 750px  → 606px min (section natural height > viewport → scroll)
+      //   750–900px   → scales with viewport height (fills screen exactly)
+      //   vh > 900px  → 756px max (section natural height; stat strip visible below)
+      height: clamp(606px, calc(100dvh - 7rem - 2rem), 756px);
+    }
+
+    .hero-left {
+      align-self: center;
+    }
+
+    // Right column: full container height, overflow visible for hero-block
+    .hero-right {
+      align-self: stretch;
+      display: flex;
+      flex-direction: column;
+      overflow: visible;
+    }
+
+    // Image fills the full right column height
+    .hero-image {
+      flex: 1;
+      position: relative;
+      border-radius: 0.125rem;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      min-height: 0;
+
+      .ui-media,
+      .ui-media.ui-media--hero {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        aspect-ratio: unset !important;
+
+        picture {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+
+        img {
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: cover !important;
+          object-position: center !important;
+        }
+      }
+    }
+
+    // Spacing overrides for desktop
+    .hero-eyebrow   { margin-bottom: 1.25rem; }
+    .hero-fade-gap1 { margin-top: 1.75rem; }
+    .hero-fade-gap2 { margin-top: 1.75rem; }
+    .hero-fade-gap3 { margin-top: 2.5rem; }
+    .hero-fade-gap4 { margin-top: 1.5rem; }
+    // Font size scales with viewport height in the 750–900px range
+    .ui-display-xl  { font-size: clamp(2.25rem, 1.5rem + 2.5vh, 4.5rem); }
+  }
+}
+
