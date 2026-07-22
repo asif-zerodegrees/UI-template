@@ -2,6 +2,11 @@
 
 Shared front-end starter for the team: **Vite + Pug + Tailwind CSS + SCSS**.
 
+**Full designer & developer spec** (colors, font clamp, spacing clamp, components, Figma):  
+→ **[docs/UI-TEMPLATE.md](docs/UI-TEMPLATE.md)**
+
+**Figma:** [UI Template](https://www.figma.com/design/gTUJH3iRUxqBpAtNFwCEcS) (design system = this template)
+
 ## Quick start
 
 ```bash
